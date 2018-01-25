@@ -30,12 +30,10 @@ void Robot::RobotInit() {
     SmartDashboard::PutNumber("gyro p", gp);
     SmartDashboard::PutNumber("gyro i", gi);
     SmartDashboard::PutNumber("gyro d", gd);
-    /*this->autoPicker = new SendableChooser<Command *>();
-    SmartDashboard::PutData("Auto Picker", this->autoPicker);*/
 }
 
 void Robot::DisabledInit() {
-    autonomousCommand = nullptr;
+
 }
 
 
@@ -44,8 +42,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-    autonomousCommand = autoPicker->GetSelected();
-    autonomousCommand->Start();
+
 }
 
 void Robot::AutonomousPeriodic() {
@@ -58,11 +55,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-    if (autonomousCommand != nullptr) {
-        autonomousCommand->Cancel();
-    }
-    this->autoPicker = new SendableChooser<Command *>();
-    SmartDashboard::PutData("Auto Picker", this->autoPicker);
+
 }
 
 void Robot::TeleopPeriodic() {
