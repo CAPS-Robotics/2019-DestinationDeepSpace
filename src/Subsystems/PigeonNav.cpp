@@ -1,7 +1,7 @@
 #include "../Robot.h"
 #include "../RobotMap.h"
 
-PigeonNav::PigeonNav() : Subsystem("PigeonNav") {
+PigeonNav::PigeonNav() : Subsystem("PigeonNav"), PIDSource() {
     this->gyro = new PigeonIMU(new TalonSRX(PIGEON_IMU_SRX));
     this->ypr = new double[3];
     this->ResetHeading();
@@ -9,6 +9,12 @@ PigeonNav::PigeonNav() : Subsystem("PigeonNav") {
 
 double PigeonNav::PIDGet() {
     return this->GetHeading();
+}
+
+void PigeonNav::SetPIDSourceType(PIDSourceType pidSource) {
+    if (wpi_assert(pidSource == PIDSourceType::kDisplacement)) {
+        m_pidSource = pidSource;
+    }
 }
 
 double PigeonNav::GetHeading() {
@@ -23,5 +29,9 @@ double PigeonNav::GetAngularRate() {
 
 void PigeonNav::ResetHeading() {
     this->gyro->SetFusedHeading(0, 20);
+}
+
+PIDSourceType PigeonNav::GetPIDSourceType() const {
+    return PIDSourceType::kDisplacement;
 }
 

@@ -14,7 +14,7 @@ public:
     double GetY();
     double GetTwist();
     double GetSlider();
-    double applyDeadzone(double val, double deadzone);
+    double applyDeadzone(double val, double deadzone, double maxval);
 };
 
 #endif

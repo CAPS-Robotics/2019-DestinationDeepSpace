@@ -15,6 +15,8 @@ public:
     double GetHeading();
     double GetAngularRate();
     double PIDGet();
+    void SetPIDSourceType(PIDSourceType pidSource);
+    PIDSourceType GetPIDSourceType() const;
     void ResetHeading();
 };
 

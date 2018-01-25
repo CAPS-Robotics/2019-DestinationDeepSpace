@@ -7,21 +7,29 @@
 std::shared_ptr<Drivetrain> Robot::drivetrain;
 std::shared_ptr<PigeonNav> Robot::gyro;
 std::shared_ptr<OI> Robot::oi;
+std::shared_ptr<Arm> Robot::arm;
 
 Robot::Robot() {
 
 }
 
 void Robot::RobotInit() {
-    Robot::drivetrain.reset(new Drivetrain());
     Robot::gyro.reset(new PigeonNav());
+    Robot::drivetrain.reset(new Drivetrain());
+    Robot::arm.reset(new Arm());
     Robot::oi.reset(new OI());
-    p = P;
-    i = I;
-    d = D;
-    SmartDashboard::PutNumber("p", p);
-    SmartDashboard::PutNumber("i", i);
-    SmartDashboard::PutNumber("d", d);
+    smp = SWERVE_MODULE_P;
+    smi = SWERVE_MODULE_I;
+    smd = SWERVE_MODULE_D;
+    gp = GYRO_P;
+    gi = GYRO_I;
+    gd = GYRO_D;
+    SmartDashboard::PutNumber("swerve p", smp);
+    SmartDashboard::PutNumber("swerve i", smi);
+    SmartDashboard::PutNumber("swerve d", smd);
+    SmartDashboard::PutNumber("gyro p", gp);
+    SmartDashboard::PutNumber("gyro i", gi);
+    SmartDashboard::PutNumber("gyro d", gd);
     /*this->autoPicker = new SendableChooser<Command *>();
     SmartDashboard::PutData("Auto Picker", this->autoPicker);*/
 }
@@ -32,7 +40,7 @@ void Robot::DisabledInit() {
 
 
 void Robot::DisabledPeriodic() {
-    frc::Scheduler::GetInstance()->Run();
+    while(IsDisabled()) {}
 }
 
 void Robot::AutonomousInit() {
@@ -68,15 +76,20 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("BR Angle", Robot::drivetrain->br->GetAngle());
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
-    p = SmartDashboard::GetNumber("p", 0.0);
-    i = SmartDashboard::GetNumber("i", 0.0);
-    d = SmartDashboard::GetNumber("d", 0.0);
+    SmartDashboard::PutNumber("Desired Heading", Robot::drivetrain->desiredHeading);
+    smp = SmartDashboard::GetNumber("swerve p", 0.0);
+    smi = SmartDashboard::GetNumber("swerve i", 0.0);
+    smd = SmartDashboard::GetNumber("swerve d", 0.0);
+    gp = SmartDashboard::GetNumber("gyro p", 0.0);
+    gi = SmartDashboard::GetNumber("gyro i", 0.0);
+    gd = SmartDashboard::GetNumber("gyro d", 0.0);
     Robot::oi->pollButtons();
     Robot::drivetrain->JoystickDrive();
-    Robot::drivetrain->fl->setPID(p, i, d);
-    Robot::drivetrain->fr->setPID(p, i, d);
-    Robot::drivetrain->bl->setPID(p, i, d);
-    Robot::drivetrain->br->setPID(p, i, d);
+    Robot::drivetrain->SetPID(gp, gi, gd);
+    Robot::drivetrain->fl->setPID(smp, smi, smd);
+    Robot::drivetrain->fr->setPID(smp, smi, smd);
+    Robot::drivetrain->bl->setPID(smp, smi, smd);
+    Robot::drivetrain->br->setPID(smp, smi, smd);
 }
 
 void Robot::TestPeriodic() {}

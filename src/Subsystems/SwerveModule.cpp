@@ -1,4 +1,5 @@
 #include <Robot.h>
+#include <iostream>
 #include "SwerveModule.h"
 #include "../RobotMap.h"
 
@@ -9,13 +10,14 @@ SwerveModule::SwerveModule(int steerMotor, int driveMotor, int encoder, float of
     this->drive = new Talon(driveMotor);
     this->drive->SetInverted(isInverted);
     this->positionEncoder = new AnalogInput(encoder);
-    this->pid = new PIDController(P, I, D, this->positionEncoder, this->steer, 0.002);
+    this->pid = new PIDController(SWERVE_MODULE_P, SWERVE_MODULE_I, SWERVE_MODULE_D, this->positionEncoder, this->steer, 0.002);
     this->pid->SetContinuous(true);
     this->pid->SetPercentTolerance(1);
     this->pid->SetInputRange(0.0, 5.0);
     this->pid->SetOutputRange(-1.0, 1.0);
     this->pid->Enable();
     currentSpeed = 0;
+    zeroing = false;
 }
 
 void SwerveModule::InitDefaultCommand() {
@@ -47,7 +49,10 @@ void SwerveModule::Drive(double speed, double setpoint) {
     }
 
     SmartDashboard::PutNumber("Distance", dist);
-    if(Robot::oi->GetTwist() != 0 || Robot::oi->GetX() != 0 || Robot::oi->GetY() != 0) {
+    if(this->GetAngle() < 1 || this->GetAngle() > 359) {
+        zeroing = false;
+    }
+    if(!zeroing) {
         this->pid->SetSetpoint(fmod(setpoint + offset, 5));
     }
     this->drive->Set(currentSpeed);
@@ -55,7 +60,8 @@ void SwerveModule::Drive(double speed, double setpoint) {
 
 void SwerveModule::ReturnToZero() {
     this->pid->SetSetpoint(offset);
-    SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
+    //SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
+    zeroing = true;
 }
 
 double SwerveModule::GetAngle() {

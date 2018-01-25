@@ -14,6 +14,7 @@ public:
     WPI_TalonSRX * steer;
     PIDController * pid;
     AnalogInput * positionEncoder;
+    bool zeroing;
     void Drive(double speed, double angle);
     SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, bool isInverted);
     void InitDefaultCommand();
