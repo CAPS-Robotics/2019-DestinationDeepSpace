@@ -16,11 +16,11 @@ public:
     SwerveModule * fr;
     SwerveModule * bl;
     SwerveModule * br;
-    PIDController * pid;
-    NumericalPIDOutput * pidOutput;
+    //PIDController * pid;
+    //NumericalPIDOutput * pidOutput;
     Drivetrain();
     void JoystickDrive();
-    void SetPID(float p, float i, float d);
+    //void SetPID(float p, float i, float d);
     double GetDistanceAway();
     void RotateRobot(double speed);
     void ReturnWheelsToZero();
@@ -28,7 +28,7 @@ public:
     void CrabDrive(double x, double y, double rotation, double speedMultiplier, bool useGyro);
     void ArcadeDrive(double forward, double rotation, double speedMultiplier = 1);
     void Brake();
-    double wrap(double num, double min, double max);
+    static double wrap(double num, double min, double max);
 };
 
 #endif  // Drivetrain_H

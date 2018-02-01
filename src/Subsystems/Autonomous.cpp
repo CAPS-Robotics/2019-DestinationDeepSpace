@@ -1,3 +1,4 @@
+#include <Robot.h>
 #include "Autonomous.h"
 
 Autonomous::Autonomous() = default;
@@ -34,9 +35,14 @@ void Autonomous::CrossField(bool left) {
 }
 
 void Autonomous::StraightAhead(bool left) {
-
+	/*if(Robot::drivetrain->GetDistanceAway() < )
+	Robot::drivetrain->CrabDrive();*/
 }
 
 void Autonomous::HalfWay(bool left) {
+
+}
+
+void Autonomous::GoAround(bool left) {
 
 }

@@ -14,6 +14,7 @@ public:
 	void CrossField(bool left);
 	void StraightAhead(bool left);
 	void HalfWay(bool left);
+	void GoAround(bool left);
 };
 
 #endif //FRC2018_AUTONOMOUS_H

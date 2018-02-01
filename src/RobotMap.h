@@ -11,9 +11,9 @@ const int BL_DRIVE_TALON = 3;
 const float SWERVE_MODULE_P = 3;
 const float SWERVE_MODULE_I = 0;
 const float SWERVE_MODULE_D = 2;
-const float GYRO_P = 3;
+/*const float GYRO_P = 3;
 const float GYRO_I = 0;
-const float GYRO_D = 2;
+const float GYRO_D = 2;*/
 
 //CAN IDs
 const int FL_TALON_SRX = 0;

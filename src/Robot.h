@@ -15,6 +15,7 @@ public:
     float gi;
     float gd;
 	Robot();
+	void VisionThread();
 	void RobotInit() override;
 	void DisabledInit() override;
 	void DisabledPeriodic() override;

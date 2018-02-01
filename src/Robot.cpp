@@ -18,18 +18,22 @@ void Robot::RobotInit() {
     Robot::drivetrain.reset(new Drivetrain());
     Robot::arm.reset(new Arm());
     Robot::oi.reset(new OI());
+	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
+	vidyo->SetResolution(320, 240);
+	vidyo->SetBrightness(10);
+    CameraServer::GetInstance()->StartAutomaticCapture(*vidyo);
     smp = SWERVE_MODULE_P;
     smi = SWERVE_MODULE_I;
     smd = SWERVE_MODULE_D;
-    gp = GYRO_P;
+    /*gp = GYRO_P;
     gi = GYRO_I;
-    gd = GYRO_D;
+    gd = GYRO_D;*/
     SmartDashboard::PutNumber("swerve p", smp);
     SmartDashboard::PutNumber("swerve i", smi);
     SmartDashboard::PutNumber("swerve d", smd);
-    SmartDashboard::PutNumber("gyro p", gp);
+    /*SmartDashboard::PutNumber("gyro p", gp);
     SmartDashboard::PutNumber("gyro i", gi);
-    SmartDashboard::PutNumber("gyro d", gd);
+    SmartDashboard::PutNumber("gyro d", gd);*/
 }
 
 void Robot::DisabledInit() {
@@ -69,20 +73,20 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("BR Angle", Robot::drivetrain->br->GetAngle());
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
-    SmartDashboard::PutNumber("Desired Heading", Robot::drivetrain->desiredHeading);
-    smp = SmartDashboard::GetNumber("swerve p", 0.0);
-    smi = SmartDashboard::GetNumber("swerve i", 0.0);
-    smd = SmartDashboard::GetNumber("swerve d", 0.0);
-    gp = SmartDashboard::GetNumber("gyro p", 0.0);
-    gi = SmartDashboard::GetNumber("gyro i", 0.0);
-    gd = SmartDashboard::GetNumber("gyro d", 0.0);
+    SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
+    smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
+    smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);
+    smd = (float)SmartDashboard::GetNumber("swerve d", 0.0);
+    /*gp = (float)SmartDashboard::GetNumber("gyro p", 0.0);
+    gi = (float)SmartDashboard::GetNumber("gyro i", 0.0);
+    gd = (float)SmartDashboard::GetNumber("gyro d", 0.0);*/
     Robot::oi->pollButtons();
     Robot::drivetrain->JoystickDrive();
-    Robot::drivetrain->SetPID(gp, gi, gd);
+    /*Robot::drivetrain->SetPID(gp, gi, gd);
     Robot::drivetrain->fl->setPID(smp, smi, smd);
     Robot::drivetrain->fr->setPID(smp, smi, smd);
     Robot::drivetrain->bl->setPID(smp, smi, smd);
-    Robot::drivetrain->br->setPID(smp, smi, smd);
+    Robot::drivetrain->br->setPID(smp, smi, smd);*/
 }
 
 void Robot::TestPeriodic() {}

@@ -29,7 +29,7 @@ void OI::pollButtons() {
     if(joy1->GetRawButton(6)) {
         if(canPress[5]) {
             Robot::gyro->ResetHeading();
-            Robot::drivetrain->desiredHeading = 0;
+            Robot::drivetrain->desiredHeading = 180.0;
         }
         canPress[5] = false;
     } else { canPress[5] = true; }

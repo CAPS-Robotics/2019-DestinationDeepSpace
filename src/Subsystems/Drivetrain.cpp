@@ -4,7 +4,7 @@
 #include "SwerveModule.h"
 
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
-    pidOutput = new NumericalPIDOutput();
+    //pidOutput = new NumericalPIDOutput();
     Robot::gyro.get();
     this->fl = new SwerveModule(FL_TALON_SRX, FL_DRIVE_TALON, FL_STEER_ENCODER, FL_OFFSET, true);
     this->fr = new SwerveModule(FR_TALON_SRX, FR_DRIVE_TALON, FR_STEER_ENCODER, FR_OFFSET, false);
@@ -12,12 +12,12 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
     this->br = new SwerveModule(BR_TALON_SRX, BR_DRIVE_TALON, BR_STEER_ENCODER, BR_OFFSET, false);
     this->rangeFinder = new AnalogInput(RANGE_FINDER);
     this->desiredHeading = 0;
-    this->pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot::gyro.get(), pidOutput, 0.002);
+    /*this->pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot::gyro.get(), pidOutput, 0.002);
     this->pid->SetContinuous(true);
     this->pid->SetPercentTolerance(1);
     this->pid->SetInputRange(-180, 180.0);
     this->pid->SetOutputRange(-0.5, 0.5);
-    this->pid->SetEnabled(true);
+    this->pid->SetEnabled(true);*/
 }
 
 void Drivetrain::JoystickDrive() {
@@ -31,7 +31,7 @@ void Drivetrain::JoystickDrive() {
     } else if (Robot::oi->joy1->GetPOV() == 270) {
         Robot::drivetrain->Drive(270, Robot::oi->GetX(), speedMultiplier);
     } else {
-        Robot::drivetrain->CrabDrive(Robot::oi->GetX(), Robot::oi->GetY(), Robot::oi->GetTwist(), speedMultiplier, true);
+        Robot::drivetrain->CrabDrive(Robot::oi->GetX(), Robot::oi->GetY(), Robot::oi->GetTwist(), speedMultiplier, false);
     }
 }
 
@@ -89,21 +89,22 @@ void Drivetrain::CrabDrive(double x, double y, double rotation, double speedMult
     strafe  =  x * cos(heading * PI / 180) + y * sin(heading * PI / 180);
     if (x != 0 || y != 0 || rotation != 0) {
         SmartDashboard::PutNumber("initrot", rotation);
-        desiredHeading -= 5.0*rotation;
+        desiredHeading -= 8.0*rotation;
         desiredHeading = wrap(desiredHeading, -180.0, 180.0);
-        /*double diff = desiredHeading-heading;
+        double diff = desiredHeading-heading;
         if(diff > 180.0) { diff -= 360.0; }
         if(diff < -180.0) { diff += 360.0; }
-        SmartDashboard::PutNumber("afterDZ", diff);
-        int sign = diff/fabs(diff);*/
-        SmartDashboard::PutNumber("ActP", this->pid->GetP());
-        SmartDashboard::PutNumber("ActI", this->pid->GetI());
-        SmartDashboard::PutNumber("ActD", this->pid->GetD());
-        this->pid->SetSetpoint(desiredHeading);
+	    if(abs(diff) < 7) { diff = 0; }
+        diff /= 360;
+        //SmartDashboard::PutNumber("ActP", this->pid->GetP());
+        //SmartDashboard::PutNumber("ActI", this->pid->GetI());
+        //SmartDashboard::PutNumber("ActD", this->pid->GetD());
+        //this->pid->SetSetpoint(desiredHeading);
         if(useGyro) {
-            rotation = this->pidOutput->Get();
+            rotation = diff;
         }
         SmartDashboard::PutNumber("turnv", rotation);
+	    //SmartDashboard::PutNumber("TechnicalP", rotation/this->pid->GetError());
         double back, front, right, left;
         if (rotation != 0) {
             back = strafe  - rotation * 1.0 / sqrt(2);
@@ -163,6 +164,6 @@ double Drivetrain::wrap(double num, double max, double min) {
     return (num-min)-(max-min)*floor((num-min)/(max-min))+min;
 }
 
-void Drivetrain::SetPID(float p, float i, float d) {
+/*void Drivetrain::SetPID(float p, float i, float d) {
     this->pid->SetPID(p, i, d);
-}
+}*/
