@@ -1,12 +1,18 @@
 #include <Subsystems/Arm.h>
 #include <Subsystems/Autonomous.h>
-#include "Subsystems/PigeonNav.h"
-#include "WPILib.h"
-#include "Subsystems/Drivetrain.h"
-#include "OI.h"
+#include <Subsystems/Vision.h>
+#include <Subsystems/Drivetrain.h>
+#include <Subsystems/PigeonNav.h>
+#include <OI.h>
+#include <string>
 
 class Robot: public frc::IterativeRobot {
-	SendableChooser<int> * autoPicker;
+	enum AutoStations {
+		LEFT,
+		CENTER,
+		RIGHT
+	};
+	SendableChooser<AutoStations> * autoPicker;
 public:
     float smp;
     float smi;
@@ -15,7 +21,6 @@ public:
     float gi;
     float gd;
 	Robot();
-	void VisionThread();
 	void RobotInit() override;
 	void DisabledInit() override;
 	void DisabledPeriodic() override;
@@ -29,6 +34,7 @@ public:
 	static std::shared_ptr<OI> oi;
 	static std::shared_ptr<Arm> arm;
 	static std::shared_ptr<Autonomous> autonomous;
+	static std::shared_ptr<Vision> vision;
 private:
 
 };

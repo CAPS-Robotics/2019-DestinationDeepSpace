@@ -1,9 +1,10 @@
 #include "Vision.h"
 #include "../RobotMap.h"
 #include <vector>
+#include <networktables/NetworkTableInstance.h>
 
-Vision::Vision() : Subsystem("Vision") {
-	table = NetworkTable::GetTable("GRIP/AllDemContours");
+Vision::Vision() {
+	table = nt::NetworkTableInstance::GetDefault().GetTable("GRIP/AllDemContours");
 	this->Update();
 }
 

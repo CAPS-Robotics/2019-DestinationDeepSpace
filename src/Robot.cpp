@@ -8,26 +8,36 @@ std::shared_ptr<Drivetrain> Robot::drivetrain;
 std::shared_ptr<PigeonNav> Robot::gyro;
 std::shared_ptr<OI> Robot::oi;
 std::shared_ptr<Arm> Robot::arm;
+std::shared_ptr<Vision> Robot::vision;
+std::shared_ptr<Autonomous> Robot::autonomous;
 
 Robot::Robot() {
 
 }
 
 void Robot::RobotInit() {
+	Robot::vision.reset(new Vision());
     Robot::gyro.reset(new PigeonNav());
     Robot::drivetrain.reset(new Drivetrain());
     Robot::arm.reset(new Arm());
     Robot::oi.reset(new OI());
+	Robot::autonomous.reset(new Autonomous());
 	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
 	vidyo->SetResolution(320, 240);
 	vidyo->SetBrightness(10);
     CameraServer::GetInstance()->StartAutomaticCapture(*vidyo);
-    smp = SWERVE_MODULE_P;
+	this->autoPicker = new SendableChooser<AutoStations>();
+	this->autoPicker->AddDefault("Middle Station Auton", CENTER);
+	/*this->autoPicker->AddObject("Left Station Auton", 0);
+	this->autoPicker->AddObject("Right Station Auton", 2);*/
+	SmartDashboard::PutData("Auto Picker", this->autoPicker);
+	smp = SWERVE_MODULE_P;
     smi = SWERVE_MODULE_I;
     smd = SWERVE_MODULE_D;
     /*gp = GYRO_P;
     gi = GYRO_I;
     gd = GYRO_D;*/
+	SmartDashboard::PutString("Auto Picked", ""+this->autoPicker->GetSelected());
     SmartDashboard::PutNumber("swerve p", smp);
     SmartDashboard::PutNumber("swerve i", smi);
     SmartDashboard::PutNumber("swerve d", smd);
@@ -42,11 +52,11 @@ void Robot::DisabledInit() {
 
 
 void Robot::DisabledPeriodic() {
-    while(IsDisabled()) {}
+    SmartDashboard::PutData("Auto Picker", this->autoPicker);
 }
 
 void Robot::AutonomousInit() {
-
+	this->autonomous->Init(/*(int)SmartDashboard::GetNumber("Auto Picked", 0)*/1, frc::DriverStation::GetInstance().GetGameSpecificMessage());
 }
 
 void Robot::AutonomousPeriodic() {
@@ -56,6 +66,8 @@ void Robot::AutonomousPeriodic() {
     SmartDashboard::PutNumber("BR Angle", Robot::drivetrain->br->GetAngle());
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
+	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
+	this->autonomous->Loop();
 }
 
 void Robot::TeleopInit() {
@@ -73,7 +85,8 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("BR Angle", Robot::drivetrain->br->GetAngle());
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
-    SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
+	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
+	//SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
     smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
     smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);
     smd = (float)SmartDashboard::GetNumber("swerve d", 0.0);

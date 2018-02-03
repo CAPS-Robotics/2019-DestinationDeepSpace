@@ -35,12 +35,15 @@ void Autonomous::CrossField(bool left) {
 }
 
 void Autonomous::StraightAhead(bool left) {
-	/*if(Robot::drivetrain->GetDistanceAway() < )
-	Robot::drivetrain->CrabDrive();*/
+
 }
 
 void Autonomous::HalfWay(bool left) {
-
+	if(Robot::vision->GetCentralValue() < 120 || Robot::vision->GetCentralValue() > 200) {
+		Robot::drivetrain->CrabDrive(left ? -.5 : .5, .5, 0, .5, false);
+	} else if(Robot::drivetrain->GetDistanceAway() < 12) {
+		Robot::drivetrain->CrabDrive(0, .5, 0, .5, false);
+	}
 }
 
 void Autonomous::GoAround(bool left) {
