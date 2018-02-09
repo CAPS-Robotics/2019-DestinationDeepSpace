@@ -7,7 +7,7 @@
 
 class SwerveModule : public Subsystem {
 private:
-    Talon * drive;
+    WPI_TalonSRX * drive;
     float offset;
     float currentSpeed;
 public:

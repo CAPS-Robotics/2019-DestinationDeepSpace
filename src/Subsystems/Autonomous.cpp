@@ -4,6 +4,7 @@
 Autonomous::Autonomous() = default;
 
 void Autonomous::Init(int station, std::string data) {
+	state = 0;
     if(station == 1) {
         this->autoNum = 1;
         this->left = data[0] == 'L';
@@ -14,10 +15,11 @@ void Autonomous::Init(int station, std::string data) {
         this->autoNum = 2;
         this->left = data[0] == 'L';
     }
+	timer = new Timer();
 }
 
 void Autonomous::Loop() {
-    switch(autoNum) {
+    switch(this->autoNum) {
         case 0:
             StraightAhead(this->left);
             break;
@@ -39,10 +41,25 @@ void Autonomous::StraightAhead(bool left) {
 }
 
 void Autonomous::HalfWay(bool left) {
-	if(Robot::vision->GetCentralValue() < 120 || Robot::vision->GetCentralValue() > 200) {
-		Robot::drivetrain->CrabDrive(left ? -.5 : .5, .5, 0, .5, false);
-	} else if(Robot::drivetrain->GetDistanceAway() < 12) {
-		Robot::drivetrain->CrabDrive(0, .5, 0, .5, false);
+	switch(state) {
+		case 0:
+			timer->Reset();
+			timer->Start();
+			state++;
+			break;
+		case 1:
+			Robot::drivetrain->CrabDrive(left ? -1 : 1, 1, 0, 1, false);
+			SmartDashboard::PutNumber("time", timer->Get());
+			if(Robot::vision->GetCentralValue() > 120 + (left ? -80 : 80) && Robot::vision->GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+			if(timer->Get() > 1.5) { state = -1; }
+			break;
+		case 2:
+			Robot::drivetrain->CrabDrive(0, 1, 0, .75, false);
+			if(Robot::drivetrain->GetDistanceAway() < 42) state++;
+			break;
+		default:
+			Robot::drivetrain->Brake();
+			break;
 	}
 }
 

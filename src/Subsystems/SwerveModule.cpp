@@ -7,7 +7,7 @@ SwerveModule::SwerveModule(int steerMotor, int driveMotor, int encoder, float of
     this->steer = new WPI_TalonSRX(steerMotor);
     //this->steer->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
     this->offset = offset;
-    this->drive = new Talon(driveMotor);
+    this->drive = new WPI_TalonSRX(driveMotor);
     this->drive->SetInverted(isInverted);
     this->positionEncoder = new AnalogInput(encoder);
     this->pid = new PIDController(SWERVE_MODULE_P, SWERVE_MODULE_I, SWERVE_MODULE_D, this->positionEncoder, this->steer, 0.002);
