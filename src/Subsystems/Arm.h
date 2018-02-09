@@ -14,7 +14,7 @@ public:
     //def encoder
     double position;
     bool intakeClosed;
-    void TurnTo(double degrees);
+    void Turn(double speed);
     void Toggle();
     void Close();
     void Open();

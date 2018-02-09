@@ -20,19 +20,23 @@ void OI::pollButtons() {
     if(joy1->GetRawButton(2)) {
         Robot::drivetrain->ReturnWheelsToZero();
     }
-    if(joy1->GetRawButton(3)) {
+    if(joy1->GetRawButton(4)) {
         if(canPress[2]) {
             Robot::arm->Toggle();
         }
         canPress[2] = false;
     } else { canPress[2] = true; }
     if(joy1->GetRawButton(6)) {
-        if(canPress[5]) {
-            Robot::gyro->ResetHeading();
-            Robot::drivetrain->desiredHeading = 180.0;
-        }
-        canPress[5] = false;
-    } else { canPress[5] = true; }
+        Robot::gyro->ResetHeading();
+    }
+
+    if(joy1->GetRawButton(5)) {
+        Robot::arm->Turn(0.25);
+    } else if(joy1->GetRawButton(3)) {
+        Robot::arm->Turn(-0.25);
+    } else {
+        Robot::arm->Turn(0.0);
+    }
 }
 
 double OI::GetX() {

@@ -8,8 +8,8 @@ Arm::Arm() {
     Toggle();
 }
 
-void Arm::TurnTo(double degrees) {
-
+void Arm::Turn(double speed) {
+    armMotor->Set(speed);
 }
 
 void Arm::Toggle() {
