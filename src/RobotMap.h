@@ -34,10 +34,10 @@ const int BL_STEER_ENCODER = 2;
 const int BR_STEER_ENCODER = 3;
 
 //Offsets
-const float FL_OFFSET = 1.7017;
-const float FR_OFFSET = 2.1790;
-const float BL_OFFSET = 2.4523;//CHANGE
-const float BR_OFFSET = 2.4340;//CHANGE
+const float FL_OFFSET = 1.729;
+const float FR_OFFSET = 2.1179;
+const float BL_OFFSET = 3.3129;//CHANGE
+const float BR_OFFSET = 3.4313;//CHANGE
 
 const int RANGE_FINDER = 4;
 
