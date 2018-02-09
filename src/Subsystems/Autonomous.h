@@ -7,6 +7,8 @@ class Autonomous {
 private:
     int autoNum;
     bool left;
+	int state;
+	Timer * timer;
 public:
     Autonomous();
     void Init(int station, std::string data);

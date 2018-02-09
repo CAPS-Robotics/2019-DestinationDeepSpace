@@ -24,7 +24,7 @@ void Robot::RobotInit() {
 	Robot::autonomous.reset(new Autonomous());
 	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
 	vidyo->SetResolution(320, 240);
-	vidyo->SetBrightness(10);
+	vidyo->SetBrightness(CAMERA_BRIGHTNESS);
     CameraServer::GetInstance()->StartAutomaticCapture(*vidyo);
 	this->autoPicker = new SendableChooser<AutoStations>();
 	this->autoPicker->AddDefault("Middle Station Auton", CENTER);
@@ -93,7 +93,7 @@ void Robot::TeleopPeriodic() {
     /*gp = (float)SmartDashboard::GetNumber("gyro p", 0.0);
     gi = (float)SmartDashboard::GetNumber("gyro i", 0.0);
     gd = (float)SmartDashboard::GetNumber("gyro d", 0.0);*/
-    Robot::oi->pollButtons();
+	Robot::oi->pollButtons();
     Robot::drivetrain->JoystickDrive();
     /*Robot::drivetrain->SetPID(gp, gi, gd);
     Robot::drivetrain->fl->setPID(smp, smi, smd);
