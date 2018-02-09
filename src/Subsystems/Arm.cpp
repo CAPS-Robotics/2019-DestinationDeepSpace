@@ -2,14 +2,14 @@
 #include "Intake.h"
 
 Arm::Arm() {
-    armMotor = new WPI_TalonSRX(ARM_SRX);
+    armMotor = new WPI_TalonSRX(ARM_CIM);
     intake = new Intake();
     intakeClosed = true;
     Toggle();
 }
 
 void Arm::TurnTo(double degrees) {
-
+    
 }
 
 void Arm::Toggle() {
