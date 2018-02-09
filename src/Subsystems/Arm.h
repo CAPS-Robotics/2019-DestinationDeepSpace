@@ -5,19 +5,27 @@
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
 #include "Intake.h"
+#include <string>
 
 class Arm {
+private:
+    int seqStage;
+    bool intakeSeq[];
+    int seqPos[];
 public:
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;
-    //def encoder
+    AnalogInput * encoder;
     double position;
     bool intakeClosed;
-    void TurnTo(double degrees);
+    bool TurnTo(double degrees);
+    void SetSequence(bool intakeSeq[], int seqPos[]);
+    void Loop();
     void Toggle();
     void Close();
     void Open();
+    double GetAngle();
 };
 
 
