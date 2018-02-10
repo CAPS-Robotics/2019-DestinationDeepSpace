@@ -86,6 +86,10 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
+	SmartDashboard::PutNumber("Arm angle", Robot::arm->GetAngle());
+	SmartDashboard::PutNumber("Arm raw", Robot::arm->armEncoder->GetVoltage());
+	SmartDashboard::PutNumber("Intake angle", Robot::arm->intake->GetAngle());
+	SmartDashboard::PutNumber("Intake raw", Robot::arm->intake->intakeEncoder->GetVoltage());
 	//SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
     smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
     smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);

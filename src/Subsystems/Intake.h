@@ -7,14 +7,13 @@
 
 class Intake {
 public:
+	Intake();
     DoubleSolenoid * piston;
-    Intake();
     bool SetState(bool closed);
-
     WPI_TalonSRX * intakeMotor;
-    AnalogInput * encoder;
     bool TurnTo(double degrees);
     double GetAngle();
+	AnalogInput * intakeEncoder;
 };
 
 

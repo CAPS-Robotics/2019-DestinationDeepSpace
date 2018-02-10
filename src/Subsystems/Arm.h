@@ -10,17 +10,18 @@
 class Arm {
 private:
     int seqStage;
-    bool intakeSeq[];
-    int seqPos[];
+    bool * intakeSeq;
+    int * seqPos;
+	int seqLen;
 public:
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;
-    AnalogInput * encoder;
+	AnalogInput * armEncoder;
     double position;
     bool intakeClosed;
     bool TurnTo(double degrees);
-    void SetSequence(bool intakeSeq[], int seqPos[]);
+    void SetSequence(bool * intakeSeq, int * seqPos, int len);
     void Loop();
     void Toggle();
     void Close();

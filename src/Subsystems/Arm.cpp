@@ -1,17 +1,20 @@
 #include "Arm.h"
 
 Arm::Arm() {
-    this->armMotor = new WPI_TalonSRX(ARM_SRX);
-    this->intake = new Intake();
+    this->armMotor = new WPI_TalonSRX(ARM_CIM);
+	this->armMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, 0, 0);
+	this->armMotor->ConfigSetParameter(ParamEnum::eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
+	this->intake = new Intake();
     this->Open();
-    this->encoder = new AnalogInput(ARM_ENCODER);
     this->seqStage = 0;
-    this->intakeSeq = {};
-    this->seqPos = {};
+    this->intakeSeq = new bool[0];
+    this->seqPos = new int[0];
+	this->seqLen = 0;
+	this->armEncoder = new AnalogInput(ARM_ENCODER);
 }
 
 void Arm::Loop() {
-    if(seqStage < (int)(sizeof(seqPos)/sizeof(int))) {
+    if(seqStage < seqLen) {
         if(intakeSeq[seqStage]) {
             if(this->intake->TurnTo(seqPos[seqStage])) {
                 seqStage++;
@@ -24,10 +27,11 @@ void Arm::Loop() {
     }
 }
 
-void Arm::SetSequence(bool intakeSeq[], int seqPos[]) {
+void Arm::SetSequence(bool * intakeSeq, int * seqPos, int len) {
     this->seqStage = 0;
     this->intakeSeq = intakeSeq;
     this->seqPos = seqPos;
+	this->seqLen = len;
 }
 
 bool Arm::TurnTo(double degrees) {
@@ -58,5 +62,5 @@ void Arm::Open() {
 }
 
 double Arm::GetAngle() {
-    return fmod(this->encoder->GetVoltage() - ARM_OFFSET + 5, 5) * 72.f;
+    return fmod(this->armEncoder->GetVoltage() - ARM_OFFSET + 5, 5) * (360.0/5.0);
 }

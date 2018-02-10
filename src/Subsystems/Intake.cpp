@@ -3,7 +3,7 @@
 Intake::Intake() {
     piston = new DoubleSolenoid(PCM, INTAKE_FORWARD, INTAKE_BACKWARD);
     intakeMotor = new WPI_TalonSRX(INTAKE_SRX);
-    this->encoder = new AnalogInput(INTAKE_ENCODER);
+    intakeEncoder = new AnalogInput(INTAKE_ENCODER);
 }
 
 bool Intake::SetState(bool closed) {
@@ -29,5 +29,5 @@ bool Intake::TurnTo(double degrees) {
 }
 
 double Intake::GetAngle() {
-    return fmod(this->encoder->GetVoltage() - INTAKE_OFFSET + 5, 5) * 72.f;
+	return fmod(this->intakeEncoder->GetVoltage() - INTAKE_OFFSET + 5, 5) * (360.0/5.0);
 }

@@ -33,8 +33,8 @@ void OI::pollButtons() {
         }
         canPress[5] = false;
     } else { canPress[5] = true; }
-
     // ARM Turning
+    /*
     if(joy1->GetRawButton(7)) {
         Robot::arm->SetSequence();
     }
@@ -53,6 +53,7 @@ void OI::pollButtons() {
     if(joy1->GetRawButton(12)) {
         Robot::arm->SetSequence();
     }
+     */
 }
 
 double OI::GetX() {
