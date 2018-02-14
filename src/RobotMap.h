@@ -33,6 +33,9 @@ const int FR_STEER_ENCODER = 0;
 const int FL_STEER_ENCODER = 1;
 const int BL_STEER_ENCODER = 2;
 const int BR_STEER_ENCODER = 3;
+const int RANGE_FINDER = 4;
+const int CIMCODER_A = 0;
+const int CIMCODER_B = 1;
 
 //Offsets
 const float FL_OFFSET = 4.5690;
@@ -40,10 +43,9 @@ const float FR_OFFSET = 2.0739;
 const float BL_OFFSET = 2.4523;
 const float BR_OFFSET = 2.4340;
 
-const int RANGE_FINDER = 4;
-
 const double GR = 1.0 / 1.2;
 const float GEAR_DISTANCE = 9.3;
 const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
+const double DIST_PER_PULSE = .005078;
 
 #endif //FRC2018_ROBOTMAP_H

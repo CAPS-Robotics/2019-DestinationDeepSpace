@@ -11,13 +11,15 @@ public:
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;
-    //def encoder
+    Encoder * cimcoder;
     double position;
     bool intakeClosed;
-    void Turn(double speed);
+    double targetPos;
+    void Loop();
     void Toggle();
     void Close();
     void Open();
+    void MoveTo(double position);
 };
 
 

@@ -71,7 +71,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-
+    this->arm->cimcoder->Reset();
 }
 
 void Robot::TeleopPeriodic() {
@@ -86,6 +86,7 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
+    SmartDashboard::PutNumber("Elevator Height", Robot::arm->cimcoder->GetDistance());
 	//SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
     smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
     smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);
@@ -94,6 +95,7 @@ void Robot::TeleopPeriodic() {
     gi = (float)SmartDashboard::GetNumber("gyro i", 0.0);
     gd = (float)SmartDashboard::GetNumber("gyro d", 0.0);*/
     Robot::oi->pollButtons();
+    Robot::arm->Loop();
     Robot::drivetrain->JoystickDrive();
     /*Robot::drivetrain->SetPID(gp, gi, gd);
     Robot::drivetrain->fl->setPID(smp, smi, smd);
