@@ -29,17 +29,14 @@ void OI::pollButtons() {
     if(joy1->GetRawButton(6)) {
         Robot::gyro->ResetHeading();
     }
-
-    if(fabs(Robot::arm->cimcoder->GetDistance() - Robot::arm->targetPos) < .5) {
-        if(joy1->GetRawButton(5)) {
-            Robot::arm->armMotor->Set(1);
-            Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
-        } else if(joy1->GetRawButton(3)) {
-            Robot::arm->armMotor->Set(-1);
-            Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
-        } else {
-            Robot::arm->armMotor->Set(0);
-        }
+    if(joy1->GetRawButton(5)) {
+        Robot::arm->armMotor->Set(1);
+        Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
+    } else if(joy1->GetRawButton(3)) {
+        Robot::arm->armMotor->Set(-1);
+        Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
+    } else {
+        if(fabs(Robot::arm->cimcoder->GetDistance() - Robot::arm->targetPos) < .5) Robot::arm->armMotor->Set(0);
     }
     if(joy1->GetRawButton(8)) {
         Robot::arm->MoveTo(72);
