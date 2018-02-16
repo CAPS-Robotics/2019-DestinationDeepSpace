@@ -1,3 +1,4 @@
+#include <Robot.h>
 #include "Intake.h"
 
 Intake::Intake() {
@@ -15,19 +16,16 @@ bool Intake::SetState(bool closed) {
     return closed;
 }
 
-bool Intake::TurnTo(double degrees) {
-    if (fmod(fabs(this->GetAngle() - degrees), 360) < 8) {
-        intakeMotor->Set(0);
-        return true;
-    } else if ((this->GetAngle() - degrees) > 0) {
-        intakeMotor->Set(-.28);
-        return false;
-    } else {
-        intakeMotor->Set(.28);
-        return false;
-    }
+bool Intake::TurnTo(double degrees, bool compensate) {
+	if (fmod(fabs(this->GetAngle() - degrees), 360) < 8 || compensate) {
+		intakeMotor->Set((Robot::arm->GetAngle()+this->GetAngle() < 90 && Robot::arm->GetAngle()+this->GetAngle() > -90) ? (((this->GetAngle() - degrees) > 0) ? -.1*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180)) : -.3*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))) : (((this->GetAngle() - degrees) < 0) ? .1*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180)) : .3*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))));
+		return true;
+	} else {
+		intakeMotor->Set(((this->GetAngle() - degrees) > 0) ? .2*fabs(cos(((Robot::arm->GetAngle()+this->GetAngle() - degrees)*PI/180)))+.2 : -.4*fabs(cos(((Robot::arm->GetAngle()+this->GetAngle())*PI/180)))-.2);
+		return false;
+	}
 }
 
 double Intake::GetAngle() {
-	return fmod(this->intakeEncoder->GetVoltage() - INTAKE_OFFSET + 5, 5) * (360.0/5.0);
+	return (this->intakeMotor->GetSensorCollection().GetAnalogIn() - INTAKE_OFFSET) * (360.0/(1024.0*GR));
 }

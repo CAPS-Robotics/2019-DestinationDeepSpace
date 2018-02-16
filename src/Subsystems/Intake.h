@@ -11,7 +11,7 @@ public:
     DoubleSolenoid * piston;
     bool SetState(bool closed);
     WPI_TalonSRX * intakeMotor;
-    bool TurnTo(double degrees);
+    bool TurnTo(double degrees, bool compensate);
     double GetAngle();
 	AnalogInput * intakeEncoder;
 };

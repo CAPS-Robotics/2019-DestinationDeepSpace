@@ -20,7 +20,7 @@ void OI::pollButtons() {
     if(joy1->GetRawButton(2)) {
         Robot::drivetrain->ReturnWheelsToZero();
     }
-    if(joy1->GetRawButton(3)) {
+    if(joy1->GetRawButton(4)) {
         if(canPress[2]) {
             Robot::arm->Toggle();
         }
@@ -33,27 +33,36 @@ void OI::pollButtons() {
         }
         canPress[5] = false;
     } else { canPress[5] = true; }
+	if(joy1->GetRawButton(3)) {
+		Robot::arm->SetSetpoint();
+		Robot::arm->armMotor->Set(0);
+		Robot::arm->intake->intakeMotor->Set(0);
+	}
     // ARM Turning
-    /*
-    if(joy1->GetRawButton(7)) {
-        Robot::arm->SetSequence();
+    /*if(joy1->GetRawButton(7)) {
+        Robot::arm->SetSequence({true,}, {}, );
     }
     if(joy1->GetRawButton(8)) {
         Robot::arm->SetSequence();
-    }
+    }*/
     if(joy1->GetRawButton(9)) {
+		if(canPress[8]) {
+			Robot::arm->SetSequence(new bool[2] {true, false}, new int[2] {135, -30}, 2);
+		}
+		canPress[8] = false;
+	} else { canPress[8] = true; }
+    /*if(joy1->GetRawButton(10)) {
         Robot::arm->SetSequence();
-    }
-    if(joy1->GetRawButton(10)) {
-        Robot::arm->SetSequence();
-    }
+    }*/
     if(joy1->GetRawButton(11)) {
+		if(canPress[10]) {
+			Robot::arm->SetSequence(new bool[3] {true, false, true}, new int[3] {135, -60, 60}, 3);
+		}
+		canPress[10] = false;
+	} else { canPress[10] = true; }
+    /*if(joy1->GetRawButton(12)) {
         Robot::arm->SetSequence();
-    }
-    if(joy1->GetRawButton(12)) {
-        Robot::arm->SetSequence();
-    }
-     */
+    }*/
 }
 
 double OI::GetX() {

@@ -10,20 +10,33 @@ Arm::Arm() {
     this->intakeSeq = new bool[0];
     this->seqPos = new int[0];
 	this->seqLen = 0;
-	this->armEncoder = new AnalogInput(ARM_ENCODER);
+	this->armPos = this->GetAngle();
+	this->intakePos = this->intake->GetAngle();
+}
+
+void Arm::SetSetpoint() {
+	this->armPos = this->GetAngle();
+	this->intakePos = this->intake->GetAngle();
 }
 
 void Arm::Loop() {
     if(seqStage < seqLen) {
         if(intakeSeq[seqStage]) {
-            if(this->intake->TurnTo(seqPos[seqStage])) {
+	        this->TurnTo(armPos, true);
+	        intakePos = seqPos[seqStage];
+            if(this->intake->TurnTo(seqPos[seqStage], false)) {
                 seqStage++;
             }
         } else {
-            if(this->TurnTo(seqPos[seqStage])) {
+	        this->intake->TurnTo(intakePos, true);
+	        armPos = seqPos[seqStage];
+            if(this->TurnTo(seqPos[seqStage], false)) {
                 seqStage++;
             }
         }
+    } else {
+	    this->TurnTo(armPos, false);
+	    this->intake->TurnTo(intakePos, false);
     }
 }
 
@@ -34,15 +47,12 @@ void Arm::SetSequence(bool * intakeSeq, int * seqPos, int len) {
 	this->seqLen = len;
 }
 
-bool Arm::TurnTo(double degrees) {
-    if(fmod(fabs(this->GetAngle() - degrees), 360) < 8) {
-        this->armMotor->Set(0);
+bool Arm::TurnTo(double degrees, bool compensate) {
+    if(fmod(fabs(this->GetAngle() - degrees), 360) < 8 || compensate) {
+	    this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.2*cos((this->GetAngle()*PI/180)));
         return true;
-    } else if((this->GetAngle() - degrees) > 0) {
-        this->armMotor->Set(-.28);
-        return false;
     } else {
-        this->armMotor->Set(.28);
+        this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? .2*cos((this->GetAngle()*PI/180)) : -.75*cos((this->GetAngle()*PI/180)));
         return false;
     }
 }
@@ -62,5 +72,5 @@ void Arm::Open() {
 }
 
 double Arm::GetAngle() {
-    return fmod(this->armEncoder->GetVoltage() - ARM_OFFSET + 5, 5) * (360.0/5.0);
+    return (this->armMotor->GetSensorCollection().GetAnalogIn() - ARM_OFFSET) * (360.0/(1024.0*GR));
 }

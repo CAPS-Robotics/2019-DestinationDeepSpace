@@ -12,6 +12,8 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
     this->br = new SwerveModule(BACK_RIGHT_STEER, BACK_RIGHT_DRIVE, BR_STEER_ENCODER, BR_OFFSET, false);
     this->rangeFinder = new AnalogInput(RANGE_FINDER);
     this->desiredHeading = 0;
+	this->driveEnc = new Encoder(CIMCODER_A, CIMCODER_B);
+	this->driveEnc->SetDistancePerPulse(DIST_PER_PULSE);
     /*this->pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot::gyro.get(), pidOutput, 0.002);
     this->pid->SetContinuous(true);
     this->pid->SetPercentTolerance(1);
@@ -165,6 +167,14 @@ void Drivetrain::CrabDrive(double x, double y, double rotation, double speedMult
 }
 double Drivetrain::wrap(double num, double max, double min) {
     return (num-min)-(max-min)*floor((num-min)/(max-min))+min;
+}
+
+void Drivetrain::StartTravel() {
+	driveEnc->Reset();
+}
+
+double Drivetrain::GetTravel() {
+	return driveEnc->GetDistance();
 }
 
 /*void Drivetrain::SetPID(float p, float i, float d) {

@@ -33,11 +33,51 @@ void Autonomous::Loop() {
 }
 
 void Autonomous::CrossField(bool left) {
-
+	switch(state) {
+		case 0:
+			timer->Reset();
+			timer->Start();
+			Robot::arm->SetSequence(new bool[4] {true, false, true, false}, new int[4] {225, 150, 45, 45}, 4);
+			state++;
+			break;
+		case 1:
+			Robot::drivetrain->CrabDrive(left ? -1 : 1, .2, 0, 1, false);
+			SmartDashboard::PutNumber("time", timer->Get());
+			if(Robot::vision->GetCentralValue() > 120 + (left ? -80 : 80) && Robot::vision->GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+			if(timer->Get() > 1.5) { state = -1; }
+			break;
+		case 2:
+			Robot::drivetrain->CrabDrive(0, 1, 0, .75, false);
+			if(Robot::drivetrain->GetDistanceAway() < 42) state++;
+			break;
+		default:
+			Robot::drivetrain->Brake();
+			break;
+	}
 }
 
 void Autonomous::StraightAhead(bool left) {
-
+	switch(state) {
+		case 0:
+			timer->Reset();
+			timer->Start();
+			Robot::arm->SetSequence(new bool[4] {true, false, true, false}, new int[4] {225, 150, 45, 45}, 4);
+			state++;
+			break;
+		case 1:
+			Robot::drivetrain->CrabDrive(left ? .2 : -.2, 1, 0, 1, false);
+			SmartDashboard::PutNumber("time", timer->Get());
+			if(Robot::vision->GetCentralValue() > 120 + (left ? -80 : 80) && Robot::vision->GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+			if(timer->Get() > 1.5) { state = -1; }
+			break;
+		case 2:
+			Robot::drivetrain->CrabDrive(0, 1, 0, .75, false);
+			if(Robot::drivetrain->GetDistanceAway() < 42) state++;
+			break;
+		default:
+			Robot::drivetrain->Brake();
+			break;
+	}
 }
 
 void Autonomous::HalfWay(bool left) {
@@ -45,6 +85,7 @@ void Autonomous::HalfWay(bool left) {
 		case 0:
 			timer->Reset();
 			timer->Start();
+			Robot::arm->SetSequence(new bool[4] {true, false, true, false}, new int[4] {225, 150, 45, 45}, 4);
 			state++;
 			break;
 		case 1:

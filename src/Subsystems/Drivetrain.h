@@ -16,12 +16,15 @@ public:
     SwerveModule * fr;
     SwerveModule * bl;
     SwerveModule * br;
+    Encoder * driveEnc;
     //PIDController * pid;
     //NumericalPIDOutput * pidOutput;
     Drivetrain();
     void JoystickDrive();
     //void SetPID(float p, float i, float d);
     double GetDistanceAway();
+	void StartTravel();
+	double GetTravel();
     void RotateRobot(double speed);
     void ReturnWheelsToZero();
     void Drive(double angle, double speed, double speedMultiplier);
