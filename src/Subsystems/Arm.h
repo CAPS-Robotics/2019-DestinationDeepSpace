@@ -20,6 +20,7 @@ public:
     void Close();
     void Open();
     void MoveTo(double position);
+    double GetCurrent();
 };
 
 

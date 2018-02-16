@@ -88,6 +88,7 @@ void Robot::TeleopPeriodic() {
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
     SmartDashboard::PutNumber("Elevator Height", Robot::arm->cimcoder->GetDistance());
     SmartDashboard::PutNumber("Target Height", Robot::arm->targetPos);
+    SmartDashboard::PutNumber("Arm Current", Robot::arm->GetCurrent());
     //SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
     smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
     smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);

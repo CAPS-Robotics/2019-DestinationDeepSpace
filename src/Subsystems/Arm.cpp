@@ -14,7 +14,7 @@ Arm::Arm() {
 }
 
 void Arm::Loop() {
-    if(!Robot::oi->joy1->GetRawButton(5) && !Robot::oi->joy1->GetRawButton(3)) {
+    if(!Robot::oi->joy1->GetRawButton(5) && !Robot::oi->joy1->GetRawButton(3) && fabs(this->GetCurrent()) < 30) {
         if (fabs(this->cimcoder->GetDistance() - this->targetPos) < .5) {
             this->armMotor->Set(0);
         } else if (this->targetPos - this->cimcoder->GetDistance() > 0) {
@@ -22,6 +22,9 @@ void Arm::Loop() {
         } else {
             this->armMotor->Set(-1);
         }
+    }
+    if(fabs(this->GetCurrent()) > 30) {
+        this->armMotor->Set(0);
     }
 }
 
@@ -41,4 +44,8 @@ void Arm::Close() {
 void Arm::Open() {
     this->intakeClosed = false;
     this->intake->SetState(false);
+}
+
+double Arm::GetCurrent() {
+    return this->armMotor->GetOutputCurrent();
 }
