@@ -14,9 +14,11 @@ public:
     Encoder * cimcoder;
     double position;
     bool intakeClosed;
+    bool intakeKicked;
     double targetPos;
     void Loop();
-    void Toggle();
+    void ToggleIntake();
+    void ToggleKick();
     void Close();
     void Open();
     void MoveTo(double position);

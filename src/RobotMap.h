@@ -26,7 +26,9 @@ const int PCM = 6;
 
 //PCM Addresses
 const int INTAKE_FORWARD = 7;
-const int INTAKE_BACKWARD = 6;
+const int INTAKE_BACKWARD = 5;
+const int INTAKE_KICK_FORWARD = 3;
+const int INTAKE_KICK_BACKWARD = 4;
 
 //Inputs
 const int FR_STEER_ENCODER = 0;

@@ -6,9 +6,11 @@
 
 class Intake {
 public:
-    DoubleSolenoid * piston;
+    DoubleSolenoid * grip;
+    DoubleSolenoid * kick;
     Intake();
     bool SetState(bool closed);
+    bool SetKicked(bool kick);
 };
 
 

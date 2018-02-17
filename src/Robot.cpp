@@ -56,7 +56,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	this->autonomous->Init(/*(int)SmartDashboard::GetNumber("Auto Picked", 0)*/1, frc::DriverStation::GetInstance().GetGameSpecificMessage());
+	//this->autonomous->Init(/*(int)SmartDashboard::GetNumber("Auto Picked", 0)*/1, frc::DriverStation::GetInstance().GetGameSpecificMessage());
 }
 
 void Robot::AutonomousPeriodic() {
@@ -67,7 +67,7 @@ void Robot::AutonomousPeriodic() {
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
-	this->autonomous->Loop();
+	//this->autonomous->Loop();
 }
 
 void Robot::TeleopInit() {

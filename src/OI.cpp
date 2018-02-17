@@ -8,6 +8,7 @@ OI::OI() {
         canPressi = true;
     }
     joy1 = new Joystick(0);
+    buttonPad = new XboxController(1);
 }
 
 void OI::pollButtons() {
@@ -21,8 +22,14 @@ void OI::pollButtons() {
         Robot::drivetrain->ReturnWheelsToZero();
     }
     if (joy1->GetRawButton(4)) {
+        if (canPress[3]) {
+            Robot::arm->ToggleIntake();
+        }
+        canPress[3] = false;
+    } else { canPress[3] = true; }
+    if(joy1->GetRawButton(3)) {
         if (canPress[2]) {
-            Robot::arm->Toggle();
+            Robot::arm->ToggleKick();
         }
         canPress[2] = false;
     } else { canPress[2] = true; }
@@ -30,32 +37,33 @@ void OI::pollButtons() {
         Robot::gyro->ResetHeading();
     }
     if (fabs(Robot::arm->GetCurrent()) < 30) {
-        if (joy1->GetRawButton(5)) {
-            Robot::arm->armMotor->Set(1);
-            Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
-        } else if (joy1->GetRawButton(3)) {
-            Robot::arm->armMotor->Set(-1);
-            Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
-        } else {
+        if (this->GetStick() == 0) {
             if (fabs(Robot::arm->cimcoder->GetDistance() - Robot::arm->targetPos) < .5) Robot::arm->armMotor->Set(0);
+        } else {
+            Robot::arm->armMotor->Set(this->GetStick());
+            Robot::arm->targetPos = Robot::arm->cimcoder->GetDistance();
         }
     }
-    if (joy1->GetRawButton(8)) {
+    //Scale
+    if (buttonPad->GetRawButton(4)) {
         Robot::arm->MoveTo(72);
     }
-    if (joy1->GetRawButton(10)) {
+    if (buttonPad->GetRawButton(3)) {
         Robot::arm->MoveTo(60);
     }
-    if (joy1->GetRawButton(12)) {
+    if (buttonPad->GetRawButton(2)) {
         Robot::arm->MoveTo(48);
     }
-    if (joy1->GetRawButton(11)) {
+    //Intake
+    if (buttonPad->GetPOV(0) == 180) {
         Robot::arm->MoveTo(0);
     }
-    if (joy1->GetRawButton(9)) {
+    //Switch
+    if (buttonPad->GetPOV(0) == 90) {
         Robot::arm->MoveTo(20);
     }
-    if (joy1->GetRawButton(7)) {
+    //Reset
+    if (buttonPad->GetPOV(0) == 270) {
         Robot::arm->cimcoder->Reset();
         Robot::arm->targetPos = 0;
     }
@@ -85,4 +93,8 @@ double OI::applyDeadzone(double val, double deadzone, double maxval) {
     double sign = val / fabs(val);
     val = sign * maxval * (fabs(val) - deadzone) / (maxval - deadzone);
     return val;
+}
+
+double OI::GetStick() {
+    return this->applyDeadzone(buttonPad->GetRawAxis(3), 0.50, 1);
 }
