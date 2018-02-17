@@ -10,17 +10,19 @@ std::shared_ptr<OI> Robot::oi;
 std::shared_ptr<Arm> Robot::arm;
 std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Autonomous> Robot::autonomous;
+std::shared_ptr<Climber> Robot::climber;
 
 Robot::Robot() {
 
 }
 
 void Robot::RobotInit() {
+	Robot::climber.reset(new Climber());
 	Robot::vision.reset(new Vision());
     Robot::gyro.reset(new PigeonNav());
     Robot::drivetrain.reset(new Drivetrain());
     Robot::arm.reset(new Arm());
-    Robot::oi.reset(new OI());
+	Robot::oi.reset(new OI());
 	Robot::autonomous.reset(new Autonomous());
 	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
 	vidyo->SetResolution(320, 240);
@@ -53,10 +55,14 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
     SmartDashboard::PutData("Auto Picker", this->autoPicker);
+	SmartDashboard::PutNumber("Arm angle", Robot::arm->GetAngle());
+	SmartDashboard::PutNumber("Arm raw", Robot::arm->armMotor->GetSensorCollection().GetAnalogIn());
+	SmartDashboard::PutNumber("Intake angle", Robot::arm->intake->GetAngle());
+	SmartDashboard::PutNumber("Intake raw", Robot::arm->intake->intakeMotor->GetSensorCollection().GetAnalogIn());
 }
 
 void Robot::AutonomousInit() {
-	this->autonomous->Init(/*(int)SmartDashboard::GetNumber("Auto Picked", 0)*/1, frc::DriverStation::GetInstance().GetGameSpecificMessage());
+	//this->autonomous->Init(/*(int)SmartDashboard::GetNumber("Auto Picked", 0)*/1, frc::DriverStation::GetInstance().GetGameSpecificMessage());
 }
 
 void Robot::AutonomousPeriodic() {
@@ -67,7 +73,7 @@ void Robot::AutonomousPeriodic() {
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
-	this->autonomous->Loop();
+	//this->autonomous->Loop();
 }
 
 void Robot::TeleopInit() {

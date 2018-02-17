@@ -21,7 +21,8 @@ const int ARM_CIM = 7;
 const int INTAKE_SRX = 8;
 const int BACK_RIGHT_DRIVE = 9;
 const int BACK_RIGHT_STEER = 10;
-const int PCM = 11;
+const int CLIMB_CIM = 11;
+const int PCM = 12;
 
 //PCM Addresses
 const int INTAKE_FORWARD = 7;
@@ -41,7 +42,7 @@ const int CIMCODER_B = 1;
 
 //Offsets
 const float ARM_OFFSET = 827; //SET BEFORE TRYING TO MOVE ARM PLEASE
-const float INTAKE_OFFSET = 616; //SET BEFORE TRYING TO MOVE ARM PLEASE
+const float INTAKE_OFFSET = 43; //SET BEFORE TRYING TO MOVE ARM PLEASE
 const float FL_OFFSET = 1.7290;
 const float FR_OFFSET = 2.1179;
 const float BL_OFFSET = 3.3129;

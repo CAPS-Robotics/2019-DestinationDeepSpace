@@ -21,7 +21,7 @@ bool Intake::TurnTo(double degrees, bool compensate) {
 		intakeMotor->Set((Robot::arm->GetAngle()+this->GetAngle() < 90 && Robot::arm->GetAngle()+this->GetAngle() > -90) ? (((this->GetAngle() - degrees) > 0) ? -.1*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180)) : -.3*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))) : (((this->GetAngle() - degrees) < 0) ? .1*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180)) : .3*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))));
 		return true;
 	} else {
-		intakeMotor->Set(((this->GetAngle() - degrees) > 0) ? .2*fabs(cos(((Robot::arm->GetAngle()+this->GetAngle() - degrees)*PI/180)))+.2 : -.4*fabs(cos(((Robot::arm->GetAngle()+this->GetAngle())*PI/180)))-.2);
+		intakeMotor->Set((Robot::arm->GetAngle()+this->GetAngle() < 90 && Robot::arm->GetAngle()+this->GetAngle() > -90) ? (((this->GetAngle() - degrees) > 0) ? 0*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))+.2 : -.4*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))-.2) : (((this->GetAngle() - degrees) < 0) ? -0*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))-.2 : .4*fabs(cos((Robot::arm->GetAngle()+this->GetAngle())*PI/180))+.2));
 		return false;
 	}
 }

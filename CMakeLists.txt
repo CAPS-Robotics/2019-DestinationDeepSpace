@@ -16,7 +16,7 @@ include_directories(build/tmp/expandedArchives/opencv-cpp-3.2.0-headers.zip_1b85
 include_directories(build/tmp/expandedArchives/ni-libraries-2018.1.1-headers.zip_6aedc4b55a982775a7b6e16df1020d5b)
 include_directories(build/tmp/expandedArchives/CTRE-phoenix-cpp-5.1.2.1-headers.zip_fff3d22e160106b698f6c35d0b2e8153)
 include_directories(build/tmp/expandedArchives/navx-cpp-3.0.342-headers.zip_ded0b7831bcd4688d480db0d93158974)
-set(ALL_INCLUDES ${INCLUDES} ${DEP_INCLUDES} src/NumericalPIDOutput.cpp src/NumericalPIDOutput.h src/NumericalPIDOutput.cpp src/NumericalPIDOutput.h src/Subsystems/Arm.cpp src/Subsystems/Arm.h src/Subsystems/Intake.cpp src/Subsystems/Intake.h src/Subsystems/Autonomous.cpp src/Subsystems/Autonomous.h src/Subsystems/Vision.cpp src/Subsystems/Vision.h)
+set(ALL_INCLUDES ${INCLUDES} ${DEP_INCLUDES} src/NumericalPIDOutput.cpp src/NumericalPIDOutput.h src/NumericalPIDOutput.cpp src/NumericalPIDOutput.h src/Subsystems/Arm.cpp src/Subsystems/Arm.h src/Subsystems/Intake.cpp src/Subsystems/Intake.h src/Subsystems/Autonomous.cpp src/Subsystems/Autonomous.h src/Subsystems/Vision.cpp src/Subsystems/Vision.h src/Subsystems/Climber.cpp src/Subsystems/Climber.h)
 
 add_executable(fake_frcUserProgram ${SOURCES} ${ALL_INCLUDES})
 

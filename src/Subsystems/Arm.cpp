@@ -49,10 +49,10 @@ void Arm::SetSequence(bool * intakeSeq, int * seqPos, int len) {
 
 bool Arm::TurnTo(double degrees, bool compensate) {
     if(fmod(fabs(this->GetAngle() - degrees), 360) < 8 || compensate) {
-	    this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.2*cos((this->GetAngle()*PI/180)));
+	    this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.3*cos((this->GetAngle()*PI/180)));
         return true;
     } else {
-        this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? .2*cos((this->GetAngle()*PI/180)) : -.75*cos((this->GetAngle()*PI/180)));
+        this->armMotor->Set((this->GetAngle() < 30) ? (((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.85*cos((this->GetAngle()*PI/180))) : (((this->GetAngle() - degrees) > 0) ? .4*cos((this->GetAngle()*PI/180)) : -.1*cos((this->GetAngle()*PI/180))));
         return false;
     }
 }
