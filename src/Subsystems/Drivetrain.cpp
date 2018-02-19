@@ -12,8 +12,8 @@ Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
     this->br = new SwerveModule(BACK_RIGHT_STEER, BACK_RIGHT_DRIVE, BR_STEER_ENCODER, BR_OFFSET, false);
     this->rangeFinder = new AnalogInput(RANGE_FINDER);
     this->desiredHeading = 0;
-	this->driveEnc = new Encoder(CIMCODER_A, CIMCODER_B);
-	this->driveEnc->SetDistancePerPulse(DIST_PER_PULSE);
+	this->driveEnc = new Encoder(DRIVE_CIMCODER_A, DRIVE_CIMCODER_B);
+	this->driveEnc->SetDistancePerPulse(DRIVE_DIST_PER_PULSE);
     /*this->pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot::gyro.get(), pidOutput, 0.002);
     this->pid->SetContinuous(true);
     this->pid->SetPercentTolerance(1);
