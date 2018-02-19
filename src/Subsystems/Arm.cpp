@@ -1,6 +1,5 @@
 #include <Robot.h>
 #include "Arm.h"
-#include "Intake.h"
 
 Arm::Arm() {
     this->armMotor = new WPI_TalonSRX(ARM_SRX);
@@ -8,8 +7,8 @@ Arm::Arm() {
     this->intakeClosed = true;
     this->intakeKicked = false;
     this->ToggleIntake();
-    this->cimcoder = new Encoder(CIMCODER_A, CIMCODER_B);
-    this->cimcoder->SetDistancePerPulse(DIST_PER_PULSE);
+    this->cimcoder = new Encoder(WINCH_CIMCODER_A, WINCH_CIMCODER_B);
+    this->cimcoder->SetDistancePerPulse(WINCH_DIST_PER_PULSE);
     this->cimcoder->Reset();
     this->targetPos = cimcoder->GetDistance();
 }
@@ -54,3 +53,4 @@ void Arm::Open() {
 double Arm::GetCurrent() {
     return this->armMotor->GetOutputCurrent();
 }
+

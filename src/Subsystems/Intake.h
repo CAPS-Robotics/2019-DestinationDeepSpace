@@ -2,6 +2,7 @@
 #define FRC2018_INTAKE_H
 
 #include "wpilib.h"
+#include "ctre/Phoenix.h"
 #include "RobotMap.h"
 
 class Intake {

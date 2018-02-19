@@ -10,21 +10,23 @@ std::shared_ptr<OI> Robot::oi;
 std::shared_ptr<Arm> Robot::arm;
 std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Autonomous> Robot::autonomous;
+std::shared_ptr<Climber> Robot::climber;
 
 Robot::Robot() {
 
 }
 
 void Robot::RobotInit() {
+	Robot::climber.reset(new Climber());
 	Robot::vision.reset(new Vision());
     Robot::gyro.reset(new PigeonNav());
     Robot::drivetrain.reset(new Drivetrain());
     Robot::arm.reset(new Arm());
-    Robot::oi.reset(new OI());
+	Robot::oi.reset(new OI());
 	Robot::autonomous.reset(new Autonomous());
 	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
 	vidyo->SetResolution(320, 240);
-	vidyo->SetBrightness(10);
+	vidyo->SetBrightness(CAMERA_BRIGHTNESS);
     CameraServer::GetInstance()->StartAutomaticCapture(*vidyo);
 	this->autoPicker = new SendableChooser<AutoStations>();
 	this->autoPicker->AddDefault("Middle Station Auton", CENTER);
@@ -53,6 +55,10 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
     SmartDashboard::PutData("Auto Picker", this->autoPicker);
+	SmartDashboard::PutNumber("Arm angle", Robot::arm->GetAngle());
+	SmartDashboard::PutNumber("Arm raw", Robot::arm->armMotor->GetSensorCollection().GetAnalogIn());
+	SmartDashboard::PutNumber("Intake angle", Robot::arm->intake->GetAngle());
+	SmartDashboard::PutNumber("Intake raw", Robot::arm->intake->intakeMotor->GetSensorCollection().GetAnalogIn());
 }
 
 void Robot::AutonomousInit() {
@@ -71,7 +77,8 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-    this->arm->cimcoder->Reset();
+  this->arm->cimcoder->Reset();
+	this->drivetrain->StartTravel();
 }
 
 void Robot::TeleopPeriodic() {
@@ -96,8 +103,10 @@ void Robot::TeleopPeriodic() {
     /*gp = (float)SmartDashboard::GetNumber("gyro p", 0.0);
     gi = (float)SmartDashboard::GetNumber("gyro i", 0.0);
     gd = (float)SmartDashboard::GetNumber("gyro d", 0.0);*/
+
     Robot::oi->pollButtons();
     Robot::arm->Loop();
+
     Robot::drivetrain->JoystickDrive();
     /*Robot::drivetrain->SetPID(gp, gi, gd);
     Robot::drivetrain->fl->setPID(smp, smi, smd);

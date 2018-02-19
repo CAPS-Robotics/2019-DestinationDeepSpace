@@ -6,12 +6,14 @@
 Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
     //pidOutput = new NumericalPIDOutput();
     Robot::gyro.get();
-    this->fl = new SwerveModule(FL_TALON_SRX, FL_DRIVE_TALON, FL_STEER_ENCODER, FL_OFFSET, true);
-    this->fr = new SwerveModule(FR_TALON_SRX, FR_DRIVE_TALON, FR_STEER_ENCODER, FR_OFFSET, false);
-    this->bl = new SwerveModule(BL_TALON_SRX, BL_DRIVE_TALON, BL_STEER_ENCODER, BL_OFFSET, true);
-    this->br = new SwerveModule(BR_TALON_SRX, BR_DRIVE_TALON, BR_STEER_ENCODER, BR_OFFSET, false);
+    this->fl = new SwerveModule(FRONT_LEFT_STEER, FRONT_LEFT_DRIVE, FL_STEER_ENCODER, FL_OFFSET, true);
+    this->fr = new SwerveModule(FRONT_RIGHT_STEER, FRONT_RIGHT_DRIVE, FR_STEER_ENCODER, FR_OFFSET, false);
+    this->bl = new SwerveModule(BACK_LEFT_STEER, BACK_LEFT_DRIVE, BL_STEER_ENCODER, BL_OFFSET, true);
+    this->br = new SwerveModule(BACK_RIGHT_STEER, BACK_RIGHT_DRIVE, BR_STEER_ENCODER, BR_OFFSET, false);
     this->rangeFinder = new AnalogInput(RANGE_FINDER);
     this->desiredHeading = 0;
+	this->driveEnc = new Encoder(CIMCODER_A, CIMCODER_B);
+	this->driveEnc->SetDistancePerPulse(DIST_PER_PULSE);
     /*this->pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot::gyro.get(), pidOutput, 0.002);
     this->pid->SetContinuous(true);
     this->pid->SetPercentTolerance(1);
@@ -81,6 +83,9 @@ void Drivetrain::ArcadeDrive(double forward, double rotation, double speedMultip
 void Drivetrain::CrabDrive(double x, double y, double rotation, double speedMultiplier, bool useGyro) {
     double forward, strafe;
     SmartDashboard::PutNumber("FL Angle", fl->GetAngle());
+	SmartDashboard::PutNumber("x", x);
+	SmartDashboard::PutNumber("y", y);
+	SmartDashboard::PutNumber("speed", speedMultiplier);
     SmartDashboard::PutNumber("FR Angle", fr->GetAngle());
     SmartDashboard::PutNumber("BL Angle", bl->GetAngle());
     SmartDashboard::PutNumber("BR Angle", br->GetAngle());
@@ -162,6 +167,14 @@ void Drivetrain::CrabDrive(double x, double y, double rotation, double speedMult
 }
 double Drivetrain::wrap(double num, double max, double min) {
     return (num-min)-(max-min)*floor((num-min)/(max-min))+min;
+}
+
+void Drivetrain::StartTravel() {
+	driveEnc->Reset();
+}
+
+double Drivetrain::GetTravel() {
+	return driveEnc->GetDistance();
 }
 
 /*void Drivetrain::SetPID(float p, float i, float d) {

@@ -5,9 +5,18 @@
 #include "ctre/Phoenix.h"
 #include "RobotMap.h"
 #include "Intake.h"
+#include <string>
 
 class Arm {
+private:
+
 public:
+	int seqStage;
+	bool * intakeSeq;
+	int * seqPos;
+	int seqLen;
+	double armPos;
+	double intakePos;
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;

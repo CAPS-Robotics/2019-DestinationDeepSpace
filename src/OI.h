@@ -17,6 +17,7 @@ public:
     double GetSlider();
     double GetStick();
     double applyDeadzone(double val, double deadzone, double maxval);
+	double GetAnalogY(int stickNum);
 };
 
 #endif

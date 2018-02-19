@@ -1,3 +1,4 @@
+#include <Robot.h>
 #include "Intake.h"
 
 Intake::Intake() {
@@ -22,5 +23,3 @@ bool Intake::SetKicked(bool forward) {
     }
     return forward;
 }
-
-
