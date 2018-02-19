@@ -1,76 +1,56 @@
+#include <Robot.h>
 #include "Arm.h"
 
 Arm::Arm() {
-    this->armMotor = new WPI_TalonSRX(ARM_CIM);
-	this->armMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::Analog, 0, 0);
-	this->armMotor->ConfigSetParameter(ParamEnum::eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-	this->intake = new Intake();
-    this->Open();
-    this->seqStage = 0;
-    this->intakeSeq = new bool[0];
-    this->seqPos = new int[0];
-	this->seqLen = 0;
-	this->armPos = this->GetAngle();
-	this->intakePos = this->intake->GetAngle();
-}
-
-void Arm::SetSetpoint() {
-	this->armPos = this->GetAngle();
-	this->intakePos = this->intake->GetAngle();
+    this->armMotor = new WPI_TalonSRX(ARM_SRX);
+    this->intake = new Intake();
+    this->intakeClosed = true;
+    this->intakeKicked = false;
+    this->ToggleIntake();
+    this->cimcoder = new Encoder(WINCH_CIMCODER_A, WINCH_CIMCODER_B);
+    this->cimcoder->SetDistancePerPulse(WINCH_DIST_PER_PULSE);
+    this->cimcoder->Reset();
+    this->targetPos = cimcoder->GetDistance();
 }
 
 void Arm::Loop() {
-    if(seqStage < seqLen) {
-        if(intakeSeq[seqStage]) {
-	        this->TurnTo(armPos, true);
-	        intakePos = seqPos[seqStage];
-            if(this->intake->TurnTo(seqPos[seqStage], false)) {
-                seqStage++;
-            }
+    if(!Robot::oi->joy1->GetRawButton(5) && !Robot::oi->joy1->GetRawButton(3) && fabs(this->GetCurrent()) < 30) {
+        if (fabs(this->cimcoder->GetDistance() - this->targetPos) < .5) {
+            this->armMotor->Set(0);
+        } else if (this->targetPos - this->cimcoder->GetDistance() > 0) {
+            this->armMotor->Set(1);
         } else {
-	        this->intake->TurnTo(intakePos, true);
-	        armPos = seqPos[seqStage];
-            if(this->TurnTo(seqPos[seqStage], false)) {
-                seqStage++;
-            }
+            this->armMotor->Set(-1);
         }
-    } else {
-	    this->TurnTo(armPos, false);
-	    this->intake->TurnTo(intakePos, false);
+    }
+    if(fabs(this->GetCurrent()) > 30) {
+        this->armMotor->Set(0);
     }
 }
 
-void Arm::SetSequence(bool * intakeSeq, int * seqPos, int len) {
-    this->seqStage = 0;
-    this->intakeSeq = intakeSeq;
-    this->seqPos = seqPos;
-	this->seqLen = len;
+void Arm::MoveTo(double position) {
+    this->targetPos = position;
 }
 
-bool Arm::TurnTo(double degrees, bool compensate) {
-    if(fmod(fabs(this->GetAngle() - degrees), 360) < 8 || compensate) {
-	    this->armMotor->Set(((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.3*cos((this->GetAngle()*PI/180)));
-        return true;
-    } else {
-        this->armMotor->Set((this->GetAngle() < 30) ? (((this->GetAngle() - degrees) > 0) ? -.1*cos((this->GetAngle()*PI/180)) : -.85*cos((this->GetAngle()*PI/180))) : (((this->GetAngle() - degrees) > 0) ? .4*cos((this->GetAngle()*PI/180)) : -.1*cos((this->GetAngle()*PI/180))));
-        return false;
-    }
+void Arm::ToggleIntake() {
+    this->intakeClosed = this->intake->SetState(!intakeClosed);
 }
 
-void Arm::Toggle() {
-    intakeClosed = intake->SetState(!intakeClosed);
+void Arm::ToggleKick() {
+    this->intakeKicked = this->intake->SetKicked(!intakeKicked);
 }
 
 void Arm::Close() {
-    intakeClosed = true;
-    intake->SetState(true);
+    this->intakeClosed = true;
+    this->intake->SetState(true);
 }
 
 void Arm::Open() {
-    intakeClosed = false;
-    intake->SetState(false);
+    this->intakeClosed = false;
+    this->intake->SetState(false);
 }
 
-double Arm::GetAngle() {
-    return (this->armMotor->GetSensorCollection().GetAnalogIn() - ARM_OFFSET) * (360.0/(1024.0*GR));
+double Arm::GetCurrent() {
+    return this->armMotor->GetOutputCurrent();
 }
+

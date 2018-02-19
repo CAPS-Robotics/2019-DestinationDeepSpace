@@ -77,8 +77,8 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+  this->arm->cimcoder->Reset();
 	this->drivetrain->StartTravel();
-	this->arm->SetSetpoint();
 }
 
 void Robot::TeleopPeriodic() {
@@ -93,22 +93,20 @@ void Robot::TeleopPeriodic() {
     SmartDashboard::PutNumber("Distance Away", Robot::drivetrain->GetDistanceAway());
     SmartDashboard::PutNumber("Heading", Robot::gyro->GetHeading());
 	SmartDashboard::PutNumber("CenterX", vision->GetCentralValue());
-	SmartDashboard::PutNumber("Arm angle", Robot::arm->GetAngle());
-	SmartDashboard::PutNumber("Arm raw", Robot::arm->armMotor->GetSensorCollection().GetAnalogIn());
-	SmartDashboard::PutNumber("Intake angle", Robot::arm->intake->GetAngle());
-	SmartDashboard::PutNumber("Intake raw", Robot::arm->intake->intakeMotor->GetSensorCollection().GetAnalogIn());
-	SmartDashboard::PutNumber("Travel", Robot::drivetrain->GetTravel());
-	SmartDashboard::PutNumber("Sequence stage", this->arm->seqStage);
-	SmartDashboard::PutNumber("Sequence length", this->arm->seqLen);
-	//SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
+    SmartDashboard::PutNumber("Elevator Height", Robot::arm->cimcoder->GetDistance());
+    SmartDashboard::PutNumber("Target Height", Robot::arm->targetPos);
+    SmartDashboard::PutNumber("Arm Current", Robot::arm->GetCurrent());
+    //SmartDashboard::PutNumber("Desired Heading", /*Drivetrain::wrap(*/Robot::drivetrain->desiredHeading/*+180.0, -180.0, 180.0)*/);
     smp = (float)SmartDashboard::GetNumber("swerve p", 0.0);
     smi = (float)SmartDashboard::GetNumber("swerve i", 0.0);
     smd = (float)SmartDashboard::GetNumber("swerve d", 0.0);
     /*gp = (float)SmartDashboard::GetNumber("gyro p", 0.0);
     gi = (float)SmartDashboard::GetNumber("gyro i", 0.0);
     gd = (float)SmartDashboard::GetNumber("gyro d", 0.0);*/
-	Robot::oi->pollButtons();
-	Robot::arm->Loop();
+
+    Robot::oi->pollButtons();
+    Robot::arm->Loop();
+
     Robot::drivetrain->JoystickDrive();
     /*Robot::drivetrain->SetPID(gp, gi, gd);
     Robot::drivetrain->fl->setPID(smp, smi, smd);

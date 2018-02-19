@@ -9,12 +9,13 @@ public:
     OI();
     bool canPress[12];
     Joystick * joy1;
-	XboxController * buttonPad;
+    XboxController * buttonPad;
     void pollButtons();
     double GetX();
     double GetY();
     double GetTwist();
     double GetSlider();
+    double GetStick();
     double applyDeadzone(double val, double deadzone, double maxval);
 	double GetAnalogY(int stickNum);
 };

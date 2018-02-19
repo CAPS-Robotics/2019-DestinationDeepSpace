@@ -20,17 +20,18 @@ public:
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;
-	AnalogInput * armEncoder;
+    Encoder * cimcoder;
     double position;
     bool intakeClosed;
-	void SetSetpoint();
-    bool TurnTo(double degrees, bool compensate);
-    void SetSequence(bool * intakeSeq, int * seqPos, int len);
+    bool intakeKicked;
+    double targetPos;
     void Loop();
-    void Toggle();
+    void ToggleIntake();
+    void ToggleKick();
     void Close();
     void Open();
-    double GetAngle();
+    void MoveTo(double position);
+    double GetCurrent();
 };
 
 
