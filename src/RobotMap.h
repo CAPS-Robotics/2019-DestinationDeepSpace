@@ -18,11 +18,9 @@ const int FRONT_LEFT_STEER = 4;
 const int BACK_LEFT_STEER = 5;
 const int BACK_LEFT_DRIVE = 6;
 const int ARM_CIM = 7;
-const int INTAKE_SRX = 8;
-const int BACK_RIGHT_DRIVE = 9;
-const int BACK_RIGHT_STEER = 10;
-const int CLIMB_CIM = 11;
-const int PCM = 12;
+const int BACK_RIGHT_DRIVE = 8;
+const int BACK_RIGHT_STEER = 9;
+const int PCM = 10;
 
 //PCM Addresses
 const int INTAKE_FORWARD = 7;
@@ -47,6 +45,7 @@ const float FL_OFFSET = 4.5690;
 const float FR_OFFSET = 2.0739;
 const float BL_OFFSET = 2.4523;
 const float BR_OFFSET = 2.4340;
+const float SONAR_CENTER = 0;
 
 const int CAMERA_BRIGHTNESS = 7;
 const double GR = 1.2;

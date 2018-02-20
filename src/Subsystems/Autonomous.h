@@ -7,6 +7,8 @@ class Autonomous {
 private:
     int autoNum;
     bool left;
+	bool scLeft;
+	bool autoSc;
 	int state;
 	Timer * timer;
 public:
@@ -17,6 +19,8 @@ public:
 	void StraightAhead(bool left);
 	void HalfWay(bool left);
 	void GoAround(bool left);
+	void ScaleAhead(bool left);
+	void ScaleAcross(bool left);
 };
 
 #endif //FRC2018_AUTONOMOUS_H
