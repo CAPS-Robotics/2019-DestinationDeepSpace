@@ -5,7 +5,6 @@
 #include <Subsystems/PigeonNav.h>
 #include <OI.h>
 #include <string>
-#include <Subsystems/Climber.h>
 
 class Robot: public frc::IterativeRobot {
 	enum AutoStations {
@@ -36,7 +35,6 @@ public:
 	static std::shared_ptr<Arm> arm;
 	static std::shared_ptr<Autonomous> autonomous;
 	static std::shared_ptr<Vision> vision;
-	static std::shared_ptr<Climber> climber;
 private:
 
 };

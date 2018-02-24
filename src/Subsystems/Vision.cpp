@@ -4,6 +4,22 @@
 #include <networktables/NetworkTableInstance.h>
 
 Vision::Vision() {
+	cam0 = new cs::UsbCamera("cam0", 0);
+	cam0->SetResolution(320, 240);
+	cam0->SetBrightness(10);
+	cam1 = new cs::UsbCamera("cam1", 1);
+	cam1->SetResolution(320, 240);
+	cam1->SetBrightness(10);
+	cvsink0 = new cs::CvSink("cam0cv");
+	cvsink0->SetSource(*cam0);
+	cvsink0->SetEnabled(true);
+	cvsink1 = new cs::CvSink("cam1cv");
+	cvsink1->SetSource(*cam1);
+	cvsink1->SetEnabled(true);
+	CameraServer::GetInstance()->StartAutomaticCapture(*cam0);
+	CameraServer::GetInstance()->StartAutomaticCapture(*cam1);
+	server = CameraServer::GetInstance()->GetServer();
+	SetCamera(0);
 	table = nt::NetworkTableInstance::GetDefault().GetTable("GRIP/AllDemContours");
 	this->Update();
 }
@@ -25,6 +41,10 @@ double Vision::GetCentralValue() {
 	return theCenterX;
 }
 
-void Vision::InitDefaultCommand() {
-
+void Vision::SetCamera(int camera) {
+	if(camera == 0) {
+		server.SetSource(*cam0);
+	} else {
+		server.SetSource(*cam1);
+	}
 }

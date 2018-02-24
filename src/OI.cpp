@@ -70,32 +70,32 @@ void OI::pollButtons() {
 }
 
 double OI::GetX() {
-	return this->applyDeadzone(joy1->GetRawAxis(0), 0.15, 1);
+    return this->applyDeadzone(joy1->GetRawAxis(0), 0.15, 1);
 }
 
 double OI::GetY() {
-	return this->applyDeadzone(-joy1->GetRawAxis(1), 0.15, 1);
+    return this->applyDeadzone(-joy1->GetRawAxis(1), 0.15, 1);
 }
 
 double OI::GetTwist() {
-	return this->applyDeadzone(joy1->GetRawAxis(2), 0.70, 1) / 2;
+    return this->applyDeadzone(joy1->GetRawAxis(2), 0.70, 1) / 2;
 }
 
 double OI::GetSlider() {
-	return joy1->GetRawAxis(3);
+    return joy1->GetRawAxis(3);
 }
 
 double OI::GetAnalogY(int stickNum) {
-	return this->applyDeadzone(buttonPad->GetRawAxis((stickNum*2)+1), 0.50, 1);
+    return this->applyDeadzone(buttonPad->GetRawAxis((stickNum*2)+1), 0.50, 1);
 }
 
 double OI::applyDeadzone(double val, double deadzone, double maxval) {
-	if (fabs(val) <= deadzone) {
-		return 0;
-	}
-	double sign = val / fabs(val);
-	val = sign * maxval * (fabs(val) - deadzone) / (maxval - deadzone);
-	return val;
+    if (fabs(val) <= deadzone) {
+        return 0;
+    }
+    double sign = val / fabs(val);
+    val = sign * maxval * (fabs(val) - deadzone) / (maxval - deadzone);
+    return val;
 }
 
 double OI::GetStick() {

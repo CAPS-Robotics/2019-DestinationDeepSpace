@@ -11,16 +11,16 @@ const float GYRO_D = 2;*/
 
 //CAN IDs
 const int FRONT_RIGHT_STEER = 1;
-const int FRONT_RIGHT_DRIVE = 2;
-const int PIGEON_IMU_SRX = 2;
-const int FRONT_LEFT_DRIVE = 3;
-const int FRONT_LEFT_STEER = 4;
-const int BACK_LEFT_STEER = 5;
-const int BACK_LEFT_DRIVE = 6;
-const int ARM_CIM = 7;
-const int BACK_RIGHT_DRIVE = 8;
-const int BACK_RIGHT_STEER = 9;
-const int PCM = 10;
+const int FRONT_RIGHT_DRIVE = 3;
+const int FRONT_LEFT_DRIVE = 0;
+const int FRONT_LEFT_STEER = 2;
+const int BACK_LEFT_STEER = 4;
+const int PIGEON_IMU_SRX = 3;
+const int BACK_LEFT_DRIVE = 1;
+const int ARM_CIM = 3;
+const int BACK_RIGHT_DRIVE = 2;
+const int BACK_RIGHT_STEER = 0;
+const int PCM = 6;
 
 //PCM Addresses
 const int INTAKE_FORWARD = 7;
@@ -35,16 +35,16 @@ const int BL_STEER_ENCODER = 2;
 const int BR_STEER_ENCODER = 3;
 const int RANGE_FINDER = 4;
 
-const int WINCH_CIMCODER_A = 0;
-const int WINCH_CIMCODER_B = 1;
+const int WINCH_CIMCODER_A = 2;
+const int WINCH_CIMCODER_B = 3;
 const int DRIVE_CIMCODER_A = 0;
 const int DRIVE_CIMCODER_B = 1;
 
 //Offsets
-const float FL_OFFSET = 4.5690;
-const float FR_OFFSET = 2.0739;
-const float BL_OFFSET = 2.4523;
-const float BR_OFFSET = 2.4340;
+const float FL_OFFSET = 2.337645989;
+const float FR_OFFSET = 2.458495842;
+const float BL_OFFSET = 2.03857401;
+const float BR_OFFSET = 4.5117185440000003;
 const float SONAR_CENTER = 0;
 
 const int CAMERA_BRIGHTNESS = 7;

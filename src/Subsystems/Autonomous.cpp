@@ -5,13 +5,13 @@ Autonomous::Autonomous() = default;
 
 void Autonomous::Init(int station, std::string data) {
 	state = 0;
-    if(station == 1) {
-        this->autoNum = 1;
-    } else if((station == 0 && data[0] == 'L') || (station == 2 && data[0] == 'R')) {
-        this->autoNum = 0;
-    } else {
-        this->autoNum = 2;
-    }
+	if(station == 1) {
+		this->autoNum = 1;
+	} else if((station == 0 && data[0] == 'L') || (station == 2 && data[0] == 'R')) {
+		this->autoNum = 0;
+	} else {
+		this->autoNum = 2;
+	}
 	this->left = data[0] == 'L';
 	this->scLeft = data[1] == 'L';
 	this->autoSc = left == scLeft;
@@ -142,14 +142,24 @@ void Autonomous::GoAround(bool left) {
 			}
 			break;
 		case 6:
-			Robot::drivetrain->CrabDrive(1, 0, 0, .5, false);
-			if(Robot::drivetrain->GetTravel() >= 100) state++;
+			Robot::drivetrain->CrabDrive(0, 1, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 100) {
+				Robot::drivetrain->StartTravel();
+				state++;
+			}
 			break;
 		case 7:
-			Robot::drivetrain->CrabDrive(0, 0, Robot::gyro->GetHeading() < 180 ? 1 : -1, 0.5, false);
-			if(fabs(Robot::gyro->GetHeading() - 180) < 5) state++;
-			break;
+			Robot::drivetrain->CrabDrive(left ? -1 : 1, 0, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 30.5) state++;
 		case 8:
+			Robot::drivetrain->CrabDrive(0, 0, Robot::gyro->GetHeading() > 0 ? 1 : -1, 0.5, false);
+			if(fabs(Robot::gyro->GetHeading() - 180) < 5) {
+				Robot::arm->Open();
+				Robot::arm->KickDown();
+				state++;
+			}
+			break;
+		case 9:
 			Robot::arm->Open();
 			Robot::drivetrain->CrabDrive(0, -1, 0, 0.25, false);
 			if(Robot::drivetrain->GetDistanceAway() < 2) {
@@ -170,9 +180,85 @@ void Autonomous::GoAround(bool left) {
 }
 
 void Autonomous::ScaleAhead(bool left) {
-
+	switch(state) {
+		case 10:
+			Robot::arm->MoveTo(72);
+			state++;
+			break;
+		case 11:
+			Robot::drivetrain->CrabDrive(0, 0, Robot::gyro->GetHeading() < 0 ? 1 : -1, 0.5, false);
+			if(fabs(Robot::gyro->GetHeading()) < 5) {
+				Robot::drivetrain->StartTravel();
+				state++;
+			}
+			break;
+		case 12:
+			Robot::drivetrain->CrabDrive(scLeft ? -1 : 1, 0, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 18) {
+				Robot::drivetrain->StartTravel();
+				Robot::arm->KickUp();
+				state++;
+			}
+			break;
+		case 13:
+			Robot::drivetrain->CrabDrive(0, 1, 0, .75, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 65) {
+				Robot::arm->Open();
+				Robot::arm->KickDown();
+				Robot::drivetrain->StartTravel();
+				state++;
+			}
+			break;
+		case 14:
+			Robot::drivetrain->CrabDrive(0, -1, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 21) {
+				Robot::arm->MoveTo(0);
+				state++;
+			}
+		default:
+			Robot::drivetrain->Brake();
+			break;
+	}
 }
 
 void Autonomous::ScaleAcross(bool left) {
-
+	switch(state) {
+		case 10:
+			Robot::arm->MoveTo(72);
+			state++;
+			break;
+		case 11:
+			Robot::drivetrain->CrabDrive(0, 0, Robot::gyro->GetHeading() < 0 ? 1 : -1, 0.5, false);
+			if(fabs(Robot::gyro->GetHeading()) < 5) {
+				Robot::drivetrain->StartTravel();
+				state++;
+			}
+			break;
+		case 12:
+			Robot::drivetrain->CrabDrive(scLeft ? 1 : -1, 0, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 159) {
+				Robot::drivetrain->StartTravel();
+				Robot::arm->KickUp();
+				state++;
+			}
+			break;
+		case 13:
+			Robot::drivetrain->CrabDrive(0, 1, 0, .75, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 65) {
+				Robot::arm->Open();
+				Robot::arm->KickDown();
+				Robot::drivetrain->StartTravel();
+				state++;
+			}
+			break;
+		case 14:
+			Robot::drivetrain->CrabDrive(0, -1, 0, .5, false);
+			if(fabs(Robot::drivetrain->GetTravel()) >= 21) {
+				Robot::arm->MoveTo(0);
+				state++;
+			}
+		default:
+			Robot::drivetrain->Brake();
+			break;
+	}
 }

@@ -10,28 +10,22 @@ std::shared_ptr<OI> Robot::oi;
 std::shared_ptr<Arm> Robot::arm;
 std::shared_ptr<Vision> Robot::vision;
 std::shared_ptr<Autonomous> Robot::autonomous;
-std::shared_ptr<Climber> Robot::climber;
 
 Robot::Robot() {
 
 }
 
 void Robot::RobotInit() {
-	Robot::climber.reset(new Climber());
 	Robot::vision.reset(new Vision());
     Robot::gyro.reset(new PigeonNav());
     Robot::drivetrain.reset(new Drivetrain());
     Robot::arm.reset(new Arm());
 	Robot::oi.reset(new OI());
 	Robot::autonomous.reset(new Autonomous());
-	cs::UsbCamera * vidyo = new cs::UsbCamera("Vidyo", 0);
-	vidyo->SetResolution(320, 240);
-	vidyo->SetBrightness(CAMERA_BRIGHTNESS);
-    CameraServer::GetInstance()->StartAutomaticCapture(*vidyo);
 	this->autoPicker = new SendableChooser<AutoStations>();
 	this->autoPicker->AddDefault("Middle Station Auton", CENTER);
-	/*this->autoPicker->AddObject("Left Station Auton", 0);
-	this->autoPicker->AddObject("Right Station Auton", 2);*/
+	this->autoPicker->AddObject("Left Station Auton", LEFT);
+	this->autoPicker->AddObject("Right Station Auton", RIGHT);
 	SmartDashboard::PutData("Auto Picker", this->autoPicker);
 	smp = SWERVE_MODULE_P;
     smi = SWERVE_MODULE_I;
@@ -55,10 +49,15 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
     SmartDashboard::PutData("Auto Picker", this->autoPicker);
-	SmartDashboard::PutNumber("Arm angle", Robot::arm->GetAngle());
-	SmartDashboard::PutNumber("Arm raw", Robot::arm->armMotor->GetSensorCollection().GetAnalogIn());
-	SmartDashboard::PutNumber("Intake angle", Robot::arm->intake->GetAngle());
-	SmartDashboard::PutNumber("Intake raw", Robot::arm->intake->intakeMotor->GetSensorCollection().GetAnalogIn());
+	SmartDashboard::PutNumber("FL Voltage", Robot::drivetrain->fl->positionEncoder->GetVoltage());
+	SmartDashboard::PutNumber("FR Voltage", Robot::drivetrain->fr->positionEncoder->GetVoltage());
+	SmartDashboard::PutNumber("BL Voltage", Robot::drivetrain->bl->positionEncoder->GetVoltage());
+	SmartDashboard::PutNumber("BR Voltage", Robot::drivetrain->br->positionEncoder->GetVoltage());
+	SmartDashboard::PutNumber("FL Angle", Robot::drivetrain->fl->GetAngle());
+	SmartDashboard::PutNumber("FR Angle", Robot::drivetrain->fr->GetAngle());
+	SmartDashboard::PutNumber("BL Angle", Robot::drivetrain->bl->GetAngle());
+	SmartDashboard::PutNumber("BR Angle", Robot::drivetrain->br->GetAngle());
+
 }
 
 void Robot::AutonomousInit() {
@@ -108,11 +107,11 @@ void Robot::TeleopPeriodic() {
     Robot::arm->Loop();
 
     Robot::drivetrain->JoystickDrive();
-    /*Robot::drivetrain->SetPID(gp, gi, gd);
+    /*Robot::drivetrain->SetPID(gp, gi, gd);*/
     Robot::drivetrain->fl->setPID(smp, smi, smd);
     Robot::drivetrain->fr->setPID(smp, smi, smd);
     Robot::drivetrain->bl->setPID(smp, smi, smd);
-    Robot::drivetrain->br->setPID(smp, smi, smd);*/
+    Robot::drivetrain->br->setPID(smp, smi, smd);
 }
 
 void Robot::TestPeriodic() {}

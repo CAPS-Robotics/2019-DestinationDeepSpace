@@ -5,16 +5,16 @@
 
 class Autonomous {
 private:
-    int autoNum;
-    bool left;
+	int autoNum;
+	bool left;
 	bool scLeft;
 	bool autoSc;
 	int state;
 	Timer * timer;
 public:
-    Autonomous();
-    void Init(int station, std::string data);
-    void Loop();
+	Autonomous();
+	void Init(int station, std::string data);
+	void Loop();
 	void CrossField(bool left);
 	void StraightAhead(bool left);
 	void HalfWay(bool left);
