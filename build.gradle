@@ -32,11 +32,11 @@ model {
             sources.cpp {
                 // This is where our source files are located (src/cpp for C++ files, src/include for headers)
                 source {
-                    srcDirs = ['src/cpp']
+                    srcDirs = ['src']
                     include '**/*.cpp'
                 }
                 exportedHeaders{
-                    srcDirs = ['src/cpp', 'src/include']
+                    srcDirs = ['src']
                     include '**/*.hpp', '**/*.h'
                 }
 

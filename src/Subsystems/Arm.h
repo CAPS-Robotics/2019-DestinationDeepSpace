@@ -9,14 +9,7 @@
 
 class Arm {
 private:
-
 public:
-	int seqStage;
-	bool * intakeSeq;
-	int * seqPos;
-	int seqLen;
-	double armPos;
-	double intakePos;
     Arm();
     WPI_TalonSRX * armMotor;
     Intake * intake;
@@ -32,6 +25,8 @@ public:
     void Open();
     void MoveTo(double position);
     double GetCurrent();
+	void KickUp();
+	void KickDown();
 };
 
 

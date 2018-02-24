@@ -2,7 +2,7 @@
 #include "Arm.h"
 
 Arm::Arm() {
-    this->armMotor = new WPI_TalonSRX(ARM_SRX);
+    this->armMotor = new WPI_TalonSRX(ARM_CIM);
     this->intake = new Intake();
     this->intakeClosed = true;
     this->intakeKicked = false;
@@ -41,13 +41,19 @@ void Arm::ToggleKick() {
 }
 
 void Arm::Close() {
-    this->intakeClosed = true;
-    this->intake->SetState(true);
+    this->intakeClosed = this->intake->SetState(true);
 }
 
 void Arm::Open() {
-    this->intakeClosed = false;
-    this->intake->SetState(false);
+    this->intakeClosed = this->intake->SetState(false);
+}
+
+void Arm::KickDown() {
+    this->intakeKicked = this->intake->SetKicked(true);
+}
+
+void Arm::KickUp() {
+    this->intakeKicked = this->intake->SetKicked(false);
 }
 
 double Arm::GetCurrent() {
