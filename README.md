@@ -36,6 +36,7 @@ Tabs, not spaces (spaces for alignment only)
 Spaces after if, for, while, switch, etc. but not after functions
 Brackets on new line
 e.g.:
+
 ```
 function foo(bar)
 {
