@@ -11,9 +11,9 @@ public class OI
 
 	public OI()
 	{
-		for (boolean canPressi : canPress)
+		for (int i = 0; i < canPress.length; i++)
 		{
-			canPressi = true;
+			canPress[i] = true;
 		}
 		joy1 = new Joystick(0);
 		buttonPad = new XboxController(1);
@@ -116,12 +116,12 @@ public class OI
 		return this.applyDeadzone(-joy1.getRawAxis(1), 0.15, 1);
 	}
 
-	double getTwist()
+	public double getTwist()
 	{
 		return this.applyDeadzone(joy1.getRawAxis(2), 0.70, 1) / 2;
 	}
 
-	double getSlider()
+	public double getSlider()
 	{
 		return joy1.getRawAxis(3);
 	}
