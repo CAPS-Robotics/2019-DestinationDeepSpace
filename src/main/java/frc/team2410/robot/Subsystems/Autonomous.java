@@ -1,275 +1,279 @@
-package frc.team2410.robot;
+package frc.team2410.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Robot;
+import frc.team2410.robot.RobotMap;
 
-//Autonomous::Autonomous() = default;
 public class Autonomous
 {
 	private int autoNum;
-	private bool left;
-	private bool scLeft;
-	private bool autoSc;
+	private boolean left;
+	private boolean scLeft;
+	private boolean autoSc;
 	private int state;
 	private Timer timer;
-	
-	public void Init(int station, String data)
+	Autonomous() {
+		super();
+	}
+	public void init(int station, String data)
 	{
 		state = 0;
+		this.left = data.charAt(0) == 'L';
+		this.scLeft = data.charAt(1) == 'L';
+		this.autoSc = left == scLeft;
 		if (station == 1) {
 			this.autoNum = 1;
-		} else if ((station == 0 && data[0] == 'L') || (station == 2 && data[0] == 'R')) {
+		} else if ((station == 0 && left) || (station == 2 && !left)) {
 			this.autoNum = 0;
 		} else {
 			this.autoNum = 2;
 		}
-		this.left = data[0] == 'L';
-		this.scLeft = data[1] == 'L';
-		this.autoSc = left == scLeft;
 		timer = new Timer();
 	}
 
-	public void Loop() {
+	public void loop() {
 		switch(autoNum) {
 			case 0:
-				StraightAhead(this.left);
+				straightAhead(this.left);
 				break;
 			case 1:
-				HalfWay(this.left);
+				halfWay(this.left);
 				break;
 			case 2:
-				CrossField(this.left);
+				crossField(this.left);
 				break;
 		}
 	}
 
-	public void CrossField(bool left) {
+	public void crossField(boolean left) {
 		switch(state) {
 			case 0:
-				timer.Reset();
-				timer.Start();
-				Robot.arm.MoveTo(22);
+				timer.reset();
+				timer.start();
+				Robot.arm.moveTo(22);
 				state++;
 				break;
 			case 1:
-				Robot.drivetrain.CrabDrive(left ? -1 : 1, .2, 0, 1, false);
-				SmartDashboard.PutNumber("time", timer.Get());
-				if(Robot.vision.GetCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
-				if(timer.Get() > 1.5) { state = -1; }
+				Robot.drivetrain.crabDrive(left ? -1 : 1, .2, 0, 1, false);
+				SmartDashboard.putNumber("time", timer.get());
+				if(Robot.vision.getCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.getCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+				if(timer.get() > 1.5) { state = -1; }
 				break;
 			case 2:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .75, false);
-				if(Robot.drivetrain.GetDistanceAway() < 42) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
+				if(Robot.drivetrain.getDistanceAway() < 42) state++;
 				break;
 			case 3:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .25, false);
-				if(Robot.drivetrain.GetDistanceAway() < 12) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .25, false);
+				if(Robot.drivetrain.getDistanceAway() < 12) state++;
 				break;
 			default:
-				this.GoAround(left);
+				this.goAround(left);
 				break;
 			case -1:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
 	}
 
-	public void StraightAhead(bool left) {
+	public void straightAhead(boolean left) {
 		switch(state) {
 			case 0:
-				timer.Reset();
-				timer.Start();
-				Robot.arm.MoveTo(22);
+				timer.reset();
+				timer.start();
+				Robot.arm.moveTo(22);
 				state++;
 				break;
 			case 1:
-				Robot.drivetrain.CrabDrive(left ? .2 : -.2, 1, 0, 1, false);
-				SmartDashboard.PutNumber("time", timer.Get());
-				if(Robot.vision.GetCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
-				if(timer.Get() > 1.5) { state = -1; }
+				Robot.drivetrain.crabDrive(left ? .2 : -.2, 1, 0, 1, false);
+				SmartDashboard.putNumber("time", timer.get());
+				if(Robot.vision.getCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.getCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+				if(timer.get() > 1.5) { state = -1; }
 				break;
 			case 2:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .75, false);
-				if(Robot.drivetrain.GetDistanceAway() < 42) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
+				if(Robot.drivetrain.getDistanceAway() < 42) state++;
 				break;
 			case 3:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .25, false);
-				if(Robot.drivetrain.GetDistanceAway() < 12) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .25, false);
+				if(Robot.drivetrain.getDistanceAway() < 12) state++;
 				break;
 			default:
-				this.GoAround(left);
+				this.goAround(left);
 				break;
 			case -1:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
 	}
 
-	void Autonomous.HalfWay(bool left) {
+	void halfWay(boolean left) {
 		switch(state) {
 			case 0:
-				timer.Reset();
-				timer.Start();
-				Robot.arm.MoveTo(22);
+				timer.reset();
+				timer.start();
+				Robot.arm.moveTo(22);
 				state++;
 				break;
 			case 1:
-				Robot.drivetrain.CrabDrive(left ? -1 : 1, 1, 0, 1, false);
-				SmartDashboard.PutNumber("time", timer.Get());
-				if(Robot.vision.GetCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.GetCentralValue() < 200 + (left ? -80 : 80)) { state++; }
-				if(timer.Get() > 1.5) { state = -1; }
+				Robot.drivetrain.crabDrive(left ? -1 : 1, 1, 0, 1, false);
+				SmartDashboard.putNumber("time", timer.get());
+				if(Robot.vision.getCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.getCentralValue() < 200 + (left ? -80 : 80)) { state++; }
+				if(timer.get() > 1.5) { state = -1; }
 				break;
 			case 2:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .75, false);
-				if(Robot.drivetrain.GetDistanceAway() < 42) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
+				if(Robot.drivetrain.getDistanceAway() < 42) state++;
 				break;
 			case 3:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .25, false);
-				if(Robot.drivetrain.GetDistanceAway() < 12) state++;
+				Robot.drivetrain.crabDrive(0, 1, 0, .25, false);
+				if(Robot.drivetrain.getDistanceAway() < 12) state++;
 				break;
 			default:
-				this.GoAround(left);
+				this.goAround(left);
 				break;
 			case -1:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
 	}
 
-	void Autonomous.GoAround(bool left) {
+	void goAround(boolean left) {
 		switch(state) {
 			case 4:
-				Robot.drivetrain.CrabDrive(left ? -1 : 1, 0 , 0, .5, false);
-				if(Robot.drivetrain.GetDistanceAway() > 50) {
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(left ? -1 : 1, 0 , 0, .5, false);
+				if(Robot.drivetrain.getDistanceAway() > 50) {
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 5:
-				Robot.drivetrain.CrabDrive(left ? -1 : 1, 0 , 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 24 + left ? SONAR_CENTER : -SONAR_CENTER) {
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(left ? -1 : 1, 0 , 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 24 + (left ? RobotMap.SONAR_CENTER : -RobotMap.SONAR_CENTER)) {
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 6:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 100) {
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(0, 1, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 100) {
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 7:
-				Robot.drivetrain.CrabDrive(left ? -1 : 1, 0, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 30.5) state++;
+				Robot.drivetrain.crabDrive(left ? -1 : 1, 0, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 30.5) state++;
 			case 8:
-				Robot.drivetrain.CrabDrive(0, 0, Robot.gyro.GetHeading() > 0 ? 1 : -1, 0.5, false);
-				if(fabs(Robot.gyro.GetHeading() - 180) < 5) {
-					Robot.arm.Open();
-					Robot.arm.KickDown();
+				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() > 0 ? 1 : -1, 0.5, false);
+				if(Math.abs(Robot.gyro.getHeading() - 180) < 5) {
+					Robot.arm.open();
+					Robot.arm.kickDown();
 					state++;
 				}
 				break;
 			case 9:
-				Robot.arm.Open();
-				Robot.drivetrain.CrabDrive(0, -1, 0, 0.25, false);
-				if(Robot.drivetrain.GetDistanceAway() < 2) {
-					Robot.arm.Close();
+				Robot.arm.open();
+				Robot.drivetrain.crabDrive(0, -1, 0, 0.25, false);
+				if(Robot.drivetrain.getDistanceAway() < 2) {
+					Robot.arm.close();
 					state++;
 				}
 				break;
 			default:
 				if(autoSc)
-					ScaleAhead(scLeft);
+					scaleAhead(scLeft);
 				else
-					ScaleAcross(scLeft);
+					scaleAcross(scLeft);
 				break;
 			case -1:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
 	}
 
-	void Autonomous.ScaleAhead(bool left) {
+	void scaleAhead(boolean left) {
 		switch(state) {
 			case 10:
-				Robot.arm.MoveTo(72);
+				Robot.arm.moveTo(72);
 				state++;
 				break;
 			case 11:
-				Robot.drivetrain.CrabDrive(0, 0, Robot.gyro.GetHeading() < 0 ? 1 : -1, 0.5, false);
-				if(fabs(Robot.gyro.GetHeading()) < 5) {
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() < 0 ? 1 : -1, 0.5, false);
+				if(Math.abs(Robot.gyro.getHeading()) < 5) {
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 12:
-				Robot.drivetrain.CrabDrive(scLeft ? -1 : 1, 0, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 18) {
-					Robot.drivetrain.StartTravel();
-					Robot.arm.KickUp();
+				Robot.drivetrain.crabDrive(scLeft ? -1 : 1, 0, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 18) {
+					Robot.drivetrain.startTravel();
+					Robot.arm.kickUp();
 					state++;
 				}
 				break;
 			case 13:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .75, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 65) {
-					Robot.arm.Open();
-					Robot.arm.KickDown();
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 65) {
+					Robot.arm.open();
+					Robot.arm.kickDown();
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 14:
-				Robot.drivetrain.CrabDrive(0, -1, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 21) {
-					Robot.arm.MoveTo(0);
+				Robot.drivetrain.crabDrive(0, -1, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 21) {
+					Robot.arm.moveTo(0);
 					state++;
 				}
 			default:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
 	}
 
-	void Autonomous.ScaleAcross(bool left) {
+	void scaleAcross(boolean left) {
 		switch(state) {
 			case 10:
-				Robot.arm.MoveTo(72);
+				Robot.arm.moveTo(72);
 				state++;
 				break;
 			case 11:
-				Robot.drivetrain.CrabDrive(0, 0, Robot.gyro.GetHeading() < 0 ? 1 : -1, 0.5, false);
-				if(fabs(Robot.gyro.GetHeading()) < 5) {
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() < 0 ? 1 : -1, 0.5, false);
+				if(Math.abs(Robot.gyro.getHeading()) < 5) {
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 12:
-				Robot.drivetrain.CrabDrive(scLeft ? 1 : -1, 0, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 159) {
-					Robot.drivetrain.StartTravel();
-					Robot.arm.KickUp();
+				Robot.drivetrain.crabDrive(scLeft ? 1 : -1, 0, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 159) {
+					Robot.drivetrain.startTravel();
+					Robot.arm.kickUp();
 					state++;
 				}
 				break;
 			case 13:
-				Robot.drivetrain.CrabDrive(0, 1, 0, .75, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 65) {
-					Robot.arm.Open();
-					Robot.arm.KickDown();
-					Robot.drivetrain.StartTravel();
+				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 65) {
+					Robot.arm.open();
+					Robot.arm.kickDown();
+					Robot.drivetrain.startTravel();
 					state++;
 				}
 				break;
 			case 14:
-				Robot.drivetrain.CrabDrive(0, -1, 0, .5, false);
-				if(fabs(Robot.drivetrain.GetTravel()) >= 21) {
-					Robot.arm.MoveTo(0);
+				Robot.drivetrain.crabDrive(0, -1, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 21) {
+					Robot.arm.moveTo(0);
 					state++;
 				}
 			default:
-				Robot.drivetrain.Brake();
+				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
 }

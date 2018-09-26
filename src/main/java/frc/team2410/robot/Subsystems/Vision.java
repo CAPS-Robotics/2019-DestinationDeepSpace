@@ -48,7 +48,7 @@ public class Vision
 		width = table.getEntry("width").getNumberArray(new Number[0]);
 	}
 	
-	double getCentralValue() {
+	public double getCentralValue() {
 		this.update();
 		double theCenterX = 0;
 		for (Number aCenterX : centerX) {

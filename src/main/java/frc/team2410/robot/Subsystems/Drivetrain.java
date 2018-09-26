@@ -50,7 +50,7 @@ public class Drivetrain {
 		}
 	}
 	
-	double getDistanceAway() {
+	public double getDistanceAway() {
 		return this.rangeFinder.getVoltage()/0.012446;
 	}
 	
@@ -61,7 +61,7 @@ public class Drivetrain {
 		this.br.returnToZero();
 	}
 	
-	void brake() {
+	public void brake() {
 		this.fl.drive(0, 0);
 		this.fr.drive(0, 0);
 		this.bl.drive(0, 0);
@@ -93,7 +93,7 @@ public class Drivetrain {
 		this.br.drive((forward-rotation*1/Math.sqrt(2)-correction)*speedMultiplier, 0);
 	}
 	
-	void crabDrive(double x, double y, double rotation, double speedMultiplier, boolean useGyro) {
+	public void crabDrive(double x, double y, double rotation, double speedMultiplier, boolean useGyro) {
 		double forward, strafe;
 		SmartDashboard.putNumber("FL Angle", fl.getAngle());
 		SmartDashboard.putNumber("x", x);
@@ -175,11 +175,11 @@ public class Drivetrain {
 		return (num-min)-(max-min)*Math.floor((num-min)/(max-min))+min;
 	}
 	
-	void startTravel() {
+	public void startTravel() {
 		driveEnc.reset();
 	}
 	
-	double getTravel() {
+	public double getTravel() {
 		return driveEnc.getDistance();
 	}
 	/*void Drivetrain.SetPID(float p, float i, float d) {
