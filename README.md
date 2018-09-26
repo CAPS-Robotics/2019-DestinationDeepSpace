@@ -26,6 +26,11 @@ Use the Java branch for converted code.
     <td>1 (open), 0 (closed)</td>
     <td>True (open), False (closed)</td>
   </tr>
+  <tr>
+    <th>Namespaces and Pointers</th>
+    <td>(ex) Robot::oi->joy1</td>
+    <td>(ex) Robot.oi.joy1</td>
+  </tr>
 </table>
 See more: http://first.wpi.edu/Images/CMS/First/WPILibUsersGuide.pdf
 
