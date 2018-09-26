@@ -31,4 +31,17 @@ See more: http://first.wpi.edu/Images/CMS/First/WPILibUsersGuide.pdf
 
 <hr>
 <h2>Style Guide</h2>
-tbd
+(not final)
+Tabs, not spaces (spaces for alignment only)
+Spaces after if, for, while, switch, etc. but not after functions
+Brackets on new line
+e.g.:
+```
+function foo(bar)
+{
+  if (bar)
+  {
+    fooBar();
+  }
+}
+```
