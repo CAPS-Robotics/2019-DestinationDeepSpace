@@ -31,17 +31,15 @@ See more: http://first.wpi.edu/Images/CMS/First/WPILibUsersGuide.pdf
 
 <hr>
 <h2>Style Guide</h2>
-(not public static static final)
-Tabs, not spaces (spaces for alignment only)
-Spaces after if, for, while, switch, etc. but not after functions
-Brackets on new line
+(not final)<br>
+Tabs, not spaces (spaces for alignment only)<br>
+Spaces after if, for, while, switch, etc. but not after functions<br>
+Open brackets on same line, closed on new<br>
 e.g.:
 
 ```
-function foo(bar)
-{
-  if (bar)
-  {
+function foo(bar) {
+  if (bar) {
     fooBar();
   }
 }
