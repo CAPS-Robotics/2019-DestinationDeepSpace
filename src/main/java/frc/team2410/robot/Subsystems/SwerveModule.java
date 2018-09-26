@@ -20,7 +20,7 @@ public class SwerveModule
 	public AnalogInput positionEncoder;
 	public boolean zeroing;
 
-	public SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, boolean isInverted) //: Subsystem("SwerveModule") {
+	public SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, boolean isInverted) {
 		this.steer = new WPI_TalonSRX(steerMotor);
 		//this->steer->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
 		this.offset = offset;
