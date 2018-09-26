@@ -34,14 +34,12 @@ See more: http://first.wpi.edu/Images/CMS/First/WPILibUsersGuide.pdf
 (not final)<br>
 Tabs, not spaces (spaces for alignment only)<br>
 Spaces after if, for, while, switch, etc. but not after functions<br>
-Brackets on new line<br>
+Open brackets on same line, closed on new<br>
 e.g.:
 
 ```
-function foo(bar)
-{
-  if (bar)
-  {
+function foo(bar) {
+  if (bar) {
     fooBar();
   }
 }
