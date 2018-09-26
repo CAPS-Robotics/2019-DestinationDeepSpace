@@ -20,8 +20,7 @@ public class SwerveModule
 	public AnalogInput positionEncoder;
 	public boolean zeroing;
 
-	public SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, boolean isInverted) //: Subsystem("SwerveModule")
-	{
+	public SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, boolean isInverted) //: Subsystem("SwerveModule") {
 		this.steer = new WPI_TalonSRX(steerMotor);
 		//this->steer->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
 		this.offset = offset;
@@ -39,63 +38,52 @@ public class SwerveModule
 		zeroing = false;
 	}
 
-	public void initDefaultCommand()
-	{
+	public void initDefaultCommand() {
 
 	}
 
-	public void setPID(float p, float i, float d)
-	{
+	public void setPID(float p, float i, float d) {
 		this.pid.setPID(p, i, d);
 	}
 
-	public void drive(double speed, double setpoint)
-	{
+	public void drive(double speed, double setpoint) {
 		speed = Math.abs(speed) > 0.1 ? speed : 0;
 		setpoint /= 72.f;
 		double currentPos = (this.positionEncoder.getVoltage() - offset + 5) % 5;
 		double dist = setpoint - currentPos;
 
-		if (Math.abs(dist) > 1.25 && Math.abs(dist) < 3.75)
-		{
+		if (Math.abs(dist) > 1.25 && Math.abs(dist) < 3.75) {
 			setpoint = (setpoint + 2.5) % 5;
 			speed *= -1;
 		}
 
-		if (speed == 0 || Math.abs(speed - currentSpeed) > 1.f)
-		{
+		if (speed == 0 || Math.abs(speed - currentSpeed) > 1.f) {
 			currentSpeed = 0;
-		} else if (currentSpeed > speed)
-		{
+		} else if (currentSpeed > speed) {
 			currentSpeed -= 0.04;
-		} else if (currentSpeed < speed)
-		{
+		} else if (currentSpeed < speed) {
 			currentSpeed += 0.04;
 		}
 
 		putNumber("Distance", dist);
 
-		if (this.getAngle() < 1 || this.getAngle() > 359)
-		{
+		if (this.getAngle() < 1 || this.getAngle() > 359) {
 			zeroing = false;
 		}
 
-		if (!zeroing)
-		{
+		if (!zeroing) {
 			this.pid.setSetpoint((setpoint + offset) % 5);
 		}
 		this.drive.set(currentSpeed);
 	}
 
-	void returnToZero()
-	{
+	void returnToZero() {
 		this.pid.setSetpoint(offset);
 		//SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
 		zeroing = true;
 	}
 
-	double getAngle()
-	{
+	double getAngle() {
 		return (this.positionEncoder.getVoltage() - offset + 5) % 5 * 72.f;
 	}
 }
