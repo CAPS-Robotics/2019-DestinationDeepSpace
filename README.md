@@ -31,10 +31,10 @@ See more: http://first.wpi.edu/Images/CMS/First/WPILibUsersGuide.pdf
 
 <hr>
 <h2>Style Guide</h2>
-(not final)
-Tabs, not spaces (spaces for alignment only)
-Spaces after if, for, while, switch, etc. but not after functions
-Brackets on new line
+(not final)<br>
+Tabs, not spaces (spaces for alignment only)<br>
+Spaces after if, for, while, switch, etc. but not after functions<br>
+Brackets on new line<br>
 e.g.:
 
 ```
