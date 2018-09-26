@@ -16,11 +16,11 @@ public class Vision
 	CvSink cvsink1;
 	VideoSink server;
 	NetworkTable table;
-	Vector centerX;
-	Vector centerY;
-	Vector height;
-	Vector width;
-	Vision() {
+	Number[] centerX;
+	Number[] centerY;
+	Number[] height;
+	Number[] width;
+	public Vision() {
 		cam0 = new UsbCamera("cam0", 0);
 		cam0.setResolution(320, 240);
 		cam0.setBrightness(10);
@@ -42,24 +42,24 @@ public class Vision
 	}
 	
 	void update() {
-		centerX = table.getNumberArray("centerX", ArrayRef<double>());
-		centerY = table.getNumberArray("centerY", llvm::ArrayRef<double>());
-		height = table.getNumberArray("height", llvm::ArrayRef<double>());
-		width = table.getNumberArray("width", llvm::ArrayRef<double>());
+		centerX = table.getEntry("centerX").getNumberArray(new Number[0]);
+		centerY = table.getEntry("centerY").getNumberArray(new Number[0]);
+		height = table.getEntry("height").getNumberArray(new Number[0]);
+		width = table.getEntry("width").getNumberArray(new Number[0]);
 	}
 	
 	double getCentralValue() {
 		this.update();
 		double theCenterX = 0;
-		for (unsigned int i = 0; i < centerX.size(); i++) {
-			theCenterX += centerX[i];
+		for (Number aCenterX : centerX) {
+			theCenterX += (double)aCenterX;
 		}
-		if(centerX.size() != 0) { theCenterX /= centerX.size(); }
+		if (centerX.length != 0) { theCenterX /= centerX.length; }
 		return theCenterX;
 	}
 		
 		void setCamera(int camera) {
-		if(camera == 0) {
+		if (camera == 0) {
 			server.setSource(cam0);
 		} else {
 			server.setSource(cam1);
