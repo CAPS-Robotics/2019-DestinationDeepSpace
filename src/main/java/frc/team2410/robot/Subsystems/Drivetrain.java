@@ -54,7 +54,7 @@ public class Drivetrain {
 		return this.rangeFinder.getVoltage()/0.012446;
 	}
 	
-	void returnWheelsToZero() {
+	public void returnWheelsToZero() {
 		this.fl.returnToZero();
 		this.fr.returnToZero();
 		this.bl.returnToZero();
