@@ -15,10 +15,10 @@ public class SwerveModule
 	Talon drive;
 	private float offset;
 	private float currentSpeed;
-	public WPI_TalonSRX steer;
-	public PIDController pid;
+	WPI_TalonSRX steer;
+	PIDController pid;
 	public AnalogInput positionEncoder;
-	public boolean zeroing;
+	boolean zeroing;
 
 	public SwerveModule(int steerMotor, int driveMotor, int encoder, float offset, boolean isInverted) {
 		this.steer = new WPI_TalonSRX(steerMotor);
@@ -83,7 +83,7 @@ public class SwerveModule
 		zeroing = true;
 	}
 
-	double getAngle() {
+	public double getAngle() {
 		return (this.positionEncoder.getVoltage() - offset + 5) % 5 * 72.f;
 	}
 }

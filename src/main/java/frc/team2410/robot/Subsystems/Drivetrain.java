@@ -7,13 +7,13 @@ import frc.team2410.robot.Robot;
 import frc.team2410.robot.RobotMap;
 
 public class Drivetrain {
-	private AnalogInput rangeFinder;
-	public double desiredHeading;
+	AnalogInput rangeFinder;
+	double desiredHeading;
 	public SwerveModule fl;
 	public SwerveModule fr;
 	public SwerveModule bl;
 	public SwerveModule br;
-	public Encoder driveEnc;
+	Encoder driveEnc;
 	//public PIDController pid;
 	//public NumericalPIDOutput pidOutput;
 	public Drivetrain() {
@@ -35,7 +35,7 @@ public class Drivetrain {
 		this.pid.SetEnabled(true);*/
 	}
 	
-	void JoystickDrive() {
+	public void joystickDrive() {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
 		if(Robot.oi.joy1.getPOV() == 0) {
 			Robot.drivetrain.drive(0, Robot.oi.getY(), speedMultiplier);
@@ -61,7 +61,7 @@ public class Drivetrain {
 		this.br.returnToZero();
 	}
 	
-	public void brake() {
+	void brake() {
 		this.fl.drive(0, 0);
 		this.fr.drive(0, 0);
 		this.bl.drive(0, 0);
@@ -171,7 +171,7 @@ public class Drivetrain {
 		}
 	}
 	
-	double wrap(double num, double max, double min) {
+	private double wrap(double num, double max, double min) {
 		return (num-min)-(max-min)*Math.floor((num-min)/(max-min))+min;
 	}
 	

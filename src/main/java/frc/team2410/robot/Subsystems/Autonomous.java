@@ -13,7 +13,7 @@ public class Autonomous
 	private boolean autoSc;
 	private int state;
 	private Timer timer;
-	Autonomous() {
+	public Autonomous() {
 		super();
 	}
 	public void init(int station, String data)
@@ -46,7 +46,7 @@ public class Autonomous
 		}
 	}
 
-	public void crossField(boolean left) {
+	void crossField(boolean left) {
 		switch(state) {
 			case 0:
 				timer.reset();
@@ -77,7 +77,7 @@ public class Autonomous
 		}
 	}
 
-	public void straightAhead(boolean left) {
+	void straightAhead(boolean left) {
 		switch(state) {
 			case 0:
 				timer.reset();
