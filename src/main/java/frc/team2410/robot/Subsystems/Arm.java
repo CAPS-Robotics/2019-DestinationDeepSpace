@@ -5,8 +5,7 @@ import frc.team2410.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 
-public class Arm
-{
+public class Arm {
 
 	public WPI_TalonSRX armMotor;
 	private Intake intake;
@@ -16,8 +15,7 @@ public class Arm
 	private boolean intakeKicked;
 	public double targetPos;
 
-	public Arm()
-	{
+	public Arm() {
 		this.armMotor = new WPI_TalonSRX(RobotMap.ARM_CIM);
 		this.intake = new Intake();
 		this.intakeClosed = true;
@@ -29,67 +27,53 @@ public class Arm
 		this.targetPos = cimcoder.getDistance();
 	}
 
-	public void loop()
-	{
-		if (!Robot.oi.joy1.getRawButton(5) && !Robot.oi.joy1.getRawButton(3) && Math.abs(this.getCurrent()) < 30)
-		{
-			if (Math.abs(this.cimcoder.getDistance() - this.targetPos) < .5)
-			{
+	public void loop() {
+		if (!Robot.oi.joy1.getRawButton(5) && !Robot.oi.joy1.getRawButton(3) && Math.abs(this.getCurrent()) < 30) {
+			if (Math.abs(this.cimcoder.getDistance() - this.targetPos) < .5) {
 				this.armMotor.set(0);
 			}
-			else if (this.targetPos - this.cimcoder.getDistance() > 0)
-			{
+			else if (this.targetPos - this.cimcoder.getDistance() > 0) {
 				this.armMotor.set(1);
 			}
-			else
-			{
+			else {
 				this.armMotor.set(-1);
 			}
 		}
 
-		if (Math.abs(this.getCurrent()) > 30)
-		{
+		if (Math.abs(this.getCurrent()) > 30) {
 			this.armMotor.set(0);
 		}
 	}
 
-	public void moveTo(double pos)
-	{
+	public void moveTo(double pos) {
 		this.targetPos = pos;
 	}
 
-	public void toggleIntake()
-	{
+	public void toggleIntake() {
 		this.intakeClosed = this.intake.setState(!intakeClosed);
 	}
 
-	public void toggleKick()
-	{
+	public void toggleKick() {
 		this.intakeKicked = this.intake.setKicked(!intakeKicked);
 	}
 
-	public void close()
-	{
+	public void close() {
 		this.intakeClosed = this.intake.setState(true);
 	}
 
-	public void open()
-	{
+	public void open() {
 		this.intakeClosed = this.intake.setState(false);
 	}
 
-	public void kickDown()
-	{
+	public void kickDown() {
 		this.intakeKicked = this.intake.setKicked(true);
 	}
 
-	public void kickUp()
-	{
+	public void kickUp() {
 		this.intakeKicked = this.intake.setKicked(false);
 	}
 
-	public double getCurrent()
-	{
+	public double getCurrent() {
 		return this.armMotor.getOutputCurrent();
 	}
 }
