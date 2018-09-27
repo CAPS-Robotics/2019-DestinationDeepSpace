@@ -10,7 +10,7 @@ public class NumericalPIDOutput
 		return num;
 	}
 
-	public void writePID(double output)
+	public void pidWrite(double output)
 	{
 		this.num = output;
 	}
