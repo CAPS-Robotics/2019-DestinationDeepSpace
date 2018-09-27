@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.PIDOutput;
 public class NumericalPIDOutput
 {
 	public double num;
-	public double Get()
+	public double get()
 	{
 		return num;
 	}
 
-	public void PIDWrite(double output)
+	public void writePID(double output)
 	{
 		this.num = output;
 	}
