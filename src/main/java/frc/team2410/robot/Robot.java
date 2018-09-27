@@ -1,5 +1,6 @@
 package frc.team2410.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -68,7 +69,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
 	}
 	public void autonomousInit() {
-		//this.autonomous.Init(/*(int)SmartDashboard.getNumber("Auto Picked", 0)*/1, frc.DriverStation.getInstance().getGameSpecificMessage());
+		autonomous.init(/*(int)SmartDashboard.getNumber("Auto Picked", 0)*/1, DriverStation.getInstance().getGameSpecificMessage());
 	}
 	
 	public void autonomousPeriodic() {
@@ -79,7 +80,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Distance Away", drivetrain.getDistanceAway());
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
-		//this.autonomous.Loop();
+		autonomous.loop();
 	}
 	
 	public void teleopInit() {
