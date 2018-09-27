@@ -45,16 +45,16 @@ public class Robot extends IterativeRobot
 		smp = RobotMap.SWERVE_MODULE_P;
 		smi = RobotMap.SWERVE_MODULE_I;
 		smd = RobotMap.SWERVE_MODULE_D;
-	    /*gp = GYRO_P;
-	    gi = GYRO_I;
-	    gd = GYRO_D;*/
+		/*gp = GYRO_P;
+		gi = GYRO_I;
+		gd = GYRO_D;*/
 		SmartDashboard.putString("Auto Picked", ""+this.autoPicker.getSelected());
 		SmartDashboard.putNumber("swerve p", smp);
 		SmartDashboard.putNumber("swerve i", smi);
 		SmartDashboard.putNumber("swerve d", smd);
-	    /*SmartDashboard.putNumber("gyro p", gp);
-	    SmartDashboard.putNumber("gyro i", gi);
-	    SmartDashboard.putNumber("gyro d", gd);*/
+		/*SmartDashboard.putNumber("gyro p", gp);
+		SmartDashboard.putNumber("gyro i", gi);
+		SmartDashboard.putNumber("gyro d", gd);*/
 	}
 	public void disabledInit() {}
 	public void disabledPeriodic() {
@@ -107,9 +107,9 @@ public class Robot extends IterativeRobot
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
 		smi = (float)SmartDashboard.getNumber("swerve i", 0.0);
 		smd = (float)SmartDashboard.getNumber("swerve d", 0.0);
-	    /*gp = (float)SmartDashboard.getNumber("gyro p", 0.0);
-	    gi = (float)SmartDashboard.getNumber("gyro i", 0.0);
-	    gd = (float)SmartDashboard.getNumber("gyro d", 0.0);*/
+		/*gp = (float)SmartDashboard.getNumber("gyro p", 0.0);
+		gi = (float)SmartDashboard.getNumber("gyro i", 0.0);
+		gd = (float)SmartDashboard.getNumber("gyro d", 0.0);*/
 		
 		oi.pollButtons();
 		arm.loop();

@@ -1,8 +1,6 @@
 # 2018-PowerUp
 <h2>What is this?</h2>
 This is the repository for the FRC2410 C++-to-Java robot rewrite.
-Use the Java branch for converted code.
-
 <hr>
 <h2>Differences between Java and C++:</h2>
 <table>
