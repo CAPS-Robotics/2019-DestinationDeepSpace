@@ -18,7 +18,7 @@ public class Robot extends IterativeRobot
 		LEFT,
 		CENTER,
 		RIGHT
-	};
+	}
 	SendableChooser<AutoStations> autoPicker;
 	public float smp;
 	public float smi;
@@ -69,7 +69,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
 	}
 	public void autonomousInit() {
-		autonomous.init(/*(int)SmartDashboard.getNumber("Auto Picked", 0)*/1, DriverStation.getInstance().getGameSpecificMessage());
+		autonomous.init((int)SmartDashboard.getNumber("Auto Picked", 0), DriverStation.getInstance().getGameSpecificMessage());
 	}
 	
 	public void autonomousPeriodic() {

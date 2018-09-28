@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class Arm {
-
+	
 	public WPI_TalonSRX armMotor;
 	private Intake intake;
 	public Encoder cimcoder;
@@ -26,8 +26,9 @@ public class Arm {
 		this.cimcoder.reset();
 		this.targetPos = cimcoder.getDistance();
 	}
-
+	
 	public void loop() {
+		//keeps elevator within half an inch of target position
 		if (!Robot.oi.joy1.getRawButton(5) && !Robot.oi.joy1.getRawButton(3) && Math.abs(this.getCurrent()) < 30) {
 			if (Math.abs(this.cimcoder.getDistance() - this.targetPos) < .5) {
 				this.armMotor.set(0);
@@ -39,7 +40,7 @@ public class Arm {
 				this.armMotor.set(-1);
 			}
 		}
-
+		//software breaker
 		if (Math.abs(this.getCurrent()) > 30) {
 			this.armMotor.set(0);
 		}

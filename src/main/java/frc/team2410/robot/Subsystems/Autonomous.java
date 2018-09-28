@@ -16,8 +16,8 @@ public class Autonomous
 	public Autonomous() {
 		super();
 	}
-	public void init(int station, String data)
-	{
+	public void init(int station, String data) {
+		//sets which auto to run based on field data
 		state = 0;
 		this.left = data.charAt(0) == 'L';
 		this.scLeft = data.charAt(1) == 'L';
@@ -49,26 +49,32 @@ public class Autonomous
 	void crossField(boolean left) {
 		switch(state) {
 			case 0:
+				//lifts arm to switch height
 				timer.reset();
 				timer.start();
 				Robot.arm.moveTo(22);
 				state++;
 				break;
 			case 1:
+				//Moves across the field to the opposite side switch vision target
 				Robot.drivetrain.crabDrive(left ? -1 : 1, .2, 0, 1, false);
 				SmartDashboard.putNumber("time", timer.get());
 				if(Robot.vision.getCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.getCentralValue() < 200 + (left ? -80 : 80)) { state++; }
-				if(timer.get() > 1.5) { state = -1; }
+				//We've gone too far.  Abort.
+				if(timer.get() > 1.5) state = -1;
 				break;
 			case 2:
+				//Goes fast straight until it's close enough
 				Robot.drivetrain.crabDrive(0, 1, 0, .75, false);
 				if(Robot.drivetrain.getDistanceAway() < 42) state++;
 				break;
 			case 3:
+				//Goes slow straight until it's even closer
 				Robot.drivetrain.crabDrive(0, 1, 0, .25, false);
 				if(Robot.drivetrain.getDistanceAway() < 12) state++;
 				break;
 			default:
+				//Go around the switch
 				this.goAround(left);
 				break;
 			case -1:
@@ -80,12 +86,14 @@ public class Autonomous
 	void straightAhead(boolean left) {
 		switch(state) {
 			case 0:
+				//Move arm to switch height
 				timer.reset();
 				timer.start();
 				Robot.arm.moveTo(22);
 				state++;
 				break;
 			case 1:
+				//
 				Robot.drivetrain.crabDrive(left ? .2 : -.2, 1, 0, 1, false);
 				SmartDashboard.putNumber("time", timer.get());
 				if(Robot.vision.getCentralValue() > 120 + (left ? -80 : 80) && Robot.vision.getCentralValue() < 200 + (left ? -80 : 80)) { state++; }
