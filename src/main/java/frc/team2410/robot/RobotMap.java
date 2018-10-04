@@ -51,6 +51,7 @@ public class RobotMap
 	public static final int CAMERA_BRIGHTNESS = 7;
 	public static final double GR = 1.2;
 	public static final float GEAR_DISTANCE = 9.3f;
+	//public static final int PI = 3.14159;
 	public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
 	public static final double WINCH_DIST_PER_PULSE = .005078;
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*PI/100.0;
