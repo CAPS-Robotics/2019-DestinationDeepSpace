@@ -8,6 +8,8 @@ import frc.team2410.robot.RobotMap;
 
 public class Drivetrain {
 	AnalogInput rangeFinder;
+	DoubleSolenoid shift;
+	public boolean speedShift;
 	double desiredHeading;
 	public SwerveModule fl;
 	public SwerveModule fr;
@@ -16,6 +18,7 @@ public class Drivetrain {
 	Encoder driveEnc;
 	//public PIDController pid;
 	//public NumericalPIDOutput pidOutput;
+	
 	public Drivetrain() {
 		//pidOutput = new NumericalPIDOutput();
 		//Robot.gyro.get(); wtf was this
@@ -27,6 +30,9 @@ public class Drivetrain {
 		this.desiredHeading = 0;
 		this.driveEnc = new Encoder(RobotMap.DRIVE_CIMCODER_A, RobotMap.DRIVE_CIMCODER_B);
 		this.driveEnc.setDistancePerPulse(RobotMap.DRIVE_DIST_PER_PULSE);
+		shift = new DoubleSolenoid(PCM, SHIFT_FORWARD, SHIFT_BACKWARD);
+		speedShift = true;
+		this.SetShift(true);
 		/*this.pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro.get(), pidOutput, 0.002);
 		this.pid.SetContinuous(true);
 		this.pid.SetPercentTolerance(1);
@@ -35,23 +41,29 @@ public class Drivetrain {
 		this.pid.SetEnabled(true);*/
 	}
 	
+	void Shift() {
+		speedShift = SetShift(!speedShift);
+	}
+	boolean SetShift(boolean shifted) {
+		if(shifted) {
+			shift.Set(DoubleSolenoid.Value.kReverse);
+		} else {
+			shift.Set(DoubleSolenoid.Value.kForward);
+		}
+		return shifted;
+	}
+	
 	public void joystickDrive() {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
-		if(Robot.oi.joy1.getPOV() == 0) {
-			Robot.drivetrain.drive(0, Robot.oi.getY(), speedMultiplier);
-		} else if(Robot.oi.joy1.getPOV() == 90) {
-			Robot.drivetrain.drive(90, -Robot.oi.getX(), speedMultiplier);
-		} else if(Robot.oi.joy1.getPOV() == 180) {
-			Robot.drivetrain.drive(180, -Robot.oi.getY(), speedMultiplier);
-		} else if(Robot.oi.joy1.getPOV() == 270) {
-			Robot.drivetrain.drive(270, Robot.oi.getX(), speedMultiplier);
-		} else {
+		/*if (Robot::oi->joy1->GetPOV(0) != -1) {
+		Robot::drivetrain->Drive(Robot::oi->joy1->GetPOV(0), 1, speedMultiplier);
+		} else {*/
 			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, false);
-		}
+		//}
 	}
 	
 	public double getDistanceAway() {
-		return this.rangeFinder.getVoltage()/0.012446;
+		return (this.rangeFinder.getVoltage()/0.012446);
 	}
 	
 	public void returnWheelsToZero() {

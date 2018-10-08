@@ -47,11 +47,12 @@ public class SwerveModule
 	}
 
 	public void drive(double speed, double setpoint) {
-		speed = Math.abs(speed) > 0.1 ? speed : 0;
+		speed = Math.abs(speed) > 0.1 ? speed : 0; // Buffer for speed
 		setpoint /= 72.f;
 		double currentPos = (this.positionEncoder.getVoltage() - offset + 5) % 5;
 		double dist = setpoint - currentPos;
 
+		// Converts 90-270 degrees to negative equivalents
 		if (Math.abs(dist) > 1.25 && Math.abs(dist) < 3.75) {
 			setpoint = (setpoint + 2.5) % 5;
 			speed *= -1;
@@ -67,6 +68,7 @@ public class SwerveModule
 
 		putNumber("Distance", dist);
 
+		// Buffer for zeroing
 		if (this.getAngle() < 1 || this.getAngle() > 359) {
 			zeroing = false;
 		}

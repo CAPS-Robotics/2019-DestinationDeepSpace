@@ -95,6 +95,7 @@ public class Robot extends IterativeRobot
 	}
 	
 	public void teleopPeriodic() {
+		// Output Info to Smart Dashboard
 		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
