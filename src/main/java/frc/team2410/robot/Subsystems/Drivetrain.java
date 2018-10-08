@@ -1,6 +1,7 @@
 package frc.team2410.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Robot;
@@ -30,9 +31,9 @@ public class Drivetrain {
 		this.desiredHeading = 0;
 		this.driveEnc = new Encoder(RobotMap.DRIVE_CIMCODER_A, RobotMap.DRIVE_CIMCODER_B);
 		this.driveEnc.setDistancePerPulse(RobotMap.DRIVE_DIST_PER_PULSE);
-		shift = new DoubleSolenoid(PCM, SHIFT_FORWARD, SHIFT_BACKWARD);
+		shift = new DoubleSolenoid(RobotMap.PCM, RobotMap.SHIFT_FORWARD, RobotMap.SHIFT_BACKWARD);
 		speedShift = true;
-		this.SetShift(true);
+		this.setShift(true);
 		/*this.pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro.get(), pidOutput, 0.002);
 		this.pid.SetContinuous(true);
 		this.pid.SetPercentTolerance(1);
@@ -41,14 +42,14 @@ public class Drivetrain {
 		this.pid.SetEnabled(true);*/
 	}
 	
-	void Shift() {
-		speedShift = SetShift(!speedShift);
+	public void shift() {
+		speedShift = setShift(!speedShift);
 	}
-	boolean SetShift(boolean shifted) {
+	boolean setShift(boolean shifted) {
 		if(shifted) {
-			shift.Set(DoubleSolenoid.Value.kReverse);
+			shift.set(DoubleSolenoid.Value.kReverse);
 		} else {
-			shift.Set(DoubleSolenoid.Value.kForward);
+			shift.set(DoubleSolenoid.Value.kForward);
 		}
 		return shifted;
 	}

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber;
 import static frc.team2410.robot.RobotMap.SWERVE_MODULE_D;
@@ -81,7 +82,7 @@ public class SwerveModule
 
 	void returnToZero() {
 		this.pid.setSetpoint(offset);
-		SmartDashboard.putNumber("Setpoint", this.pid.GetSetpoint());
+		SmartDashboard.putNumber("Setpoint", this.pid.getSetpoint());
 		zeroing = true;
 	}
 

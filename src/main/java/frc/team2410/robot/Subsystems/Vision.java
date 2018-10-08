@@ -6,6 +6,7 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
+import frc.team2410.robot.RobotMap;
 
 //TODO: fix it
 public class Vision
@@ -24,12 +25,12 @@ public class Vision
 	public Vision() {
 		cam0 = new UsbCamera("cam0", 0);
 		cam0.setResolution(320, 240);
-		cam0.setBrightness(CAMERA_BRIGHTNESS);
+		cam0.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
 		cam0.setFPS(10);
 		cam0.setExposureManual(/*CAMERA_EXPOSURE*/50);
 		cam1 = new UsbCamera("cam1", 1);
 		cam1.setResolution(320, 240);
-		cam1.setBrightness(CAMERA_BRIGHTNESS);
+		cam1.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
 		cam1.setFPS(10);
 		cam1.setExposureManual(/*CAMERA_EXPOSURE*/50);
 		CameraServer.getInstance().putVideo("GRIPCam", 320, 240);
@@ -76,7 +77,7 @@ public class Vision
 		return theCenterX;
 	}
 		
-		void setCamera(int camera) {
+		public void setCamera(int camera) {
 		this.camera = camera;
 		if (camera == 0) {
 			server.setSource(cam0);
