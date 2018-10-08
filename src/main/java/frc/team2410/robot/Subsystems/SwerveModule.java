@@ -12,7 +12,7 @@ import static frc.team2410.robot.RobotMap.SWERVE_MODULE_P;
 
 public class SwerveModule
 {
-	Talon drive;
+	WPI_TalonSRX drive;
 	private float offset;
 	private float currentSpeed;
 	WPI_TalonSRX steer;
@@ -24,7 +24,7 @@ public class SwerveModule
 		this.steer = new WPI_TalonSRX(steerMotor);
 		//this->steer->ConfigNeutralMode(TalonSRX::NeutralMode::kNeutralMode_Brake);
 		this.offset = offset;
-		this.drive = new Talon(driveMotor);
+		this.drive = new WPI_TalonSRX(driveMotor);
 		this.drive.setInverted(isInverted);
 		this.positionEncoder = new AnalogInput(encoder);
 		this.pid = new PIDController(SWERVE_MODULE_P, SWERVE_MODULE_I, SWERVE_MODULE_D, this.positionEncoder, this.steer, 0.002);
@@ -81,7 +81,7 @@ public class SwerveModule
 
 	void returnToZero() {
 		this.pid.setSetpoint(offset);
-		//SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
+		SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
 		zeroing = true;
 	}
 
