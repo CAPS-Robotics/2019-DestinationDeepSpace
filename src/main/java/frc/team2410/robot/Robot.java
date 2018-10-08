@@ -17,7 +17,9 @@ public class Robot extends IterativeRobot
 	enum AutoStations {
 		LEFT,
 		CENTER,
-		RIGHT
+		RIGHT,
+		SCLEFT,
+		SCRIGHT
 	}
 	SendableChooser<AutoStations> autoPicker;
 	public float smp;
@@ -37,10 +39,12 @@ public class Robot extends IterativeRobot
 		arm = new Arm();
 		oi = new OI();
 		autonomous = new Autonomous();
-		this.autoPicker = new SendableChooser<>();
-		this.autoPicker.addDefault("Middle Station Auton", AutoStations.CENTER);
-		this.autoPicker.addObject("Left Station Auton", AutoStations.LEFT);
-		this.autoPicker.addObject("Right Station Auton", AutoStations.RIGHT);
+		autoPicker = new SendableChooser<>();
+		autoPicker.addDefault("Middle Station Auto", AutoStations.CENTER);
+		autoPicker.addObject("Left Station Auto", AutoStations.LEFT);
+		autoPicker.addObject("Right Station Auto", AutoStations.RIGHT);
+		autoPicker.addObject("Left Station Scale Auto", AutoStations.SCLEFT);
+		autoPicker.addObject("Right Station Scale Auto", AutoStations.SCRIGHT);
 		SmartDashboard.putData("Auto Picker", this.autoPicker);
 		smp = RobotMap.SWERVE_MODULE_P;
 		smi = RobotMap.SWERVE_MODULE_I;
@@ -78,13 +82,15 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
 		SmartDashboard.putNumber("Distance Away", drivetrain.getDistanceAway());
+		SmartDashboard.putNumber("Travel", drivetrain.getTravel())
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
 		autonomous.loop();
+		arm.autoLoop();
 	}
 	
 	public void teleopInit() {
-		arm.cimcoder.reset();
+		arm.setPosition(0);
 		drivetrain.startTravel();
 	}
 	
@@ -100,9 +106,10 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Distance Away", drivetrain.getDistanceAway());
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
-		SmartDashboard.putNumber("Elevator Height", arm.cimcoder.getDistance());
+		SmartDashboard.putNumber("Elevator Height", arm.getPosition());
 		SmartDashboard.putNumber("Target Height", arm.targetPos);
 		SmartDashboard.putNumber("Arm Current", arm.getCurrent());
+		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel())
 		//SmartDashboard.putNumber("Desired Heading", /*Drivetrain.wrap(*/drivetrain.desiredHeading/*+180.0, -180.0, 180.0)*/);
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
 		smi = (float)SmartDashboard.getNumber("swerve i", 0.0);

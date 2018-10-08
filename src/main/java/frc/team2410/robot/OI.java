@@ -143,7 +143,7 @@ public class OI
 		return val;
 	}
 
-	double getStick()
+	public double getStick()
 	{
 		return this.applyDeadzone(buttonPad.getRawAxis(3), 0.50, 1);
 	}

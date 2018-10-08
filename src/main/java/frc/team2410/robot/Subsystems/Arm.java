@@ -14,36 +14,41 @@ public class Arm {
 	private boolean intakeClosed;
 	private boolean intakeKicked;
 	public double targetPos;
+	double offset;
 
 	public Arm() {
 		this.armMotor = new WPI_TalonSRX(RobotMap.ARM_CIM);
 		this.intake = new Intake();
+		this.close();
+		this.kickUp();
 		this.intakeClosed = true;
 		this.intakeKicked = false;
 		this.toggleIntake();
 		this.cimcoder = new Encoder(RobotMap.WINCH_CIMCODER_A, RobotMap.WINCH_CIMCODER_B);
 		this.cimcoder.setDistancePerPulse(RobotMap.WINCH_DIST_PER_PULSE);
-		this.cimcoder.reset();
+		this.setPosition(0);
 		this.targetPos = cimcoder.getDistance();
 	}
 	
 	public void loop() {
 		//keeps elevator within half an inch of target position
-		if (!Robot.oi.joy1.getRawButton(5) && !Robot.oi.joy1.getRawButton(3) && Math.abs(this.getCurrent()) < 30) {
-			if (Math.abs(this.cimcoder.getDistance() - this.targetPos) < .5) {
-				this.armMotor.set(0);
-			}
-			else if (this.targetPos - this.cimcoder.getDistance() > 0) {
-				this.armMotor.set(1);
-			}
-			else {
-				this.armMotor.set(-1);
-			}
+		if (Robot.oi.getStick() == 0) {
+			double aspeed;
+			aspeed = (this.targetPos - this.getPosition())/10;
+			if(Math.abs(this.targetPos-this.getPosition()) < 1) aspeed = 0;
+			if(aspeed < -1) aspeed = -1;
+			if(aspeed > 1) aspeed = 1;
+			this.armMotor.set(aspeed);
 		}
-		//software breaker
-		if (Math.abs(this.getCurrent()) > 30) {
-			this.armMotor.set(0);
-		}
+	}
+	
+	public void autoLoop() {
+		double aspeed;
+		aspeed = (this.targetPos - this.getPosition())/10;
+		if(Math.abs(this.targetPos-this.getPosition()) < 1) aspeed = 0;
+		if(aspeed < -1) aspeed = -1;
+		if(aspeed > 1) aspeed = 1;
+		this.armMotor.set(aspeed);
 	}
 
 	public void moveTo(double pos) {
@@ -76,5 +81,15 @@ public class Arm {
 
 	public double getCurrent() {
 		return this.armMotor.getOutputCurrent();
+	}
+	
+	public double getPosition() {
+		return cimcoder.getDistance() + offset;
+	}
+	
+	public void setPosition(double position) {
+		cimcoder.reset();
+		offset = position;
+		moveTo(position);
 	}
 }
