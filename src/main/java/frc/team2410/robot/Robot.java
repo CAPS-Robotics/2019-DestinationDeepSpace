@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
 		SmartDashboard.putNumber("Distance Away", drivetrain.getDistanceAway());
-		SmartDashboard.putNumber("Travel", drivetrain.getTravel())
+		SmartDashboard.putNumber("Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
 		autonomous.loop();
@@ -110,7 +110,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Elevator Height", arm.getPosition());
 		SmartDashboard.putNumber("Target Height", arm.targetPos);
 		SmartDashboard.putNumber("Arm Current", arm.getCurrent());
-		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel())
+		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		//SmartDashboard.putNumber("Desired Heading", /*Drivetrain.wrap(*/drivetrain.desiredHeading/*+180.0, -180.0, 180.0)*/);
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
 		smi = (float)SmartDashboard.getNumber("swerve i", 0.0);
