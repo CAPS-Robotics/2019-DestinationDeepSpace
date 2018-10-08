@@ -81,7 +81,7 @@ public class SwerveModule
 
 	void returnToZero() {
 		this.pid.setSetpoint(offset);
-		SmartDashboard::PutNumber("Setpoint", this->pid->GetSetpoint());
+		SmartDashboard.putNumber("Setpoint", this.pid.GetSetpoint());
 		zeroing = true;
 	}
 
