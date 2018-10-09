@@ -19,7 +19,7 @@ public class Autonomous
 	}
 	public void init(int station, String data) {
 		//set which auto to run based on field data
-		SmartDashboard.putNumber("AutoPicked", station);
+		SmartDashboard.putNumber("Auto Picked", station);
 		state = 0;
 		this.swLeft = data.charAt(0) == 'L';
 		this.scLeft = data.charAt(1) == 'L';
