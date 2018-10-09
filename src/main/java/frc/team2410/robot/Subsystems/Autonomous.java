@@ -19,7 +19,7 @@ public class Autonomous
 	}
 	public void init(int station, String data) {
 		//set which auto to run based on field data
-		SmartDashboard.putNumber("Auto Picked", station);
+		SmartDashboard.putNumber("AutoPicked", station);
 		state = 0;
 		this.swLeft = data.charAt(0) == 'L';
 		this.scLeft = data.charAt(1) == 'L';
@@ -40,6 +40,7 @@ public class Autonomous
 
 	public void loop() {
 		SmartDashboard.putNumber("Auto State", state);
+		SmartDashboard.putNumber("time", timer.get());
 		switch(autoNum) {
 			case 0:
 				//Same side switch
@@ -56,7 +57,7 @@ public class Autonomous
 		}
 	}
 
-	/*void crossField(boolean left) {
+	void crossField(boolean left) {
 		switch(state) {
 			case 0:
 				//lift arm to switch height
@@ -91,9 +92,9 @@ public class Autonomous
 				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
 
-	/*void straightAhead(boolean left) {
+	void straightAhead(boolean left) {
 		switch(state) {
 			case 0:
 				//Move arm to switch height
@@ -128,7 +129,7 @@ public class Autonomous
 				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
 
 	void halfWay(boolean left) {
 		switch(state) {
@@ -186,7 +187,7 @@ public class Autonomous
 		}
 	}
 
-	/*void goAround(boolean left) {
+	void goAround(boolean left) {
 		switch(state) {
 			case 4:
 				//Go sideways until you've passed the switch
@@ -245,9 +246,9 @@ public class Autonomous
 				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
 
-	/*void scaleAhead(boolean left) {
+	void scaleAhead(boolean left) {
 		switch(state) {
 			case 10:
 				//lift arm to talll
@@ -292,9 +293,9 @@ public class Autonomous
 				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
 
-	/*void scaleAcross(boolean left) {
+	void scaleAcross(boolean left) {
 		switch(state) {
 			case 10:
 				//arm up
@@ -339,7 +340,8 @@ public class Autonomous
 				Robot.drivetrain.brake();
 				break;
 		}
-	}*/
+	}
+	
 	void sideAuto(boolean left) {
 		switch(state) {
 			case 0:

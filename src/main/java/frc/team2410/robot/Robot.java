@@ -14,14 +14,7 @@ public class Robot extends IterativeRobot
 	public static Arm arm;
 	public static Vision vision;
 	public static Autonomous autonomous;
-	enum AutoStations {
-		LEFT,
-		CENTER,
-		RIGHT,
-		SCLEFT,
-		SCRIGHT
-	}
-	SendableChooser<AutoStations> autoPicker;
+	public int autoNum;
 	public float smp;
 	public float smi;
 	public float smd;
@@ -39,20 +32,15 @@ public class Robot extends IterativeRobot
 		arm = new Arm();
 		oi = new OI();
 		autonomous = new Autonomous();
-		autoPicker = new SendableChooser<>();
-		autoPicker.addDefault("Middle Station Auto", AutoStations.CENTER);
-		autoPicker.addObject("Left Station Auto", AutoStations.LEFT);
-		autoPicker.addObject("Right Station Auto", AutoStations.RIGHT);
-		autoPicker.addObject("Left Station Scale Auto", AutoStations.SCLEFT);
-		autoPicker.addObject("Right Station Scale Auto", AutoStations.SCRIGHT);
-		SmartDashboard.putData("Auto Picker", this.autoPicker);
+		autoNum = 0;
+		SmartDashboard.putNumber("AutoIn", autoNum);
+		SmartDashboard.putNumber("AutoOut", autoNum);
 		smp = RobotMap.SWERVE_MODULE_P;
 		smi = RobotMap.SWERVE_MODULE_I;
 		smd = RobotMap.SWERVE_MODULE_D;
 		/*gp = GYRO_P;
 		gi = GYRO_I;
 		gd = GYRO_D;*/
-		SmartDashboard.putString("Auto Picked", ""+this.autoPicker.getSelected());
 		SmartDashboard.putNumber("swerve p", smp);
 		SmartDashboard.putNumber("swerve i", smi);
 		SmartDashboard.putNumber("swerve d", smd);
@@ -60,9 +48,10 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("gyro i", gi);
 		SmartDashboard.putNumber("gyro d", gd);*/
 	}
+
 	public void disabledInit() {}
+
 	public void disabledPeriodic() {
-		SmartDashboard.putData("Auto Picker", this.autoPicker);
 		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
@@ -71,9 +60,13 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
 		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
+		autoNum = (int) SmartDashboard.getNumber("AutoIn", autoNum);
+
 	}
+
 	public void autonomousInit() {
-		autonomous.init((int)SmartDashboard.getNumber("Auto Picked", 0), DriverStation.getInstance().getGameSpecificMessage());
+		autoNum = (int) SmartDashboard.getNumber("AutoIn", autoNum);
+		autonomous.init(autoNum, DriverStation.getInstance().getGameSpecificMessage());
 	}
 	
 	public void autonomousPeriodic() {
@@ -92,6 +85,7 @@ public class Robot extends IterativeRobot
 	public void teleopInit() {
 		arm.setPosition(0);
 		drivetrain.startTravel();
+		SmartDashboard.putNumber("AutoIn", autoNum);
 	}
 	
 	public void teleopPeriodic() {

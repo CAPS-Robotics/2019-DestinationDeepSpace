@@ -29,7 +29,7 @@ public class PigeonNav
 	}
 
 	public double getHeading() {
-		double angle = (this.gyro.getFusedHeading()-offset % 360.0 + 360.0) % 360.0;
+		double angle = (((this.gyro.getFusedHeading() - offset) % 360.0) + 360.0) % 360.0;
 		return angle <= 180 ? angle : angle - 360;
 	}
 
