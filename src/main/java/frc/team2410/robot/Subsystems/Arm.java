@@ -21,9 +21,6 @@ public class Arm {
 		this.intake = new Intake();
 		this.close();
 		this.kickUp();
-		this.intakeClosed = true;
-		this.intakeKicked = false;
-		this.toggleIntake();
 		this.cimcoder = new Encoder(RobotMap.WINCH_CIMCODER_A, RobotMap.WINCH_CIMCODER_B);
 		this.cimcoder.setDistancePerPulse(RobotMap.WINCH_DIST_PER_PULSE);
 		this.setPosition(0);

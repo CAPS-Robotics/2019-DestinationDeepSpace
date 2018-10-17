@@ -45,6 +45,7 @@ public class Drivetrain {
 	public void shift() {
 		speedShift = setShift(!speedShift);
 	}
+
 	boolean setShift(boolean shifted) {
 		if(shifted) {
 			shift.set(DoubleSolenoid.Value.kReverse);

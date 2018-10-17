@@ -29,8 +29,7 @@ public class Robot extends IterativeRobot
 	public float gi;
 	public float gd;
 
-	public Robot() {
-	}
+	public Robot() {}
 
 	public void robotInit() {
 		vision = new Vision();
@@ -60,7 +59,9 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("gyro i", gi);
 		SmartDashboard.putNumber("gyro d", gd);*/
 	}
+
 	public void disabledInit() {}
+
 	public void disabledPeriodic() {
 		SmartDashboard.putData("Auto Picker", this.autoPicker);
 		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
@@ -72,10 +73,11 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
 	}
+
 	public void autonomousInit() {
 		autonomous.init((int)SmartDashboard.getNumber("Auto Picked", 0), DriverStation.getInstance().getGameSpecificMessage());
 	}
-	
+
 	public void autonomousPeriodic() {
 		SmartDashboard.putNumber("FL Angle", drivetrain.fl.getAngle());
 		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
@@ -88,12 +90,12 @@ public class Robot extends IterativeRobot
 		autonomous.loop();
 		arm.autoLoop();
 	}
-	
+
 	public void teleopInit() {
 		arm.setPosition(0);
 		drivetrain.startTravel();
 	}
-	
+
 	public void teleopPeriodic() {
 		// Output Info to Smart Dashboard
 		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
@@ -118,10 +120,10 @@ public class Robot extends IterativeRobot
 		/*gp = (float)SmartDashboard.getNumber("gyro p", 0.0);
 		gi = (float)SmartDashboard.getNumber("gyro i", 0.0);
 		gd = (float)SmartDashboard.getNumber("gyro d", 0.0);*/
-		
+
 		oi.pollButtons();
 		arm.loop();
-		
+
 		drivetrain.joystickDrive();
 		/*drivetrain.SetPID(gp, gi, gd);*/
 		drivetrain.fl.setPID(smp, smi, smd);
@@ -129,6 +131,6 @@ public class Robot extends IterativeRobot
 		drivetrain.bl.setPID(smp, smi, smd);
 		drivetrain.br.setPID(smp, smi, smd);
 	}
-	
+
 	public void testPeriodic() {}
 }
