@@ -46,7 +46,7 @@ public class Vision
 		CameraServer.getInstance().startAutomaticCapture(cam1);
 		server = CameraServer.getInstance().getServer();
 		setCamera(0);
-		//NetworkTableInstance.getDefault().getEntry("/CameraPublisher/GRIPCam/streams").setStringArray(string[2]{"mjpeg:http://roborio-2410-frc.local:1181/?action=stream, mjpeg:http://10.24.10.2:1181/?action=stream"});
+		NetworkTableInstance.getDefault().getEntry("/CameraPublisher/GRIPCam/streams").setStringArray(new String[]{"http://10.24.10.2:1181/?action=stream"});
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
 		
@@ -77,7 +77,7 @@ public class Vision
 		return theCenterX;
 	}
 		
-		public void setCamera(int camera) {
+	public void setCamera(int camera) {
 		this.camera = camera;
 		if (camera == 0) {
 			server.setSource(cam0);

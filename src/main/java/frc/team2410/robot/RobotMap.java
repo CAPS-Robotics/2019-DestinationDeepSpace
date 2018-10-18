@@ -44,10 +44,10 @@ public class RobotMap
 	public static final int DRIVE_CIMCODER_B = 3;
 
 	//Offsets
-	public static final float FL_OFFSET = 3.455810193f;
-	public static final float FR_OFFSET = 2.0617673670000003f;
-	public static final float BL_OFFSET = 1.7419431810000001f;
-	public static final float BR_OFFSET = 3.2751461490000002f;
+	public static final float FL_OFFSET = 3.5375972940000002f;
+	public static final float FR_OFFSET = 0.731201097f;
+	public static final float BL_OFFSET = 3.286132476f;
+	public static final float BR_OFFSET = 1.7163084180000001f;
 	public static final float SONAR_CENTER = 0;
 
 	public static final int CAMERA_BRIGHTNESS = 0;

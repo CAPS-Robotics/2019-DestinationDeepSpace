@@ -2,6 +2,7 @@ package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 	boolean[] canPress = new boolean[12];

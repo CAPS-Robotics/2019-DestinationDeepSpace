@@ -29,10 +29,10 @@ public class SwerveModule
 		this.drive.setInverted(isInverted);
 		this.positionEncoder = new AnalogInput(encoder);
 		this.pid = new PIDController(SWERVE_MODULE_P, SWERVE_MODULE_I, SWERVE_MODULE_D, this.positionEncoder, this.steer, 0.002);
-		this.pid.setContinuous(true);
 		this.pid.setPercentTolerance(1);
 		this.pid.setInputRange(0.0, 5.0);
 		this.pid.setOutputRange(-1.0, 1.0);
+		this.pid.setContinuous(true);
 		this.pid.enable();
 
 		currentSpeed = 0;
