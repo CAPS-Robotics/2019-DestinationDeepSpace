@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot
 	}
 
 	public void autonomousInit() {
-		autonomous.init((int)SmartDashboard.getNumber("Auto Picked", 0), DriverStation.getInstance().getGameSpecificMessage());
+		autonomous.init(this.autoPicker.getSelected().ordinal(), DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	public void autonomousPeriodic() {

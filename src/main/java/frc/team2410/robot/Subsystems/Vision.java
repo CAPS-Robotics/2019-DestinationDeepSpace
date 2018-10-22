@@ -27,12 +27,12 @@ public class Vision
 		cam0.setResolution(320, 240);
 		cam0.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
 		cam0.setFPS(10);
-		cam0.setExposureManual(/*CAMERA_EXPOSURE*/50);
+		cam0.setExposureManual(RobotMap.CAMERA_EXPOSURE);
 		cam1 = new UsbCamera("cam1", 1);
 		cam1.setResolution(320, 240);
 		cam1.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
 		cam1.setFPS(10);
-		cam1.setExposureManual(/*CAMERA_EXPOSURE*/50);
+		cam1.setExposureManual(RobotMap.CAMERA_EXPOSURE);
 		CameraServer.getInstance().putVideo("GRIPCam", 320, 240);
 	/*sdb0 = CameraServer::GetInstance()->PutVideo("cam0", 320, 240);
 	sdb1 = CameraServer::GetInstance()->PutVideo("cam1", 320, 240);*/
