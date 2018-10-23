@@ -121,63 +121,60 @@ public class Autonomous
 				break;
 			case 1:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.85, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >= 120) {
-				state += (scLeft == roLeft ? 1 : 3);
-				Robot.drivetrain.startTravel();
-				if(scLeft == roLeft) { Robot.arm.moveTo (70); }
-			}
-			break;
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 150) {
+					state += (scLeft == roLeft ? 1 : 3);
+					Robot.drivetrain.startTravel();
+				}
+				break;
 			case 2:
 				Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 12) {
-				state++;
-				Robot.drivetrain.startTravel();
-				Robot.arm.moveTo(0);
-			}
-			break;
+					state++;
+					Robot.drivetrain.startTravel();
+				}
+				break;
 			case 3:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.85, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >= 186) {
-				state++;
-				Robot.drivetrain.startTravel();
-				if(scLeft == roLeft) { Robot.arm.moveTo(70); }
-			}
-			break;
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 150) {
+					state++;
+					if(scLeft == roLeft) { Robot.arm.moveTo(70); }
+				}
+				break;
 			case 4:
 				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() > (left ? 90 : -90) ? 1 : -1, 0.4, false);
 				if(Math.abs(Robot.gyro.getHeading() + (left ? 90 : -90)) < 5) {
-				state++;
-				Robot.drivetrain.startTravel();
-			}
-			break;
+					state++;
+					Robot.drivetrain.startTravel();
+				}
+				break;
 			case 5:
 				Robot.drivetrain.brake();
 				if(Robot.arm.getPosition() > 65 || scLeft != roLeft) {
-				state++;
-				timer.reset();
-				timer.start();
-			}
-			break;
+					state++;
+					timer.reset();
+					timer.start();
+				}
+				break;
 			case 6:
 				if(scLeft != roLeft && swLeft != roLeft) {
 					state = -1;
 				}
 				Robot.drivetrain.crabDrive(roLeft ? 1 : -1, 0, 0, .3, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= /*(scLeft == roLeft ? 6 : */18/*) || (timer.Get() > (scLeft == roLeft ? 0.5 : 2))*/) {
-				state++;
-				timer.stop();
-				Robot.arm.open();
-				Robot.arm.kickDown();
-				Robot.drivetrain.startTravel();
-			}
-			break;
+					state++;
+					timer.stop();
+					Robot.arm.open();
+					Robot.arm.kickDown();
+					Robot.drivetrain.startTravel();
+				}
+				break;
 			case 7:
 				Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 18) {
-				state++;
-				Robot.arm.moveTo(0);
-			}
-			break;
+					state++;
+					Robot.arm.moveTo(0);
+				}
+				break;
 			default:
 				Robot.drivetrain.brake();
 		}
