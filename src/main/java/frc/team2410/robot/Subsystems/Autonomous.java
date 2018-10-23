@@ -141,7 +141,7 @@ public class Autonomous
 				}
 				break;
 			case 4:
-				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() > (left ? 90 : -90) ? 1 : -1, 0.4, false);
+				Robot.drivetrain.crabDrive(0, 0, (left ? (Robot.gyro.getHeading() < 90 && Robot.gyro.getHeading() > -90) : (Robot.gyro.getHeading() > 90 && Robot.gyro.getHeading() < -90)) ? 1 : -1, 0.4, false);
 				if(Math.abs(Robot.gyro.getHeading() + (left ? 90 : -90)) < 5) {
 					state++;
 					Robot.drivetrain.startTravel();
@@ -188,14 +188,14 @@ public class Autonomous
 				break;
 			case 1:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.9, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >=200){
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 200){
 					state += ((scLeft == roLeft) ? 2 : 1);
 					Robot.drivetrain.startTravel();
 					if(scLeft == roLeft) Robot.arm.moveTo(70);
 				} break;
 			case 2:
 				Robot.drivetrain.crabDrive(1, 0, 0, 0.5, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >=213){
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 213){
 					Robot.arm.moveTo(70);
 					state++;
 					Robot.drivetrain.startTravel();
@@ -209,7 +209,7 @@ public class Autonomous
 				} break;
 			case 4:
 				Robot.drivetrain.crabDrive(0, 0, Robot.gyro.getHeading() > (scLeft ? 90 : -90) ? 1 : -1, 0.4, false);
-				if(Math.abs(Robot.gyro.getHeading()+(scLeft ? 90 : -90)) < 5){
+				if(Math.abs(Robot.gyro.getHeading()+(scLeft ? 90 : -90)) < 5) {
 					state++;
 					Robot.drivetrain.startTravel();
 				} break;
