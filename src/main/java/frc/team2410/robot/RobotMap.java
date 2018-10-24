@@ -26,10 +26,10 @@ public class RobotMap
 	//PCM Addresses
 	public static final int INTAKE_FORWARD = 5;
 	public static final int INTAKE_BACKWARD = 7;
-	public static final int INTAKE_KICK_FORWARD = 3;
-	public static final int INTAKE_KICK_BACKWARD = 0;
-	public static final int SHIFT_FORWARD = 1;
-	public static final int SHIFT_BACKWARD = 2;
+	public static final int INTAKE_KICK_FORWARD = 0;
+	public static final int INTAKE_KICK_BACKWARD = 3;
+	public static final int SHIFT_FORWARD = 2;
+	public static final int SHIFT_BACKWARD = 1;
 	
 	//Inputs
 	public static final int FR_STEER_ENCODER = 0;
@@ -51,7 +51,7 @@ public class RobotMap
 	public static final float SONAR_CENTER = 0;
 
 	public static final int CAMERA_BRIGHTNESS = 0;
-	public static final int CAMERA_EXPOSURE = 0;
+	public static final int CAMERA_EXPOSURE = 20;
 	public static final double GR = 1.2;
 	public static final float GEAR_DISTANCE = 9.3f;
 	//public static final int PI = 3.14159;
