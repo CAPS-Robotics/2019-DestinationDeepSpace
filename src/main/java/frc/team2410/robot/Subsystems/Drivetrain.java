@@ -89,15 +89,6 @@ public class Drivetrain {
 		this.br.drive(speed*speedMultiplier, angle);
 	}
 	
-	void rotateRobot(double speed) {
-		SmartDashboard.putNumber("Speed", speed);
-		this.fl.drive(speed, -45);
-		this.fr.drive(-speed, 45);
-		this.bl.drive(speed, 45);
-		this.br.drive(-speed, -45);
-		desiredHeading = Robot.gyro.getHeading();
-	}
-	
 	void arcadeDrive(double forward, double rotation, double speedMultiplier) {
 		double correction = 0.025*(Robot.gyro.getHeading()-desiredHeading);
 		SmartDashboard.putNumber("Difference", correction);

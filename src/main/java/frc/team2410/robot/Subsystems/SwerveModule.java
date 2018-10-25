@@ -39,10 +39,6 @@ public class SwerveModule
 		zeroing = false;
 	}
 
-	public void initDefaultCommand() {
-
-	}
-
 	public void setPID(float p, float i, float d) {
 		this.pid.setPID(p, i, d);
 	}

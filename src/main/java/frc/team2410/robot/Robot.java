@@ -42,8 +42,8 @@ public class Robot extends IterativeRobot
 		autoPicker.addDefault("Middle Station Auto", AutoStations.CENTER);
 		autoPicker.addObject("Left Station Auto", AutoStations.LEFT);
 		autoPicker.addObject("Right Station Auto", AutoStations.RIGHT);
-		autoPicker.addObject("Left Station Scale Auto", AutoStations.SCLEFT);
-		autoPicker.addObject("Right Station Scale Auto", AutoStations.SCRIGHT);
+		/*autoPicker.addObject("Left Station Scale Auto", AutoStations.SCLEFT);
+		autoPicker.addObject("Right Station Scale Auto", AutoStations.SCRIGHT);*/
 		SmartDashboard.putData("Auto Picker", this.autoPicker);
 		smp = RobotMap.SWERVE_MODULE_P;
 		smi = RobotMap.SWERVE_MODULE_I;

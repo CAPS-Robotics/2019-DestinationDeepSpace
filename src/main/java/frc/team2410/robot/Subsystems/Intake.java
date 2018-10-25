@@ -16,8 +16,7 @@ public class Intake
 	boolean setState(boolean closed) {
 		if (closed) {
 			grip.set(DoubleSolenoid.Value.kReverse);
-		}
-		else {
+		} else {
 			grip.set(DoubleSolenoid.Value.kForward);
 		}
 		return closed;
@@ -26,8 +25,7 @@ public class Intake
 	boolean setKicked(boolean forward) {
 		if (forward) {
 			kick.set(DoubleSolenoid.Value.kReverse);
-		}
-		else {
+		} else {
 			kick.set(DoubleSolenoid.Value.kForward);
 		}
 		return forward;
