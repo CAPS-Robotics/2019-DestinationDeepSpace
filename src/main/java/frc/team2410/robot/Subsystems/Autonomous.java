@@ -121,40 +121,47 @@ public class Autonomous
 				break;
 			case 1:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.85, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >= 150) {
-					state += (scLeft == roLeft ? 1 : 4);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 120) {
+					state ++;
 					Robot.drivetrain.startTravel();
 				}
 				break;
 			case 2:
+				Robot.drivetrain.crabDrive(0, 1, 0, 0.5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 30) {
+					state += (scLeft == roLeft ? 1 : 4);
+					Robot.drivetrain.startTravel();
+				}
+				break;
+			case 3:
 				Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 12) {
 					state++;
 					Robot.drivetrain.startTravel();
 				}
 				break;
-			case 3:
+			case 4:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.85, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 120) {
 					state++;
 					Robot.drivetrain.startTravel();
 				}
 				break;
-			case 4:
+			case 5:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.5, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 30) {
 					state++;
 					Robot.arm.moveTo(70);
 				}
 				break;
-			case 5:
+			case 6:
 				Robot.drivetrain.crabDrive(0, 0, (left ? (Robot.gyro.getHeading() < 90 && Robot.gyro.getHeading() > -90) : (Robot.gyro.getHeading() > 90 && Robot.gyro.getHeading() < -90)) ? 1 : -1, 0.4, false);
 				if(Math.abs(Robot.gyro.getHeading() + (left ? 90 : -90)) < 5) {
 					state++;
 					Robot.drivetrain.startTravel();
 				}
 				break;
-			case 6:
+			case 7:
 				Robot.drivetrain.brake();
 				if(Robot.arm.getPosition() > 65 || scLeft != roLeft) {
 					state++;
@@ -162,7 +169,7 @@ public class Autonomous
 					timer.start();
 				}
 				break;
-			case 7:
+			case 8:
 				if(scLeft != roLeft && swLeft != roLeft) {
 					state = -1;
 				}
@@ -175,7 +182,7 @@ public class Autonomous
 					Robot.drivetrain.startTravel();
 				}
 				break;
-			case 8:
+			case 9:
 				Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
 				if(Math.abs(Robot.drivetrain.getTravel()) >= 18) {
 					state++;

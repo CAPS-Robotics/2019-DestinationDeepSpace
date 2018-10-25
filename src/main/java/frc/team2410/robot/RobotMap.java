@@ -51,7 +51,7 @@ public class RobotMap
 	public static final float SONAR_CENTER = 0;
 
 	public static final int CAMERA_BRIGHTNESS = 0;
-	public static final int CAMERA_EXPOSURE = 20;
+	public static final int CAMERA_EXPOSURE = 25;
 	public static final double GR = 1.2;
 	public static final float GEAR_DISTANCE = 9.3f;
 	//public static final int PI = 3.14159;
