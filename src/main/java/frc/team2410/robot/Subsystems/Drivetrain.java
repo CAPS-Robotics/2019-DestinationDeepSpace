@@ -17,12 +17,8 @@ public class Drivetrain {
 	public SwerveModule bl;
 	public SwerveModule br;
 	Encoder driveEnc;
-	//public PIDController pid;
-	//public NumericalPIDOutput pidOutput;
 	
 	public Drivetrain() {
-		//pidOutput = new NumericalPIDOutput();
-		//Robot.gyro.get(); wtf was this
 		this.fl = new SwerveModule(RobotMap.FRONT_LEFT_STEER, RobotMap.FRONT_LEFT_DRIVE, RobotMap.FL_STEER_ENCODER, RobotMap.FL_OFFSET, true);
 		this.fr = new SwerveModule(RobotMap.FRONT_RIGHT_STEER, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.FR_STEER_ENCODER, RobotMap.FR_OFFSET, false);
 		this.bl = new SwerveModule(RobotMap.BACK_LEFT_STEER, RobotMap.BACK_LEFT_DRIVE, RobotMap.BL_STEER_ENCODER, RobotMap.BL_OFFSET, true);
@@ -34,12 +30,6 @@ public class Drivetrain {
 		shift = new DoubleSolenoid(RobotMap.PCM, RobotMap.SHIFT_FORWARD, RobotMap.SHIFT_BACKWARD);
 		speedShift = true;
 		this.setShift(true);
-		/*this.pid = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro.get(), pidOutput, 0.002);
-		this.pid.SetContinuous(true);
-		this.pid.SetPercentTolerance(1);
-		this.pid.SetInputRange(-180, 180.0);
-		this.pid.SetOutputRange(-0.5, 0.5);
-		this.pid.SetEnabled(true);*/
 	}
 	
 	public void shift() {
@@ -57,11 +47,11 @@ public class Drivetrain {
 	
 	public void joystickDrive() {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
-		/*if (Robot::oi->joy1->GetPOV(0) != -1) {
-		Robot::drivetrain->Drive(Robot::oi->joy1->GetPOV(0), 1, speedMultiplier);
-		} else {*/
+		if (Robot.oi.joy1.getPOV(0) != -1) {
+		Robot.drivetrain.drive(360-Robot.oi.joy1.getPOV(0), 1, speedMultiplier);
+		} else {
 			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, false);
-		//}
+		}
 	}
 	
 	public double getDistanceAway() {
@@ -111,23 +101,7 @@ public class Drivetrain {
 		forward = -x*Math.sin(heading*Math.PI/180)+y*Math.cos(heading*Math.PI/180);
 		strafe = x*Math.cos(heading*Math.PI/180)+y*Math.sin(heading*Math.PI/180);
 		if(x != 0 || y != 0 || rotation != 0) {
-			SmartDashboard.putNumber("initrot", rotation);
-			desiredHeading -= 8.0*rotation;
-			desiredHeading = wrap(desiredHeading, -180.0, 180.0);
-			double diff = desiredHeading-heading;
-			if(diff > 180.0) { diff -= 360.0; }
-			if(diff < -180.0) { diff += 360.0; }
-			if(Math.abs(diff) < 7) { diff = 0; }
-			diff /= 360;
-			//SmartDashboard.PutNumber("ActP", this.pid.GetP());
-			//SmartDashboard.PutNumber("ActI", this.pid.GetI());
-			//SmartDashboard.PutNumber("ActD", this.pid.GetD());
-			//this.pid.SetSetpoint(desiredHeading);
-			if(useGyro) {
-				rotation = diff;
-			}
 			SmartDashboard.putNumber("turnv", rotation);
-			//SmartDashboard.PutNumber("TechnicalP", rotation/this.pid.GetError());
 			double back, front, right, left;
 			if(rotation != 0) {
 				back = strafe-rotation*1.0/Math.sqrt(2);
@@ -187,7 +161,5 @@ public class Drivetrain {
 	public double getTravel() {
 		return driveEnc.getDistance();
 	}
-	/*void Drivetrain.SetPID(float p, float i, float d) {
-	    this.pid.SetPID(p, i, d);
-	}*/
+
 }

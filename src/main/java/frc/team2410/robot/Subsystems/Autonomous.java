@@ -134,11 +134,11 @@ public class Autonomous
 				}
 				break;
 			case 3:
-				Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >= 18) {
+				/*Robot.drivetrain.crabDrive(roLeft ? -1 : 1, 0, 0, .5, false);
+				if(Math.abs(Robot.drivetrain.getTravel()) >= 18) {*/
 					state++;
-					Robot.drivetrain.startTravel();
-				}
+					/*Robot.drivetrain.startTravel();
+				}*/
 				break;
 			case 4:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.85, false);
@@ -174,7 +174,7 @@ public class Autonomous
 					state = -1;
 				}
 				Robot.drivetrain.crabDrive(roLeft ? 1 : -1, 0, 0, .3, false);
-				if(Math.abs(Robot.drivetrain.getTravel()) >= 24 || timer.get() > 2) {
+				if(Math.abs(Robot.drivetrain.getTravel()) >= (scLeft == roLeft ? 18 : 36) || timer.get() > 2) {
 					state++;
 					timer.stop();
 					Robot.arm.open();
