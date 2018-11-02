@@ -1,11 +1,12 @@
 package frc.team2410.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.team2410.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
-public class PigeonNav
+public class PigeonNav implements PIDSource
 {
 	private PigeonIMU gyro;
 	private double[] ypr;
@@ -17,16 +18,12 @@ public class PigeonNav
 		this.resetHeading(0);
 	}
 
-	public double getPID() {
+	public double pidGet() {
 		return this.getHeading();
 	}
 
-	//not sure how this was written; possibly unused
-	public void setPIDSourceType(PIDSourceType pidSource) {
-		if (pidSource == PIDSourceType.kDisplacement) {
-			//m_pidSource = pidSource;
-		}
-	}
+	//completely useless in every way but PIDSource is bad
+	public void setPIDSourceType(PIDSourceType pidSource) {}
 
 	public double getHeading() {
 		double angle = (((this.gyro.getFusedHeading() - offset) % 360.0) + 360.0) % 360.0;
@@ -43,7 +40,7 @@ public class PigeonNav
 		this.offset = head;
 	}
 
-	PIDSourceType getPIDSourceType() {
+	public PIDSourceType getPIDSourceType() {
 		return PIDSourceType.kDisplacement;
 	}
 }

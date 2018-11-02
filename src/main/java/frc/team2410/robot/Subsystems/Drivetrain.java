@@ -1,9 +1,8 @@
 package frc.team2410.robot.Subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team2410.robot.NumericalPIDOutput;
 import frc.team2410.robot.Robot;
 import frc.team2410.robot.RobotMap;
 
@@ -16,6 +15,7 @@ public class Drivetrain {
 	public SwerveModule fr;
 	public SwerveModule bl;
 	public SwerveModule br;
+	PIDController gyroPID;
 	Encoder driveEnc;
 	
 	public Drivetrain() {
@@ -24,12 +24,17 @@ public class Drivetrain {
 		this.bl = new SwerveModule(RobotMap.BACK_LEFT_STEER, RobotMap.BACK_LEFT_DRIVE, RobotMap.BL_STEER_ENCODER, RobotMap.BL_OFFSET, true);
 		this.br = new SwerveModule(RobotMap.BACK_RIGHT_STEER, RobotMap.BACK_RIGHT_DRIVE, RobotMap.BR_STEER_ENCODER, RobotMap.BR_OFFSET, false);
 		this.rangeFinder = new AnalogInput(RobotMap.RANGE_FINDER);
-		this.desiredHeading = 0;
+		this.desiredHeading = Robot.gyro.getHeading();
 		this.driveEnc = new Encoder(RobotMap.DRIVE_CIMCODER_A, RobotMap.DRIVE_CIMCODER_B);
 		this.driveEnc.setDistancePerPulse(RobotMap.DRIVE_DIST_PER_PULSE);
 		shift = new DoubleSolenoid(RobotMap.PCM, RobotMap.SHIFT_FORWARD, RobotMap.SHIFT_BACKWARD);
 		speedShift = true;
 		this.setShift(true);
+		this.gyroPID = new PIDController(RobotMap.GYRO_P, RobotMap.GYRO_I, RobotMap.GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
+		gyroPID.setInputRange(-180, 180);
+		gyroPID.setOutputRange(-1, 1);
+		gyroPID.setContinuous(true);
+		gyroPID.enable();
 	}
 	
 	public void shift() {
@@ -100,10 +105,14 @@ public class Drivetrain {
 		double heading = Robot.gyro.getHeading();
 		forward = -x*Math.sin(heading*Math.PI/180)+y*Math.cos(heading*Math.PI/180);
 		strafe = x*Math.cos(heading*Math.PI/180)+y*Math.sin(heading*Math.PI/180);
-		if(x != 0 || y != 0 || rotation != 0) {
+		if (x != 0 || y != 0 || rotation != 0) {
+			desiredHeading += rotation*5;
+			desiredHeading = wrap(desiredHeading, 180, -180);
+			gyroPID.setSetpoint(desiredHeading);
+			if (useGyro) rotation = gyroPID.get();
 			SmartDashboard.putNumber("turnv", rotation);
 			double back, front, right, left;
-			if(rotation != 0) {
+			if (rotation != 0) {
 				back = strafe-rotation*1.0/Math.sqrt(2);
 				front = strafe+rotation*1.0/Math.sqrt(2);
 				right = forward-rotation*1.0/Math.sqrt(2);
