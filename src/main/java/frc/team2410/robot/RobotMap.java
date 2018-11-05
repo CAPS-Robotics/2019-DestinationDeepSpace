@@ -6,9 +6,9 @@ public class RobotMap
 	public static final float SWERVE_MODULE_P = 5;
 	public static final float SWERVE_MODULE_I = 0;
 	public static final float SWERVE_MODULE_D = 3;
-	public static final float GYRO_P = 3;
-	public static final float GYRO_I = 0;
-	public static final float GYRO_D = 2;
+	public static final double GYRO_P = 0.01;
+	public static final double GYRO_I = 0;
+	public static final double GYRO_D = 0;
 
 	//CAN IDs
 	public static final int FRONT_RIGHT_STEER = 1;

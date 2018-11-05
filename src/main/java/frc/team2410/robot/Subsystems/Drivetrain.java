@@ -10,13 +10,14 @@ public class Drivetrain {
 	AnalogInput rangeFinder;
 	DoubleSolenoid shift;
 	public boolean speedShift;
-	double desiredHeading;
+	public double desiredHeading;
 	public SwerveModule fl;
 	public SwerveModule fr;
 	public SwerveModule bl;
 	public SwerveModule br;
 	PIDController gyroPID;
 	Encoder driveEnc;
+	double prot = 0;
 	
 	public Drivetrain() {
 		this.fl = new SwerveModule(RobotMap.FRONT_LEFT_STEER, RobotMap.FRONT_LEFT_DRIVE, RobotMap.FL_STEER_ENCODER, RobotMap.FL_OFFSET, true);
@@ -32,7 +33,7 @@ public class Drivetrain {
 		this.setShift(true);
 		this.gyroPID = new PIDController(RobotMap.GYRO_P, RobotMap.GYRO_I, RobotMap.GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
-		gyroPID.setOutputRange(-1, 1);
+		gyroPID.setOutputRange(-.5, .5);
 		gyroPID.setContinuous(true);
 		gyroPID.enable();
 	}
@@ -55,7 +56,7 @@ public class Drivetrain {
 		if (Robot.oi.joy1.getPOV(0) != -1) {
 		Robot.drivetrain.drive(360-Robot.oi.joy1.getPOV(0), 1, speedMultiplier);
 		} else {
-			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, false);
+			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, true);
 		}
 	}
 	
@@ -105,12 +106,16 @@ public class Drivetrain {
 		double heading = Robot.gyro.getHeading();
 		forward = -x*Math.sin(heading*Math.PI/180)+y*Math.cos(heading*Math.PI/180);
 		strafe = x*Math.cos(heading*Math.PI/180)+y*Math.sin(heading*Math.PI/180);
-		if (x != 0 || y != 0 || rotation != 0) {
-			desiredHeading += rotation*5;
-			desiredHeading = wrap(desiredHeading, 180, -180);
+		if(rotation == 0 && prot == 0) {
+			prot = 0;
 			gyroPID.setSetpoint(desiredHeading);
-			if (useGyro) rotation = gyroPID.get();
-			SmartDashboard.putNumber("turnv", rotation);
+			if (useGyro) { rotation = -gyroPID.get(); }
+		} else {
+			prot = rotation;
+			desiredHeading = Robot.gyro.getHeading();
+			desiredHeading = wrap(desiredHeading, 180, -180);
+		}
+		if (x != 0 || y != 0 || rotation != 0) {
 			double back, front, right, left;
 			if (rotation != 0) {
 				back = strafe-rotation*1.0/Math.sqrt(2);
@@ -159,7 +164,7 @@ public class Drivetrain {
 		}
 	}
 	
-	private double wrap(double num, double max, double min) {
+	public double wrap(double num, double max, double min) {
 		return (num-min)-(max-min)*Math.floor((num-min)/(max-min))+min;
 	}
 	
@@ -170,5 +175,7 @@ public class Drivetrain {
 	public double getTravel() {
 		return driveEnc.getDistance();
 	}
-
+	public void setGyroPID(double p, double i, double d) {
+		gyroPID.setPID(p, i, d);
+	}
 }

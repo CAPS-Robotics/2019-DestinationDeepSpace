@@ -6,6 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Subsystems.*;
 
+import static frc.team2410.robot.RobotMap.GYRO_D;
+import static frc.team2410.robot.RobotMap.GYRO_I;
+import static frc.team2410.robot.RobotMap.GYRO_P;
+
 public class Robot extends IterativeRobot
 {
 	public static Drivetrain drivetrain;
@@ -25,9 +29,9 @@ public class Robot extends IterativeRobot
 	public float smp;
 	public float smi;
 	public float smd;
-	public float gp;
-	public float gi;
-	public float gd;
+	public double gp;
+	public double gi;
+	public double gd;
 
 	public Robot() {}
 
@@ -48,16 +52,16 @@ public class Robot extends IterativeRobot
 		smp = RobotMap.SWERVE_MODULE_P;
 		smi = RobotMap.SWERVE_MODULE_I;
 		smd = RobotMap.SWERVE_MODULE_D;
-		/*gp = GYRO_P;
+		gp = GYRO_P;
 		gi = GYRO_I;
-		gd = GYRO_D;*/
+		gd = GYRO_D;
 		SmartDashboard.putString("Auto Picked", ""+this.autoPicker.getSelected());
 		SmartDashboard.putNumber("swerve p", smp);
 		SmartDashboard.putNumber("swerve i", smi);
 		SmartDashboard.putNumber("swerve d", smd);
-		/*SmartDashboard.putNumber("gyro p", gp);
+		SmartDashboard.putNumber("gyro p", gp);
 		SmartDashboard.putNumber("gyro i", gi);
-		SmartDashboard.putNumber("gyro d", gd);*/
+		SmartDashboard.putNumber("gyro d", gd);
 	}
 
 	public void disabledInit() {}
@@ -113,19 +117,19 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber("Target Height", arm.targetPos);
 		SmartDashboard.putNumber("Arm Current", arm.getCurrent());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
-		//SmartDashboard.putNumber("Desired Heading", /*Drivetrain.wrap(*/drivetrain.desiredHeading/*+180.0, -180.0, 180.0)*/);
+		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
 		smi = (float)SmartDashboard.getNumber("swerve i", 0.0);
 		smd = (float)SmartDashboard.getNumber("swerve d", 0.0);
-		/*gp = (float)SmartDashboard.getNumber("gyro p", 0.0);
-		gi = (float)SmartDashboard.getNumber("gyro i", 0.0);
-		gd = (float)SmartDashboard.getNumber("gyro d", 0.0);*/
+		gp = SmartDashboard.getNumber("gyro p", 0.0);
+		gi = SmartDashboard.getNumber("gyro i", 0.0);
+		gd = SmartDashboard.getNumber("gyro d", 0.0);
 
 		oi.pollButtons();
 		arm.loop();
 
 		drivetrain.joystickDrive();
-		/*drivetrain.SetPID(gp, gi, gd);*/
+		drivetrain.setGyroPID(gp, gi, gd);
 		drivetrain.fl.setPID(smp, smi, smd);
 		drivetrain.fr.setPID(smp, smi, smd);
 		drivetrain.bl.setPID(smp, smi, smd);
