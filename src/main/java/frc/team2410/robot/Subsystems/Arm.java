@@ -28,18 +28,14 @@ public class Arm {
 	}
 	
 	public void loop() {
-		//keeps elevator within half an inch of target position
+		//doesn't try to maintain if being moved
 		if (Robot.oi.getStick() == 0) {
-			double aspeed;
-			aspeed = (this.targetPos - this.getPosition())/10;
-			if(Math.abs(this.targetPos-this.getPosition()) < 1) aspeed = 0;
-			if(aspeed < -1) aspeed = -1;
-			if(aspeed > 1) aspeed = 1;
-			this.armMotor.set(aspeed);
+			autoLoop();
 		}
 	}
 	
 	public void autoLoop() {
+		//maintains target position to within half inch
 		double aspeed;
 		aspeed = (this.targetPos - this.getPosition())/10;
 		if(Math.abs(this.targetPos-this.getPosition()) < 1) aspeed = 0;
@@ -85,6 +81,7 @@ public class Arm {
 	}
 	
 	public void setPosition(double position) {
+		//sets offset "zero" position and resets zero
 		cimcoder.reset();
 		offset = position;
 		moveTo(position);
