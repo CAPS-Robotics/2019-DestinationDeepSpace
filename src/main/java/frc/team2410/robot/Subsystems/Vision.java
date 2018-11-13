@@ -8,7 +8,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import frc.team2410.robot.RobotMap;
 
-//TODO: fix it
 public class Vision
 {
 	public UsbCamera cam0;
@@ -23,11 +22,17 @@ public class Vision
 	Number[] height;
 	Number[] width;
 	public Vision() {
+
+		// Sets up camera feed for GRIP
+
+		// cam0
 		cam0 = new UsbCamera("cam0", 0);
 		cam0.setResolution(320, 240);
 		cam0.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
 		cam0.setFPS(10);
 		cam0.setExposureManual(RobotMap.CAMERA_EXPOSURE);
+
+		// cam1
 		cam1 = new UsbCamera("cam1", 1);
 		cam1.setResolution(320, 240);
 		cam1.setBrightness(RobotMap.CAMERA_BRIGHTNESS);
@@ -78,6 +83,7 @@ public class Vision
 	}
 		
 	public void setCamera(int camera) {
+		// Changes cameras
 		this.camera = camera;
 		if (camera == 0) {
 			server.setSource(cam0);

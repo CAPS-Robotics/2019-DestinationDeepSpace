@@ -26,8 +26,9 @@ public class PigeonNav implements PIDSource
 	public void setPIDSourceType(PIDSourceType pidSource) {}
 
 	public double getHeading() {
-		double angle = (((this.gyro.getFusedHeading() - offset) % 360.0) + 360.0) % 360.0;
-		return angle <= 180 ? angle : angle - 360;
+		double angle = (((this.gyro.getFusedHeading() - offset) % 360.0); // Wraps angle between 0-360
+		angle = (angle + 360.0) % 360.0; // Changes negative values to equivalent postive values (ex. -90 -> 270 degrees)
+		return angle <= 180 ? angle : angle - 360;  // Changes >180 Degrees to Neg Equivalent (ex. 270 -> -90) and Returns it
 	}
 
 	public double getAngularRate() {

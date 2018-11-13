@@ -71,7 +71,7 @@ public class SwerveModule
 		}
 
 		if (!zeroing) {
-			this.pid.setSetpoint((setpoint + offset) % 5);
+			this.pid.setSetpoint((setpoint + offset) % 5); // Wraps output between 0V-5V
 		}
 		this.drive.set(currentSpeed);
 	}
@@ -84,5 +84,5 @@ public class SwerveModule
 
 	public double getAngle() {
 		return (this.positionEncoder.getVoltage() - offset + 5) % 5 * 72.f;
-	}
+	} // Wraps value between 0-5 Volts and then converts it to Degrees
 }

@@ -118,10 +118,10 @@ public class Drivetrain {
 		if (x != 0 || y != 0 || rotation != 0) {
 			double back, front, right, left;
 			if (rotation != 0) {
-				back = strafe-rotation*1.0/Math.sqrt(2);
-				front = strafe+rotation*1.0/Math.sqrt(2);
-				right = forward-rotation*1.0/Math.sqrt(2);
-				left = forward+rotation*1.0/Math.sqrt(2);
+				back = strafe-rotation/Math.sqrt(2); //strafe-rotation*1.0/Math.sqrt(2);
+				front = strafe+rotation/Math.sqrt(2);
+				right = forward-rotation/Math.sqrt(2);
+				left = forward+rotation/Math.sqrt(2);
 			} else {
 				back = strafe;
 				front = strafe;
@@ -141,16 +141,20 @@ public class Drivetrain {
 			}
 			double fla = 0, fra = 0, bla = 0, bra = 0;
 			if(front != 0 || left != 0) {
-				fla = (360+(180/Math.PI)*-Math.atan2(front, left))%360;
+				fla = (180/Math.PI)*-Math.atan2(front, left);
+				fla = wrap(fla, 360, 0);
 			}
 			if(front != 0 || right != 0) {
-				fra = (360+(180/Math.PI)*-Math.atan2(front, right))%360;
+				fra = (180/Math.PI)*-Math.atan2(front, right);
+				fra = wrap(fra, 360, 0)
 			}
 			if(back != 0 || left != 0) {
-				bla = (360+(180/Math.PI)*-Math.atan2(back, left))%360;
+				bla = (180/Math.PI)*-Math.atan2(back, left);
+				bla = wrap(bla, 360, 0)
 			}
 			if(back != 0 || right != 0) {
-				bra = (360+(180/Math.PI)*-Math.atan2(back, right))%360;
+				bra = (180/Math.PI)*-Math.atan2(back, right);
+				bra = wrap(bra, 360, 0)
 			}
 			this.fl.drive(flds*speedMultiplier, fla);
 			this.fr.drive(frds*speedMultiplier, fra);
