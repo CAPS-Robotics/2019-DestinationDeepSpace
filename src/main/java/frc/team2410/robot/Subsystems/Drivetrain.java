@@ -17,7 +17,6 @@ public class Drivetrain {
 	public SwerveModule br;
 	PIDController gyroPID;
 	Encoder driveEnc;
-	double prot = 0;
 	
 	public Drivetrain() {
 		this.fl = new SwerveModule(RobotMap.FRONT_LEFT_STEER, RobotMap.FRONT_LEFT_DRIVE, RobotMap.FL_STEER_ENCODER, RobotMap.FL_OFFSET, true);
@@ -106,12 +105,10 @@ public class Drivetrain {
 		double heading = Robot.gyro.getHeading()*Math.PI/180; //Degrees -> Radians
 		forward = -x*Math.sin(heading)+y*Math.cos(heading);
 		strafe = x*Math.cos(heading)+y*Math.sin(heading);
-		if(rotation == 0 && prot == 0) {
-			prot = 0;
+		if(rotation == 0) {
 			gyroPID.setSetpoint(desiredHeading);
 			if (useGyro) { rotation = -gyroPID.get(); }
 		} else {
-			prot = rotation;
 			desiredHeading = Robot.gyro.getHeading();
 			desiredHeading = wrap(desiredHeading, 180, -180);
 		}
