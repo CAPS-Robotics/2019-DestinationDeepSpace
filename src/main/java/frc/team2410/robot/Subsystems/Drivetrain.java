@@ -103,9 +103,9 @@ public class Drivetrain {
 		SmartDashboard.putNumber("FR Angle", fr.getAngle());
 		SmartDashboard.putNumber("BL Angle", bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", br.getAngle());
-		double heading = Robot.gyro.getHeading();
-		forward = -x*Math.sin(heading*Math.PI/180)+y*Math.cos(heading*Math.PI/180);
-		strafe = x*Math.cos(heading*Math.PI/180)+y*Math.sin(heading*Math.PI/180);
+		double heading = Robot.gyro.getHeading()*Math.PI/180; //Degrees -> Radians
+		forward = -x*Math.sin(heading)+y*Math.cos(heading);
+		strafe = x*Math.cos(heading)+y*Math.sin(heading);
 		if(rotation == 0 && prot == 0) {
 			prot = 0;
 			gyroPID.setSetpoint(desiredHeading);
