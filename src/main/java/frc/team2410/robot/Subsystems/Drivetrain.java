@@ -150,15 +150,15 @@ public class Drivetrain {
 			}
 			if(front != 0 || right != 0) {
 				fra = (180/Math.PI)*-Math.atan2(front, right);
-				fra = wrap(fra, 360, 0)
+				fra = wrap(fra, 360, 0);
 			}
 			if(back != 0 || left != 0) {
 				bla = (180/Math.PI)*-Math.atan2(back, left);
-				bla = wrap(bla, 360, 0)
+				bla = wrap(bla, 360, 0);
 			}
 			if(back != 0 || right != 0) {
 				bra = (180/Math.PI)*-Math.atan2(back, right);
-				bra = wrap(bra, 360, 0)
+				bra = wrap(bra, 360, 0);
 			}
 			this.fl.drive(flds*speedMultiplier, fla);
 			this.fr.drive(frds*speedMultiplier, fra);
