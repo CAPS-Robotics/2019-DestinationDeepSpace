@@ -41,6 +41,6 @@ jar {
 	manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.9'
+wrapper {
+	gradleVersion = '5.0'
 }

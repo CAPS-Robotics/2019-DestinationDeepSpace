@@ -8,8 +8,6 @@ import frc.team2410.robot.RobotMap;
 
 public class Drivetrain {
 	AnalogInput rangeFinder;
-	DoubleSolenoid shift;
-	public boolean speedShift;
 	public double desiredHeading;
 	public SwerveModule fl;
 	public SwerveModule fr;
@@ -28,27 +26,11 @@ public class Drivetrain {
 		this.desiredHeading = Robot.gyro.getHeading();
 		this.driveEnc = new Encoder(RobotMap.DRIVE_CIMCODER_A, RobotMap.DRIVE_CIMCODER_B);
 		this.driveEnc.setDistancePerPulse(RobotMap.DRIVE_DIST_PER_PULSE);
-		shift = new DoubleSolenoid(RobotMap.PCM, RobotMap.SHIFT_FORWARD, RobotMap.SHIFT_BACKWARD);
-		speedShift = true;
-		this.setShift(true);
 		this.gyroPID = new PIDController(RobotMap.GYRO_P, RobotMap.GYRO_I, RobotMap.GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
 		gyroPID.setOutputRange(-.5, .5);
 		gyroPID.setContinuous(true);
 		gyroPID.enable();
-	}
-	
-	public void shift() {
-		speedShift = setShift(!speedShift);
-	}
-
-	boolean setShift(boolean shifted) {
-		if(shifted) {
-			shift.set(DoubleSolenoid.Value.kReverse);
-		} else {
-			shift.set(DoubleSolenoid.Value.kForward);
-		}
-		return shifted;
 	}
 	
 	public void joystickDrive() {
