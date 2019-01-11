@@ -19,78 +19,14 @@ public class OI {
 	}
 	
 	void pollButtons() {
-		if (joy1.getRawButton(2)) {
+		if (joy1.getRawButton(5)) {
 			Robot.drivetrain.returnWheelsToZero();
 		}
 		
-		if (joy1.getRawButton(1)) {
-			if (canPress[0]) {
-				Robot.arm.toggleIntake();
-			}
-			canPress[0] = false;
-		}
-		else {
-			canPress[0] = true;
-		}
-		
-		if (buttonPad.getRawButton(11)) {
-			if (canPress1[10]) {
-				Robot.arm.toggleKick();
-			}
-			canPress1[10] = false;
-		} else {
-			canPress1[10] = true;
-		}
-		
-		if (buttonPad.getRawButton(4)) {
-			if (canPress1[3]) {
-				Robot.drivetrain.shift();
-			}
-			canPress1[3] = false;
-		} else {
-			canPress1[3] = true;
-		}
+		Robot.fieldOriented = !joy1.getRawButton(2);
 		
 		if(joy1.getRawButton(6)) {
 			Robot.gyro.resetHeading(0);
-		}
-		
-		if (this.getStick() == 0) {
-			if (Math.abs(Robot.arm.getPosition() - Robot.arm.targetPos) < 1){
-				Robot.arm.armMotor.set(0);
-			}
-		} else {
-			Robot.arm.armMotor.set(-this.getStick());
-			Robot.arm.targetPos = Robot.arm.getPosition();
-		}
-		if (buttonPad.getRawButton(1)) {
-			if(canPress1[0]) {
-				Robot.vision.setCamera(1-Robot.vision.camera);
-				canPress1[0] = false;
-			}
-		} else {
-			canPress1[0] = true;
-		}
-		
-		//Scale
-		if (buttonPad.getPOV(0) == 0) {
-			Robot.arm.moveTo(70);
-		}
-		
-		//Intake
-		if (buttonPad.getPOV(0) == 180) {
-			Robot.arm.moveTo(0);
-		}
-		
-		//Switch
-		if (buttonPad.getPOV(0) == 90) {
-			Robot.arm.moveTo(28);
-		}
-		
-		//Reset
-		if (buttonPad.getPOV(0) == 270) {
-			Robot.arm.setPosition(0);
-			Robot.arm.targetPos = 0;
 		}
 	}
 	

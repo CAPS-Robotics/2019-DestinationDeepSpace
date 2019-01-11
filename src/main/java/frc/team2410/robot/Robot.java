@@ -21,6 +21,7 @@ public class Robot extends IterativeRobot
 	public double gp;
 	public double gi;
 	public double gd;
+	public static boolean fieldOriented = true;
 
 	public Robot() {}
 
@@ -96,7 +97,7 @@ public class Robot extends IterativeRobot
 
 		oi.pollButtons();
 
-		drivetrain.joystickDrive();
+		drivetrain.joystickDrive(fieldOriented);
 		drivetrain.setGyroPID(gp, gi, gd);
 		drivetrain.fl.setPID(smp, smi, smd);
 		drivetrain.fr.setPID(smp, smi, smd);

@@ -33,12 +33,12 @@ public class Drivetrain {
 		gyroPID.enable();
 	}
 	
-	public void joystickDrive() {
+	public void joystickDrive(boolean fieldOriented) {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
 		if (Robot.oi.joy1.getPOV(0) != -1) {
 		Robot.drivetrain.drive(360-Robot.oi.joy1.getPOV(0), 1, speedMultiplier);
 		} else {
-			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, true);
+			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
 		}
 	}
 	
@@ -86,6 +86,7 @@ public class Drivetrain {
 		SmartDashboard.putNumber("BL Angle", bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", br.getAngle());
 		double heading = Robot.gyro.getHeading()*Math.PI/180; //Degrees -> Radians
+		if (!useGyro) heading = 0;
 		forward = -x*Math.sin(heading)+y*Math.cos(heading);
 		strafe = x*Math.cos(heading)+y*Math.sin(heading);
 
@@ -93,7 +94,7 @@ public class Drivetrain {
 		if(rotation == 0 && prot == 0) {
 			prot = 0;
 			gyroPID.setSetpoint(desiredHeading);
-			if (useGyro) { rotation = -gyroPID.get(); }
+			rotation = -gyroPID.get();
 		} else {
 			prot = rotation;
 			desiredHeading = Robot.gyro.getHeading();
