@@ -86,9 +86,13 @@ public class Drivetrain {
 		SmartDashboard.putNumber("BL Angle", bl.getAngle());
 		SmartDashboard.putNumber("BR Angle", br.getAngle());
 		double heading = Robot.gyro.getHeading()*Math.PI/180; //Degrees -> Radians
-		if (!useGyro) heading = 0;
-		forward = -x*Math.sin(heading)+y*Math.cos(heading);
-		strafe = x*Math.cos(heading)+y*Math.sin(heading);
+		if (useGyro) {
+			forward = -x*Math.sin(heading)+y*Math.cos(heading);
+			strafe = x*Math.cos(heading)+y*Math.sin(heading);
+		} else {
+			forward = y;
+			strafe = x;
+		}
 
 		// Sets desired heading dependant if previous rotation was zero or not
 		if(rotation == 0 && prot == 0) {
