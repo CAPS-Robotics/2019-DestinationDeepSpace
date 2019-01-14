@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 
 public class NumericalPIDOutput implements PIDOutput
 {
-	public double num;
+	private double num;
 	public double get()
 	{
 		return num;

@@ -35,11 +35,7 @@ public class Drivetrain {
 	
 	public void joystickDrive(boolean fieldOriented) {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
-		if (Robot.oi.joy1.getPOV(0) != -1) {
-		Robot.drivetrain.drive(360-Robot.oi.joy1.getPOV(0), 1, speedMultiplier);
-		} else {
-			Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
-		}
+		Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
 	}
 	
 	public double getDistanceAway() {
@@ -172,5 +168,11 @@ public class Drivetrain {
 	}
 	public void setGyroPID(double p, double i, double d) {
 		gyroPID.setPID(p, i, d);
+	}
+	public void setPID(float p, float i, float d) {
+		fl.setPID(p, i, d);
+		fr.setPID(p, i, d);
+		bl.setPID(p, i, d);
+		br.setPID(p, i, d);
 	}
 }

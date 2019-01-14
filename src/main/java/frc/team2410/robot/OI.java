@@ -1,66 +1,71 @@
 package frc.team2410.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.*;
 
 public class OI {
-	boolean[] canPress = new boolean[12];
-	boolean[] canPress1 = new boolean[12];
-	public Joystick joy1;
-	XboxController buttonPad;
+	private boolean[][] canPress = new boolean[2][12];
+	private GenericHID[] controllers = new GenericHID[2];
+	private Joystick joy;
+	private XboxController xbox;
 	
-	public OI() {
-		for (int i = 0; i < canPress.length; i++) {
-			canPress[i] = true;
-		}
-		joy1 = new Joystick(0);
-		buttonPad = new XboxController(1);
+	OI() {
+		joy = new Joystick(0);
+		xbox = new XboxController(1);
+		controllers[0] = joy;
+		controllers[1] = xbox;
 	}
 	
 	void pollButtons() {
-		if (joy1.getRawButton(5)) {
+		if (joy.getRawButton(5)) {
 			Robot.drivetrain.returnWheelsToZero();
 		}
 		
-		Robot.fieldOriented = !joy1.getRawButton(2);
+		Robot.fieldOriented = !joy.getRawButton(2);
 		
-		if(joy1.getRawButton(6)) {
+		if(joy.getRawButton(6)) {
 			Robot.gyro.resetHeading(0);
 		}
 	}
 	
+	private boolean leadingEdge(boolean joystick, int button) {
+		int n = joystick?1:0;
+		if(controllers[n].getRawButton(button+1)) {
+			if(canPress[n][button]) {
+				canPress[n][button] = false;
+				return true;
+			}
+		} else { canPress[n][button] = true; }
+		return false;
+	}
+	
 	public double getX() {
-		return this.applyDeadzone(joy1.getRawAxis(0), 0.15, 1);
+		return this.applyDeadzone(joy.getRawAxis(0), 0.15, 1);
 	}
 	
 	public double getY() {
-		return this.applyDeadzone(-joy1.getRawAxis(1), 0.15, 1);
+		return this.applyDeadzone(-joy.getRawAxis(1), 0.15, 1);
 	}
 	
 	public double getTwist() {
-		return this.applyDeadzone(joy1.getRawAxis(2), 0.70, 1) / 2;
+		return this.applyDeadzone(joy.getRawAxis(2), 0.70, 1)/2;
 	}
 	
 	public double getSlider() {
-		return joy1.getRawAxis(3);
+		return joy.getRawAxis(3);
 	}
 	
-	double getAnalogY(int stickNum){
-		return this.applyDeadzone(buttonPad.getRawAxis(stickNum * 2 + 1), 0.50, 1);
+	public double getAnalogStick(boolean rightStick, boolean yAxis){
+		return this.applyDeadzone(xbox.getRawAxis((rightStick?1:0)*2+(yAxis?1:0)), 0.50, 1);
 	}
 	
-	double applyDeadzone(double val, double deadzone, double maxval) {
-		if (Math.abs(val) <= deadzone) {
-			return 0;
-		}
-		
+	public double getJoyPOV() {
+		return this.joy.getPOV(0);
+	}
+	
+	private double applyDeadzone(double val, double deadzone, double maxval) {
+		if (Math.abs(val) <= deadzone) return 0;
 		double sign = val / Math.abs(val);
 		val = sign * maxval * (Math.abs(val) - deadzone) / (maxval - deadzone);
 		return val;
-	}
-	
-	public double getStick() {
-		return this.applyDeadzone(buttonPad.getRawAxis(3), 0.50, 1);
 	}
 }
