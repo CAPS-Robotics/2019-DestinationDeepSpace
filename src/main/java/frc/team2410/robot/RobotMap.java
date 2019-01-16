@@ -20,6 +20,8 @@ public class RobotMap
 	public static final int BACK_LEFT_DRIVE = 6;
 	public static final int BACK_RIGHT_DRIVE = 8;
 	public static final int BACK_RIGHT_STEER = 9;
+	public static final int WINCH_CIM = -1;
+	public static final int INTAKE_MOTOR = -1;
 	
 	//Inputs
 	public static final int FR_STEER_ENCODER = 0;
@@ -30,6 +32,9 @@ public class RobotMap
 
 	public static final int DRIVE_CIMCODER_A = 2;
 	public static final int DRIVE_CIMCODER_B = 3;
+	
+	public static final int WINCH_CIMCODER_A = -1;
+	public static final int WINCH_CIMCODER_B = -1;
 
 	//Offsets
 	public static final float FL_OFFSET = 2.406005613f;
@@ -37,7 +42,18 @@ public class RobotMap
 	public static final float BL_OFFSET = 3.286132476f;
 	public static final float BR_OFFSET = 1.716308418f;
 	
+	// Elevator Heights
+	public static final double BALL_INTAKE_HEIGHT = 0;
+	public static final double HATCH_INTAKE_HEIGHT = 0;
+	public static final double CARGOSHIP_BALL_HEIGHT = 0;
+	public static final double CARGOSHIP_HATCH_HEIGHT = 0;
+	public static final double ROCKET_BALL_LEVEL_ONE_HEIGHT = 0;
+	public static final double ROCKET_HATCH_LEVEL_ONE_HEIGHT = 0;
+	public static final double ROCKET_BALL_LEVEL_TWO_HEIGHT = 0;
+	public static final double ROCKET_HATCH_LEVEL_TWO_HEIGHT = 0;
+	
 	//public static final int PI = 3.1416;
 	public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*PI/100.0;
+	public static final double WINCH_DIST_PER_PULSE = 0;
 }
