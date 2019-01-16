@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.NumericalPIDOutput;
 import frc.team2410.robot.Robot;
-import frc.team2410.robot.RobotMap;
+import static frc.team2410.robot.RobotMap.*;
 
 public class Drivetrain {
 	AnalogInput rangeFinder;
@@ -18,15 +18,15 @@ public class Drivetrain {
 	double prot = 0; // Previous rotation
 	
 	public Drivetrain() {
-		this.fl = new SwerveModule(RobotMap.FRONT_LEFT_STEER, RobotMap.FRONT_LEFT_DRIVE, RobotMap.FL_STEER_ENCODER, RobotMap.FL_OFFSET, true);
-		this.fr = new SwerveModule(RobotMap.FRONT_RIGHT_STEER, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.FR_STEER_ENCODER, RobotMap.FR_OFFSET, false);
-		this.bl = new SwerveModule(RobotMap.BACK_LEFT_STEER, RobotMap.BACK_LEFT_DRIVE, RobotMap.BL_STEER_ENCODER, RobotMap.BL_OFFSET, true);
-		this.br = new SwerveModule(RobotMap.BACK_RIGHT_STEER, RobotMap.BACK_RIGHT_DRIVE, RobotMap.BR_STEER_ENCODER, RobotMap.BR_OFFSET, false);
-		this.rangeFinder = new AnalogInput(RobotMap.RANGE_FINDER);
+		this.fl = new SwerveModule(FRONT_LEFT_STEER, FRONT_LEFT_DRIVE, FL_STEER_ENCODER, FL_OFFSET, true);
+		this.fr = new SwerveModule(FRONT_RIGHT_STEER, FRONT_RIGHT_DRIVE, FR_STEER_ENCODER, FR_OFFSET, false);
+		this.bl = new SwerveModule(BACK_LEFT_STEER, BACK_LEFT_DRIVE, BL_STEER_ENCODER, BL_OFFSET, true);
+		this.br = new SwerveModule(BACK_RIGHT_STEER, BACK_RIGHT_DRIVE, BR_STEER_ENCODER, BR_OFFSET, false);
+		this.rangeFinder = new AnalogInput(RANGE_FINDER);
 		this.desiredHeading = Robot.gyro.getHeading();
-		this.driveEnc = new Encoder(RobotMap.DRIVE_CIMCODER_A, RobotMap.DRIVE_CIMCODER_B);
-		this.driveEnc.setDistancePerPulse(RobotMap.DRIVE_DIST_PER_PULSE);
-		this.gyroPID = new PIDController(RobotMap.GYRO_P, RobotMap.GYRO_I, RobotMap.GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
+		this.driveEnc = new Encoder(DRIVE_CIMCODER_A, DRIVE_CIMCODER_B);
+		this.driveEnc.setDistancePerPulse(DRIVE_DIST_PER_PULSE);
+		this.gyroPID = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
 		gyroPID.setOutputRange(-.5, .5);
 		gyroPID.setContinuous(true);

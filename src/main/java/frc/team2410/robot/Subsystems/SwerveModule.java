@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putNumber;
-import static frc.team2410.robot.RobotMap.SWERVE_MODULE_D;
-import static frc.team2410.robot.RobotMap.SWERVE_MODULE_I;
-import static frc.team2410.robot.RobotMap.SWERVE_MODULE_P;
+import static frc.team2410.robot.RobotMap.*;
 
 public class SwerveModule
 {

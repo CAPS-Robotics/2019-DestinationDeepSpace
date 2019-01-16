@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Subsystems.*;
 
-import static frc.team2410.robot.RobotMap.GYRO_D;
-import static frc.team2410.robot.RobotMap.GYRO_I;
-import static frc.team2410.robot.RobotMap.GYRO_P;
+import static frc.team2410.robot.RobotMap.*;
 
 public class Robot extends IterativeRobot
 {
@@ -14,6 +12,7 @@ public class Robot extends IterativeRobot
 	public static PigeonNav gyro;
 	public static OI oi;
 	public static SemiAuto semiAuto;
+	public static Elevator elevator;
 	private float smp;
 	private float smi;
 	private float smd;
@@ -31,6 +30,7 @@ public class Robot extends IterativeRobot
 		drivetrain = new Drivetrain();
 		oi = new OI();
 		semiAuto = new SemiAuto();
+		elevator = new Elevator();
 		
 		//Put PID changers so we don't have to push code every tune
 		smp = RobotMap.SWERVE_MODULE_P;
