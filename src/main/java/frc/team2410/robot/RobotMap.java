@@ -22,6 +22,7 @@ public class RobotMap
 	public static final int BACK_RIGHT_STEER = 9;
 	public static final int WINCH_CIM = 10; //Tentative
 	public static final int INTAKE_MOTOR = 11; //Tentative
+	public static final int PCM = 12; //Tentative
 	
 	//Analog In
 	public static final int FR_STEER_ENCODER = 0;
@@ -35,7 +36,11 @@ public class RobotMap
 	public static final int DRIVE_CIMCODER_B = 3;
 	public static final int WINCH_CIMCODER_A = 0; //Tentative
 	public static final int WINCH_CIMCODER_B = 1; //Tentative
-
+	
+	//PCM
+	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
+	public static final int HATCH_INTAKE_REVERSE = 1; //Tentative
+	
 	//Offsets
 	public static final float FL_OFFSET = 2.406005613f;
 	public static final float FR_OFFSET = 0.731201097f;

@@ -33,8 +33,12 @@ public class OI {
 		} else {
 			Robot.elevator.stopIntake();
 		}
+		if(leadingEdge(false, 6)) {
+			Robot.elevator.toggleHatch();
+		}
 	}
 	
+	//Returns true for the first frame the button is pressed
 	private boolean leadingEdge(boolean joystick, int button) {
 		int n = joystick?1:0;
 		if(controllers[n].getRawButton(button)) {
