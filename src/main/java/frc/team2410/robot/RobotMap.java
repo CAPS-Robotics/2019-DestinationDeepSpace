@@ -58,7 +58,7 @@ public class RobotMap
 	public static final double ROCKET_HATCH_LEVEL_TWO_HEIGHT = 0;
 	
 	//public static final int PI = 3.1416;
-	public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
-	public static final double DRIVE_DIST_PER_PULSE = 3.0*PI/100.0;
+	//public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
+	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 0; //Tentative
 }

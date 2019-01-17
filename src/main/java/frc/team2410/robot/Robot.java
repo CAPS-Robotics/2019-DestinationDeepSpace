@@ -79,6 +79,7 @@ public class Robot extends IterativeRobot
 		//Run subsystem loops
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
+		elevator.loop();
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
