@@ -7,21 +7,26 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import static frc.team2410.robot.RobotMap.*;
 
 class Intake {
-	private WPI_TalonSRX wheelMotor;
+	private WPI_TalonSRX wheelMotorTop;
+	private WPI_TalonSRX wheelMotorBottom;
 	private DoubleSolenoid solenoid;
 	private boolean open = false;
 	
 	Intake() {
-		wheelMotor = new WPI_TalonSRX(INTAKE_MOTOR);
+		wheelMotorTop = new WPI_TalonSRX(INTAKE_MOTOR_BOTTOM);
+		wheelMotorBottom = new WPI_TalonSRX(INTAKE_MOTOR_TOP);
 		solenoid = new DoubleSolenoid(HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE, PCM);
 	}
 	
 	void setWheel(boolean in) {
-		wheelMotor.set(in ? 1 : -1);
+		int speed = open ? 1 : -1;
+		wheelMotorTop.set(speed);
+		wheelMotorBottom.set(-speed);
 	}
 	
 	void stop() {
-		wheelMotor.set(0);
+		wheelMotorTop.set(0);
+		wheelMotorBottom.set(0);
 	}
 	
 	void togglePiston() {

@@ -21,8 +21,9 @@ public class RobotMap
 	public static final int BACK_RIGHT_DRIVE = 8;
 	public static final int BACK_RIGHT_STEER = 9;
 	public static final int WINCH_CIM = 10; //Tentative
-	public static final int INTAKE_MOTOR = 11; //Tentative
-	public static final int PCM = 12; //Tentative
+	public static final int INTAKE_MOTOR_TOP = 11; //Tentative
+	public static final int INTAKE_MOTOR_BOTTOM = 12; // Tentative
+	public static final int PCM = 13; //Tentative
 	
 	//Analog In
 	public static final int FR_STEER_ENCODER = 0;

@@ -40,7 +40,7 @@ public class SwerveModule
 
 	void drive(double speed, double setpoint) {
 		speed = Math.abs(speed) > 0.1 ? speed : 0; // Buffer for speed
-		setpoint /= 72.f;
+		setpoint /= 72;
 		double currentPos = (this.positionEncoder.getVoltage() - offset + 5) % 5;
 		double dist = setpoint - currentPos;
 
