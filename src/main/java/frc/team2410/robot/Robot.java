@@ -13,6 +13,8 @@ public class Robot extends IterativeRobot
 	public static OI oi;
 	public static SemiAuto semiAuto;
 	public static Elevator elevator;
+	public static Climb climb;
+	
 	private float smp;
 	private float smi;
 	private float smd;
@@ -31,6 +33,7 @@ public class Robot extends IterativeRobot
 		oi = new OI();
 		semiAuto = new SemiAuto();
 		elevator = new Elevator();
+		climb = new Climb();
 		
 		//Put PID changers so we don't have to push code every tune
 		smp = RobotMap.SWERVE_MODULE_P;

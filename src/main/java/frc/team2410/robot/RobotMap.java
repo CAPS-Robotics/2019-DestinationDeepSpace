@@ -41,6 +41,10 @@ public class RobotMap
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
 	public static final int HATCH_INTAKE_REVERSE = 1; //Tentative
+	public static final int CLIMB_PISTON_LEFT_FORWARD = 2; //Tentative
+	public static final int CLIMB_PISTON_LEFT_REVERSE = 3; //Tentative
+	public static final int CLIMB_PISTON_RIGHT_FORWARD = 4; //Tentative
+	public static final int CLIMB_PISTON_RIGHT_REVERSE = 5; //Tentative
 	
 	//Offsets
 	public static final float FL_OFFSET = 2.406005613f;
