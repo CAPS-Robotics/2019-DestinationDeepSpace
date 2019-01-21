@@ -11,6 +11,7 @@ public class Robot extends IterativeRobot
 	public static Drivetrain drivetrain;
 	public static PigeonNav gyro;
 	public static OI oi;
+	public static Vision vision;
 	public static SemiAuto semiAuto;
 	public static Elevator elevator;
 	public static Climb climb;
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot
 		gyro = new PigeonNav();
 		drivetrain = new Drivetrain();
 		oi = new OI();
+		vision = new Vision();
 		semiAuto = new SemiAuto();
 		elevator = new Elevator();
 		climb = new Climb();
