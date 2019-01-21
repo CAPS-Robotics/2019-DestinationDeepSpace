@@ -3,11 +3,12 @@ package frc.team2410.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.team2410.robot.Robot;
+import frc.team2410.robot.TalonPair;
 
 import static frc.team2410.robot.RobotMap.*;
 
 public class Elevator {
-	private WPI_TalonSRX winchMotor;
+	private TalonPair winchMotor;
 	private Encoder heightEncoder;
 	
 	private Intake intake;
@@ -16,7 +17,7 @@ public class Elevator {
 	
 	public Elevator() {
 		intake = new Intake();
-		winchMotor = new WPI_TalonSRX(WINCH_CIM);
+		winchMotor = new TalonPair(ELEVATOR_A, ELEVATOR_B, false, true);
 		heightEncoder = new Encoder(WINCH_CIMCODER_A, WINCH_CIMCODER_B);
 		heightEncoder.setDistancePerPulse(WINCH_DIST_PER_PULSE);
 		heightEncoder.reset();

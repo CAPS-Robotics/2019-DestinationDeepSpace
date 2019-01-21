@@ -13,17 +13,19 @@ public class RobotMap
 	//CAN
 	public static final int FRONT_RIGHT_STEER = 1;
 	public static final int FRONT_RIGHT_DRIVE = 2;
-	public static final int FRONT_LEFT_DRIVE = 3;
-	public static final int FRONT_LEFT_STEER = 4;
-	public static final int BACK_LEFT_STEER = 5;
+	public static final int FRONT_LEFT_STEER = 3;
+	public static final int FRONT_LEFT_DRIVE = 4;
 	public static final int PIGEON_IMU_SRX = 5;
+	public static final int BACK_LEFT_STEER = 5;
 	public static final int BACK_LEFT_DRIVE = 6;
+	public static final int BACK_RIGHT_STEER = 7;
 	public static final int BACK_RIGHT_DRIVE = 8;
-	public static final int BACK_RIGHT_STEER = 9;
-	public static final int WINCH_CIM = 10; //Tentative
+	public static final int ELEVATOR_A = 9;
+	public static final int ELEVATOR_B = 10;
 	public static final int INTAKE_MOTOR_TOP = 11; //Tentative
 	public static final int INTAKE_MOTOR_BOTTOM = 12; // Tentative
-	public static final int PCM = 13; //Tentative
+	public static final int WRIST_MOTOR = 14; // Tentative
+	public static final int PCM = 15;
 	
 	//Analog In
 	public static final int FR_STEER_ENCODER = 0;
