@@ -62,10 +62,10 @@ public class RobotMap
 	public static final double HATCH_INTAKE_HEIGHT = 0;
 	public static final double CARGOSHIP_BALL_HEIGHT = 0;
 	public static final double CARGOSHIP_HATCH_HEIGHT = 0;
-	public static final double ROCKET_BALL_LEVEL_ONE_HEIGHT = 0;
-	public static final double ROCKET_HATCH_LEVEL_ONE_HEIGHT = 0;
 	public static final double ROCKET_BALL_LEVEL_TWO_HEIGHT = 0;
 	public static final double ROCKET_HATCH_LEVEL_TWO_HEIGHT = 0;
+	public static final double ROCKET_BALL_LEVEL_THRREE_HEIGHT = 0;
+	public static final double ROCKET_HATCH_LEVEL_THREE_HEIGHT = 0;
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 0;
