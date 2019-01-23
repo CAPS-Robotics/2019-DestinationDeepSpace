@@ -10,17 +10,18 @@ import frc.team2410.robot.RobotMap;
 
 public class Vision
 {
-	NetworkTable table;
-	Number[] centerX;
-	Number[] centerY;
-	Number[] height;
-	Number[] width;
+	private NetworkTable table;
+	private Number[] centerX;
+	private Number[] centerY;
+	private Number[] height;
+	private Number[] width;
+	
 	public Vision() {
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
 	}
 	
-	void update() {
+	private void update() {
 		centerX = table.getEntry("centerX").getNumberArray(new Number[0]);
 		centerY = table.getEntry("centerY").getNumberArray(new Number[0]);
 		height = table.getEntry("height").getNumberArray(new Number[0]);
