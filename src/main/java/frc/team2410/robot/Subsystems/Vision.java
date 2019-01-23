@@ -6,7 +6,10 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import frc.team2410.robot.RobotMap;
+
+import static frc.team2410.robot.RobotMap.*;
 
 public class Vision
 {
@@ -15,10 +18,12 @@ public class Vision
 	private Number[] centerY;
 	private Number[] height;
 	private Number[] width;
+	private DigitalOutput light;
 	
 	public Vision() {
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
+		light = new DigitalOutput(CAMERA_LIGHT);
 	}
 	
 	private void update() {
@@ -36,5 +41,9 @@ public class Vision
 		}
 		if (centerX.length != 0) { theCenterX /= centerX.length; }
 		return theCenterX;
+	}
+	
+	public void setLight(boolean on) {
+		light.set(on);
 	}
 }

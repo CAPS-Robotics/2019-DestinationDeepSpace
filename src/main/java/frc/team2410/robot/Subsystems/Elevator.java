@@ -43,6 +43,7 @@ public class Elevator {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
 		}
+		intake.setWrist(Robot.oi.getAnalogStick(false, true));
 	}
 	
 	public void setIntake(boolean in) {

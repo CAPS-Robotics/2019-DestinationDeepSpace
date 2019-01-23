@@ -39,6 +39,7 @@ public class RobotMap
 	public static final int DRIVE_CIMCODER_B = 3;
 	public static final int WINCH_CIMCODER_A = 0; //Tentative
 	public static final int WINCH_CIMCODER_B = 1; //Tentative
+	public static final int CAMERA_LIGHT = 4; //Tentative
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
