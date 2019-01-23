@@ -25,16 +25,28 @@ public class OI {
 		if(joy.getRawButton(6)) {
 			Robot.gyro.resetHeading(0);
 		}
+		
+		if(xbox.getRawButton(7)) {
+			Robot.elevator.setIntake(true);
+		} else if(xbox.getRawButton(8)) {
+			Robot.elevator.setIntake(false);
+		} else {
+			Robot.elevator.stopIntake();
+		}
+		if(leadingEdge(false, 6)) {
+			Robot.elevator.toggleHatch();
+		}
 	}
 	
+	//Returns true for the first frame the button is pressed
 	private boolean leadingEdge(boolean joystick, int button) {
 		int n = joystick?1:0;
-		if(controllers[n].getRawButton(button+1)) {
-			if(canPress[n][button]) {
-				canPress[n][button] = false;
+		if(controllers[n].getRawButton(button)) {
+			if(canPress[n][button-1]) {
+				canPress[n][button-1] = false;
 				return true;
 			}
-		} else { canPress[n][button] = true; }
+		} else { canPress[n][button-1] = true; }
 		return false;
 	}
 	

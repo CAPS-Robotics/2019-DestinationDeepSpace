@@ -2,7 +2,7 @@ package frc.team2410.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import frc.team2410.robot.RobotMap;
+import static frc.team2410.robot.RobotMap.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
@@ -15,7 +15,7 @@ public class PigeonNav implements PIDSource
 	//TODO: Make PID functions switch between rate and displacement instead of forcing displacement
 
 	public PigeonNav() {
-		this.gyro = new PigeonIMU(new TalonSRX(RobotMap.PIGEON_IMU_SRX));
+		this.gyro = new PigeonIMU(new TalonSRX(PIGEON_IMU_SRX));
 		this.ypr = new double[3];
 		this.resetHeading(0);
 	}

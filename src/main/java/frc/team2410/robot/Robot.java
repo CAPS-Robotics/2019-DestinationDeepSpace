@@ -1,19 +1,21 @@
 package frc.team2410.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Subsystems.*;
 
-import static frc.team2410.robot.RobotMap.GYRO_D;
-import static frc.team2410.robot.RobotMap.GYRO_I;
-import static frc.team2410.robot.RobotMap.GYRO_P;
+import static frc.team2410.robot.RobotMap.*;
 
-public class Robot extends IterativeRobot
+public class Robot extends TimedRobot
 {
 	public static Drivetrain drivetrain;
 	public static PigeonNav gyro;
 	public static OI oi;
+	public static Vision vision;
 	public static SemiAuto semiAuto;
+	public static Elevator elevator;
+	public static Climb climb;
+	
 	private float smp;
 	private float smi;
 	private float smd;
@@ -30,7 +32,10 @@ public class Robot extends IterativeRobot
 		gyro = new PigeonNav();
 		drivetrain = new Drivetrain();
 		oi = new OI();
+		vision = new Vision();
 		semiAuto = new SemiAuto();
+		elevator = new Elevator();
+		climb = new Climb();
 		
 		//Put PID changers so we don't have to push code every tune
 		smp = RobotMap.SWERVE_MODULE_P;
@@ -48,12 +53,22 @@ public class Robot extends IterativeRobot
 	}
 	
 	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putNumber("FL Angle", drivetrain.fl.getAngle());
+		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
+		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
+		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
+		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
+	}
+	
+	@Override
 	public void disabledInit() {}
 	
 	@Override
-	public void disabledPeriodic() {
-		printSwerves();
-	}
+	public void disabledPeriodic() {}
 	
 	@Override
 	public void autonomousInit() {
@@ -71,7 +86,6 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic() {
 		// Output Info to Smart Dashboard
-		printSwerves();
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
@@ -79,6 +93,7 @@ public class Robot extends IterativeRobot
 		//Run subsystem loops
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
+		elevator.loop();
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)
 		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
@@ -93,15 +108,4 @@ public class Robot extends IterativeRobot
 	
 	@Override
 	public void testPeriodic() {} //why would we use this?
-	
-	private void printSwerves() {
-		SmartDashboard.putNumber("FL Angle", drivetrain.fl.getAngle());
-		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
-		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
-		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
-		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
-	}
 }
