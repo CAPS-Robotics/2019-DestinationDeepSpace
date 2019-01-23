@@ -20,11 +20,11 @@ public class OI {
 			Robot.drivetrain.returnWheelsToZero();
 		}
 		
-		Robot.fieldOriented = !joy.getRawButton(2);
-		
 		if(joy.getRawButton(6)) {
 			Robot.gyro.resetHeading(0);
 		}
+		
+		Robot.fieldOriented = !joy.getRawButton(2);
 		
 		if(xbox.getRawButton(7)) {
 			Robot.elevator.setIntake(true);
@@ -33,8 +33,16 @@ public class OI {
 		} else {
 			Robot.elevator.stopIntake();
 		}
+		
 		if(leadingEdge(false, 6)) {
 			Robot.elevator.toggleHatch();
+		}
+		
+		if(leadingEdge(false, 9)) {
+			Robot.elevator.reset(0);
+		}
+		if(leadingEdge(false, 10)) {
+			Robot.elevator.resetWrist(0);
 		}
 	}
 	

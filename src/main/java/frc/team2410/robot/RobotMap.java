@@ -35,11 +35,13 @@ public class RobotMap
 	public static final int RANGE_FINDER = 4;
 
 	//DIO
-	public static final int DRIVE_CIMCODER_A = 2;
-	public static final int DRIVE_CIMCODER_B = 3;
 	public static final int WINCH_CIMCODER_A = 0; //Tentative
 	public static final int WINCH_CIMCODER_B = 1; //Tentative
-	public static final int CAMERA_LIGHT = 4; //Tentative
+	public static final int DRIVE_CIMCODER_A = 2;
+	public static final int DRIVE_CIMCODER_B = 3;
+	public static final int WRIST_ENCODER_A = 4; //Tentative
+	public static final int WRIST_ENCODER_B = 5; //Tentative
+	public static final int CAMERA_LIGHT = 6; //Tentative
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
@@ -55,7 +57,7 @@ public class RobotMap
 	public static final float BL_OFFSET = 3.286132476f;
 	public static final float BR_OFFSET = 1.716308418f;
 	
-	//Elevator Heights
+	//Elevator Heights- ALL TENTATIVE
 	public static final double BALL_INTAKE_HEIGHT = 0;
 	public static final double HATCH_INTAKE_HEIGHT = 0;
 	public static final double CARGOSHIP_BALL_HEIGHT = 0;
@@ -65,12 +67,14 @@ public class RobotMap
 	public static final double ROCKET_BALL_LEVEL_TWO_HEIGHT = 0;
 	public static final double ROCKET_HATCH_LEVEL_TWO_HEIGHT = 0;
 	
-	//Camera
-	public static final int CAMERA_BRIGHTNESS = 0;
-	public static final int CAMERA_EXPOSURE = 25;
+	//Wrist Angles- ALL TENTATIVE
+	public static final double CARGO_WRIST_ANGLE = 0;
+	public static final double HATCH_WRIST_ANGLE = 0;
+	public static final double CLIMB_WRIST_ANGLE = 0;
 	
 	//public static final int PI = 3.1416;
 	//public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 0; //Tentative
+	public static final double WRIST_DEGREES_PER_PULSE = 0; //Tentative
 }
