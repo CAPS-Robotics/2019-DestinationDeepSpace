@@ -7,15 +7,15 @@ import frc.team2410.robot.Robot;
 import static frc.team2410.robot.RobotMap.*;
 
 public class Drivetrain {
-	AnalogInput rangeFinder;
+	private AnalogInput rangeFinder;
 	public double desiredHeading;
 	public SwerveModule fl;
 	public SwerveModule fr;
 	public SwerveModule bl;
 	public SwerveModule br;
-	PIDController gyroPID;
-	Encoder driveEnc;
-	double prot = 0; // Previous rotation
+	private PIDController gyroPID;
+	private Encoder driveEnc;
+	private double prot = 0; // Previous rotation
 	
 	public Drivetrain() {
 		this.fl = new SwerveModule(FRONT_LEFT_STEER, FRONT_LEFT_DRIVE, FL_STEER_ENCODER, FL_OFFSET, true);
