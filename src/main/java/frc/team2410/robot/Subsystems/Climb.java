@@ -9,8 +9,8 @@ public class Climb {
 	private DoubleSolenoid pistonRight;
 	
 	public Climb() {
-		pistonLeft = new DoubleSolenoid(CLIMB_PISTON_LEFT_FORWARD, CLIMB_PISTON_LEFT_REVERSE, PCM);
-		pistonRight = new DoubleSolenoid(CLIMB_PISTON_RIGHT_FORWARD, CLIMB_PISTON_RIGHT_REVERSE, PCM);
+		pistonLeft = new DoubleSolenoid(PCM, CLIMB_PISTON_LEFT_FORWARD, CLIMB_PISTON_LEFT_REVERSE);
+		pistonRight = new DoubleSolenoid(PCM, CLIMB_PISTON_RIGHT_FORWARD, CLIMB_PISTON_RIGHT_REVERSE);
 	}
 	
 	public void set(boolean out) {

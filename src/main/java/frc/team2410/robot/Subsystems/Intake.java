@@ -14,7 +14,7 @@ class Intake {
 	
 	Intake() {
 		talonPair = new TalonPair(INTAKE_MOTOR_TOP, INTAKE_MOTOR_BOTTOM, false, false);
-		solenoid = new DoubleSolenoid(HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE, PCM);
+		solenoid = new DoubleSolenoid(PCM, HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE);
 	}
 	
 	void setWheel(boolean in) {

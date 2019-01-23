@@ -1,12 +1,12 @@
 package frc.team2410.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Subsystems.*;
 
 import static frc.team2410.robot.RobotMap.*;
 
-public class Robot extends IterativeRobot
+public class Robot extends TimedRobot
 {
 	public static Drivetrain drivetrain;
 	public static PigeonNav gyro;
@@ -53,12 +53,22 @@ public class Robot extends IterativeRobot
 	}
 	
 	@Override
+	public void robotPeriodic() {
+		SmartDashboard.putNumber("FL Angle", drivetrain.fl.getAngle());
+		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
+		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
+		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
+		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
+	}
+	
+	@Override
 	public void disabledInit() {}
 	
 	@Override
-	public void disabledPeriodic() {
-		printSwerves();
-	}
+	public void disabledPeriodic() {}
 	
 	@Override
 	public void autonomousInit() {
@@ -76,7 +86,6 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic() {
 		// Output Info to Smart Dashboard
-		printSwerves();
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
@@ -99,15 +108,4 @@ public class Robot extends IterativeRobot
 	
 	@Override
 	public void testPeriodic() {} //why would we use this?
-	
-	private void printSwerves() {
-		SmartDashboard.putNumber("FL Angle", drivetrain.fl.getAngle());
-		SmartDashboard.putNumber("FR Angle", drivetrain.fr.getAngle());
-		SmartDashboard.putNumber("BL Angle", drivetrain.bl.getAngle());
-		SmartDashboard.putNumber("BR Angle", drivetrain.br.getAngle());
-		SmartDashboard.putNumber("FL Voltage", drivetrain.fl.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
-	}
 }
