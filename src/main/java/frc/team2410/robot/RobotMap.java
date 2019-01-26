@@ -58,19 +58,25 @@ public class RobotMap
 	public static final float BR_OFFSET = 1.716308418f;
 	
 	//Elevator Heights- ALL TENTATIVE
-	public static final double BALL_INTAKE_HEIGHT = 0;
+	public static final double CARGO_INTAKE_HEIGHT = 0;
 	public static final double HATCH_INTAKE_HEIGHT = 0;
-	public static final double CARGOSHIP_BALL_HEIGHT = 0;
-	public static final double CARGOSHIP_HATCH_HEIGHT = 0;
-	public static final double ROCKET_BALL_LEVEL_TWO_HEIGHT = 0;
-	public static final double ROCKET_HATCH_LEVEL_TWO_HEIGHT = 0;
-	public static final double ROCKET_BALL_LEVEL_THRREE_HEIGHT = 0;
-	public static final double ROCKET_HATCH_LEVEL_THREE_HEIGHT = 0;
+	public static final double[] CARGO_HEIGHT = {0, 0, 0};
+	public static final double[] HATCH_HEIGHT = {0, 0, 0};
+	public static final double CLIMB_HEIGHT = 0;
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 0;
 	public static final double HATCH_WRIST_ANGLE = 0;
 	public static final double CLIMB_WRIST_ANGLE = 0;
+	
+	//Field Angles
+	public static final double CARGO_SHIP_FRONT = 0;
+	public static final double ROCKET_LEFT_FRONT = -90;
+	public static final double ROCKET_LEFT_LEFT = -90.0 + 61.25;
+	public static final double ROCKET_LEFT_RIGHT = -90 - 61.25;
+	public static final double ROCKET_RIGHT_FRONT = 90;
+	public static final double ROCKET_RIGHT_LEFT = 90.0 + 61.25;
+	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
 	
 	//public static final int PI = 3.1416;
 	//public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679; //memz

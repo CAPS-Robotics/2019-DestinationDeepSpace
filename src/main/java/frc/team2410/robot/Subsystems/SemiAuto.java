@@ -13,42 +13,36 @@ public class SemiAuto {
 	
 	}
 	
-	public void climb() {
+	public double closestAngle() {
+		double positiveAngle =Math.abs (Robot.gyro.getHeading());
+		
+		double lowestOffset;
+		
+		lowestOffset = Math.abs(CARGO_SHIP_FRONT) - positiveAngle;
+		//lowestOffset = Math.abs(CARGO_SHIP_FRONT) - positiveAngle < lowestOffset ?
+		
+		
+		
+		if(lowestOffset < 0) {
+		}
+		
+		return lowestOffset;
+	}
 	
+	public void climb() {
+		elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT);
 	}
 	
 	public void placeCargo(int level) {
-		switch(level){
-			case 1:
-				elevatorSetpoint(CARGO_WRIST_ANGLE, CARGOSHIP_BALL_HEIGHT);
-				break;
-			case 2:
-				elevatorSetpoint(CARGO_WRIST_ANGLE, ROCKET_BALL_LEVEL_TWO_HEIGHT);
-				break;
-			case 3:
-				elevatorSetpoint(CARGO_WRIST_ANGLE, ROCKET_BALL_LEVEL_THRREE_HEIGHT);
-				break;
-		}
+		elevatorSetpoint(CARGO_WRIST_ANGLE, CARGO_HEIGHT[level-1]);
 	}
 	
 	public void placeHatch(int level) {
-		switch(level){
-			case 1:
-				elevatorSetpoint(HATCH_WRIST_ANGLE, CARGOSHIP_HATCH_HEIGHT);
-				break;
-			case 2:
-				elevatorSetpoint(HATCH_WRIST_ANGLE, ROCKET_HATCH_LEVEL_TWO_HEIGHT);
-				break;
-			case 3:
-				elevatorSetpoint(HATCH_WRIST_ANGLE, ROCKET_HATCH_LEVEL_THREE_HEIGHT);
-				break;
-		}
+		elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[level-1]);
 	}
 	
 	public void elevatorSetpoint(double wristAngle, double elevatorHeight) {
 		Robot.elevator.moveTo(elevatorHeight);
 		Robot.elevator.moveWristTo(wristAngle);
 	}
-	
-	
 }
