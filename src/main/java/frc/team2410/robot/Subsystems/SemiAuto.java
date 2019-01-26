@@ -14,19 +14,36 @@ public class SemiAuto {
 	}
 	
 	public double closestAngle() {
-		double positiveAngle =Math.abs (Robot.gyro.getHeading());
+		double angle = Math.abs(Robot.gyro.getHeading());
 		
-		double lowestOffset;
+		double lowestOffset = Math.abs(CARGO_SHIP_FRONT) - angle;
+		double target = CARGO_SHIP_FRONT;
 		
-		lowestOffset = Math.abs(CARGO_SHIP_FRONT) - positiveAngle;
-		//lowestOffset = Math.abs(CARGO_SHIP_FRONT) - positiveAngle < lowestOffset ?
-		
-		
-		
-		if(lowestOffset < 0) {
+		if(Math.abs(ROCKET_LEFT_FRONT) - angle < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_FRONT)-angle;
+			target = ROCKET_LEFT_FRONT;
+		}
+		if(Math.abs(ROCKET_RIGHT_FRONT) - angle < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_FRONT)-angle;
+			target = ROCKET_RIGHT_FRONT;
+		}
+		if(Math.abs(ROCKET_LEFT_LEFT) - angle < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_LEFT)-angle;
+			target = ROCKET_LEFT_LEFT;
+		}
+		if(Math.abs(ROCKET_LEFT_RIGHT) - angle < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_RIGHT)-angle;
+			target = ROCKET_LEFT_RIGHT;
+		}
+		if(Math.abs(ROCKET_RIGHT_LEFT) - angle < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_LEFT)-angle;
+			target = ROCKET_RIGHT_LEFT;
+		}
+		if(Math.abs(ROCKET_RIGHT_RIGHT) - angle < lowestOffset) {
+			target = ROCKET_RIGHT_RIGHT;
 		}
 		
-		return lowestOffset;
+		return target;
 	}
 	
 	public void climb() {
