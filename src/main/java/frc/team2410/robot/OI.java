@@ -1,6 +1,7 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.*;
+import static frc.team2410.robot.RobotMap.*;
 
 public class OI {
 	private boolean[][] canPress = new boolean[2][12];
@@ -21,7 +22,7 @@ public class OI {
 		}
 		
 		if(joy.getRawButton(6)) {
-			Robot.gyro.resetHeading(0);
+			Robot.drivetrain.resetHeading(0);
 		}
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
@@ -34,21 +35,31 @@ public class OI {
 			Robot.elevator.stopIntake();
 		}
 		
-		if(leadingEdge(false, 6)) {
+		if(leadingEdge(true, 1)) {
 			Robot.elevator.toggleHatch();
 		}
 		
-		if(leadingEdge(false, 9)) {
+		if(leadingEdge(false, 10)) {
 			Robot.elevator.reset(0);
 		}
-		if(leadingEdge(false, 10)) {
+		if(leadingEdge(false, 9)) {
 			Robot.elevator.resetWrist(0);
+		}
+		
+		if(leadingEdge(false, 6)) {
+			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
+		}
+		if(leadingEdge(false, 1)) {
+			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[0]);
+		}
+		if(leadingEdge(false, 4)) {
+			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[1]);
 		}
 	}
 	
 	//Returns true for the first frame the button is pressed
 	private boolean leadingEdge(boolean joystick, int button) {
-		int n = joystick?1:0;
+		int n = joystick?0:1;
 		if(controllers[n].getRawButton(button)) {
 			if(canPress[n][button-1]) {
 				canPress[n][button-1] = false;
@@ -75,7 +86,7 @@ public class OI {
 	}
 	
 	public double getAnalogStick(boolean rightStick, boolean yAxis){
-		return this.applyDeadzone(xbox.getRawAxis((rightStick?1:0)*2+(yAxis?1:0)), 0.50, 1);
+		return this.applyDeadzone(xbox.getRawAxis((rightStick?1:0)*2+(yAxis?1:0)), 0.25, 1);
 	}
 	
 	public double getJoyPOV() {

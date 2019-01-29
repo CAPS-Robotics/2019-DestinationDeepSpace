@@ -33,6 +33,11 @@ public class Drivetrain {
 		gyroPID.enable();
 	}
 	
+	public void resetHeading(int head) {
+		Robot.gyro.resetHeading(head);
+		desiredHeading = head;
+	}
+	
 	public void joystickDrive(boolean fieldOriented) {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
 		Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);

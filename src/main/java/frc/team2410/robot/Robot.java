@@ -86,9 +86,9 @@ public class Robot extends TimedRobot
 	@Override
 	public void teleopPeriodic() {
 		// Output Info to Smart Dashboard
-		SmartDashboard.putNumber("Heading", gyro.getHeading());
+		/*SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
-		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
+		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));*/
 		
 		//Run subsystem loops
 		oi.pollButtons();
@@ -96,14 +96,14 @@ public class Robot extends TimedRobot
 		elevator.loop();
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)
-		smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
+		/*smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
 		smi = (float)SmartDashboard.getNumber("swerve i", 0.0);
 		smd = (float)SmartDashboard.getNumber("swerve d", 0.0);
 		gp = SmartDashboard.getNumber("gyro p", 0.0);
 		gi = SmartDashboard.getNumber("gyro i", 0.0);
 		gd = SmartDashboard.getNumber("gyro d", 0.0);
 		drivetrain.setGyroPID(gp, gi, gd);
-		drivetrain.setPID(smp, smi, smd);
+		drivetrain.setPID(smp, smi, smd);*/
 	}
 	
 	@Override

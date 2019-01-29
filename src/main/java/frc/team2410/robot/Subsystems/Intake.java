@@ -19,9 +19,10 @@ class Intake {
 	private double wristOffset;
 	
 	Intake() {
-		wheels = new TalonPair(INTAKE_MOTOR_TOP, INTAKE_MOTOR_BOTTOM, false, false);
+		wheels = new TalonPair(INTAKE_MOTOR_A, INTAKE_MOTOR_B, false, true);
 		solenoid = new DoubleSolenoid(PCM, HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE);
 		wrist = new WPI_TalonSRX(WRIST_MOTOR);
+		wrist.setInverted(true);
 		wristEncoder = new Encoder(WRIST_ENCODER_A, WRIST_ENCODER_B);
 		wristEncoder.setDistancePerPulse(WRIST_DEGREES_PER_PULSE);
 	}
