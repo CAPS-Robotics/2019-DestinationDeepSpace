@@ -37,7 +37,7 @@ public class RobotMap
 	public static final int RANGE_FINDER = 4;
 
 	//DIO
-	public static final int WINCH_ENCODER_A = 0;
+	public static final int WINCH_ENCODER_A= 0;
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int DRIVE_CIMCODER_A = 2;
 	public static final int DRIVE_CIMCODER_B = 3;
@@ -66,14 +66,15 @@ public class RobotMap
 	public static final double HATCH_INTAKE_HEIGHT = 7;
 	public static final double[] CARGO_HEIGHT = {0, 0, 0}; //Tentative
 	public static final double[] HATCH_HEIGHT = {9, 37, 65};
-	public static final double CLIMB_HEIGHT = 0; //Tentative
+	public static final double[] CLIMB_HEIGHT = {0, 0}; //Tentative
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 0; //Tentative
 	public static final double HATCH_WRIST_ANGLE = 0;
 	public static final double CLIMB_WRIST_ANGLE = 0; //Tentative
+	public static final double WRIST_UP = 90; //Tentative
 	
-	//Field Values
+	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;
 	public static final double ROCKET_LEFT_FRONT = -90;
 	public static final double ROCKET_LEFT_LEFT = -90.0 + 61.25;
@@ -81,8 +82,15 @@ public class RobotMap
 	public static final double ROCKET_RIGHT_FRONT = 90;
 	public static final double ROCKET_RIGHT_LEFT = 90.0 + 61.25;
 	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
+	
+	//Field Distances
 	public static final double CARGO_DISTANCE = 10; //Tentative
-	public static final double HATCH_DISTANCE = 10; //Tentative
+	public static final double HATCH_DISTANCE = 1; //Tentative
+	public static final double STATION_DISTANCE = 10; //Tentative
+	public static final double HABITAT_DISTANCE = 10; //Tentative
+	public static final double CLIMB_WALL_DISTANCE = 10; //Tentative
+	public static final double WALL_DISTANCE = 5; //Tentative
+	
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3; //Tentative

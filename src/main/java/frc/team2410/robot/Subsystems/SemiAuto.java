@@ -1,5 +1,6 @@
 package frc.team2410.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.team2410.robot.Robot;
 import static frc.team2410.robot.RobotMap.*;
 
@@ -7,9 +8,10 @@ public class SemiAuto {
 	
 	private int placeState = 0;
 	private int climbState = 0;
+	Timer t;
 	
 	public SemiAuto() {
-	
+		t = new Timer();
 	}
 	
 	public void reset(boolean place) {
@@ -66,21 +68,13 @@ public class SemiAuto {
 		Robot.drivetrain.crabDrive(speed, 0, 0, 0.5, false);
 	}
 	
-	private void driveToStation(boolean hatch) {
-		double target = hatch ? HATCH_DISTANCE : CARGO_DISTANCE;
-		
-		double distanceToTarget = target - Robot.vision.getDistanceAway();
-		
-		if(Math.abs(distanceToTarget) < 2) placeState++;
-		
-		double speed = distanceToTarget/10;
-		if(speed < -1) speed = -1;
-		if(speed > 1) speed = 1;
-		Robot.drivetrain.crabDrive(0, speed, 0, 0.5, false);
-	}
-	
 	private void deliver(boolean hatch) {
-		//TODO
+		if(hatch) {
+			Robot.elevator.toggleHatch();
+		} else {
+			Robot.elevator.setIntake(false);
+		}
+		if(t.get() > (hatch ? 0.25 : 1)) placeState++;
 	}
 	
 	public void place(boolean hatch, int level) {
@@ -89,23 +83,67 @@ public class SemiAuto {
 				turnToClosestStation();
 				break;
 			case 1:
-				alignLine();
+				elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1]); placeState++;
 				break;
 			case 2:
-				driveToStation(hatch);
+				alignLine();
 				break;
 			case 3:
-				placeState += elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1]) ? 1 : 0;
+				if(driveToDistance(STATION_DISTANCE, false)) placeState++;
 				break;
 			case 4:
+				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1])) placeState++;
+				break;
+			case 5:
+				if(driveToDistance(hatch ? HATCH_DISTANCE : CARGO_DISTANCE, false)) placeState++;
+				t.reset();
+				break;
+			case 6:
+				t.start();
 				deliver(hatch);
+				break;
+			case 7:
+				if(driveToDistance(STATION_DISTANCE, false)) placeState++;
 				break;
 		}
 	}
 	
-	public void climb() {
-		//TODO
-		elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT);
+	private void lift() {
+		elevatorSetpoint(CLIMB_WRIST_ANGLE, 0);
+		Robot.climb.set(true);
+		
+		if(Robot.elevator.getPosition() < 2) climbState++;
+	}
+	
+	private void pullForward() {
+		Robot.elevator.setIntake(false);
+		if(Robot.vision.getDistanceAway() < CLIMB_WALL_DISTANCE) {
+			Robot.elevator.stopIntake();
+			Robot.climb.set(false);
+			Robot.elevator.moveWristTo(WRIST_UP);
+			climbState++;
+		}
+	}
+	
+	public void climb(int level) {
+		switch(climbState){
+			case 0:
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT[level])) climbState++;
+				break;
+			case 1:
+				Robot.drivetrain.desiredHeading = 180;
+			case 2:
+				if(driveToDistance(-(HABITAT_DISTANCE - Robot.vision.getDistanceAway()), true)) climbState++;
+				break;
+			case 3:
+				lift();
+				break;
+			case 4:
+				pullForward();
+				break;
+			case 5:
+				if(driveToDistance(WALL_DISTANCE - Robot.vision.getDistanceAway(), false)) climbState++;
+		}
 	}
 	
 	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight) {
@@ -114,5 +152,16 @@ public class SemiAuto {
 		boolean elevatorAt = Math.abs(Robot.elevator.getPosition() - elevatorHeight) < 1;
 		boolean wristAt = Math.abs(Robot.elevator.getWristAngle() - elevatorHeight) < 1;
 		return elevatorAt && wristAt;
+	}
+	
+	private boolean driveToDistance(double distance, boolean useGyro){
+		if(Math.abs(distance) < 2) return true;
+		
+		double speed = distance/10;
+		if(speed < -1) speed = -1;
+		if(speed > 1) speed = 1;
+		Robot.drivetrain.crabDrive(0, speed, 0, 0.3, useGyro);
+		
+		return false;
 	}
 }
