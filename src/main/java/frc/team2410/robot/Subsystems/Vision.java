@@ -5,8 +5,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.*;
 import frc.team2410.robot.RobotMap;
 
 import static frc.team2410.robot.RobotMap.*;
@@ -19,11 +18,17 @@ public class Vision
 	private Number[] height;
 	private Number[] width;
 	private DigitalOutput light;
+	private AnalogInput rangeFinder;
 	
 	public Vision() {
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
 		light = new DigitalOutput(CAMERA_LIGHT);
+		this.rangeFinder = new AnalogInput(RANGE_FINDER);
+	}
+	
+	public double getDistanceAway() {
+		return (this.rangeFinder.getVoltage()/SONAR_VOLTS_PER_INCH);
 	}
 	
 	private void update() {

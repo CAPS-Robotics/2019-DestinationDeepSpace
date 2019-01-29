@@ -25,8 +25,19 @@ public class OI {
 			Robot.drivetrain.resetHeading(0);
 		}
 		
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 2; j++) {
+				if(joy.getRawButton(7 + j + 2*i)) {
+					Robot.semiAuto.place(j == 0, i);
+				} else {
+					Robot.semiAuto.reset(j == 0);
+				}
+			}
+		}
+		
 		Robot.fieldOriented = !joy.getRawButton(2);
 		
+		//TODO: move to joystick POV
 		if(xbox.getRawButton(7)) {
 			Robot.elevator.setIntake(true);
 		} else if(xbox.getRawButton(8)) {
@@ -41,9 +52,6 @@ public class OI {
 		
 		if(leadingEdge(false, 10)) {
 			Robot.elevator.reset(0);
-		}
-		if(leadingEdge(false, 9)) {
-			Robot.elevator.resetWrist(0);
 		}
 		
 		if(leadingEdge(false, 6)) {

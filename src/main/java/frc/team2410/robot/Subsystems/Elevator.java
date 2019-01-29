@@ -36,13 +36,11 @@ public class Elevator {
 		return heightEncoder.getDistance() + offset;
 	}
 	
+	public double getWristAngle() { return intake.getWrist(); }
+	
 	public void reset(double height) {
 		heightEncoder.reset();
 		offset = height;
-	}
-	
-	public void resetWrist(double angle) {
-		intake.resetWrist(angle);
 	}
 	
 	public void loop() {

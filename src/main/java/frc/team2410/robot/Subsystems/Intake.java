@@ -16,8 +16,6 @@ class Intake {
 	private WPI_TalonSRX wrist;
 	private Encoder wristEncoder;
 	
-	private double wristOffset;
-	
 	Intake() {
 		wheels = new TalonPair(INTAKE_MOTOR_A, INTAKE_MOTOR_B, false, true);
 		solenoid = new DoubleSolenoid(PCM, HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE);
@@ -44,12 +42,7 @@ class Intake {
 		wrist.set(speed);
 	}
 	
-	void resetWrist(double angle) {
-		wristEncoder.reset();
-		wristOffset = angle;
-	}
-	
 	double getWrist() {
-		return (((wristEncoder.get()-wristOffset)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		return (((wristEncoder.get() - WRIST_OFFSET)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
 	}
 }
