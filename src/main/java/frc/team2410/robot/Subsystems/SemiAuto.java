@@ -125,10 +125,10 @@ public class SemiAuto {
 		}
 	}
 	
-	public void climb(int level) {
+	public void climb() {
 		switch(climbState){
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT[level])) climbState++;
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT)) climbState++;
 				break;
 			case 1:
 				Robot.drivetrain.desiredHeading = 180;

@@ -86,9 +86,13 @@ public class Robot extends TimedRobot
 	@Override
 	public void teleopPeriodic() {
 		// Output Info to Smart Dashboard
-		/*SmartDashboard.putNumber("Heading", gyro.getHeading());
+		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
-		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));*/
+		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
+		SmartDashboard.putNumber("Sonar", vision.getDistanceAway());
+		SmartDashboard.putNumber("Wrist Encoder", elevator.getWristAngle());
+		SmartDashboard.putNumber("Elevator height",elevator.getPosition());
+		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
 		
 		//Run subsystem loops
 		oi.pollButtons();

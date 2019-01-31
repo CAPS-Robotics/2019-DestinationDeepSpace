@@ -34,16 +34,15 @@ public class RobotMap
 	public static final int BR_STEER_ENCODER = 1;
 	public static final int FL_STEER_ENCODER = 2;
 	public static final int FR_STEER_ENCODER = 3;
-	public static final int RANGE_FINDER = 4;
-
+	public static final int RANGE_FINDER = 5;
+	public static final int WRIST_ENCODER = 4; //Tentative
+	
 	//DIO
 	public static final int WINCH_ENCODER_A= 0;
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int DRIVE_CIMCODER_A = 2;
 	public static final int DRIVE_CIMCODER_B = 3;
-	public static final int WRIST_ENCODER_A = 4; //Tentative
-	public static final int WRIST_ENCODER_B = 5; //Tentative
-	public static final int CAMERA_LIGHT = 6; //Tentative
+	public static final int CAMERA_LIGHT = 4; //Tentative
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
@@ -66,7 +65,7 @@ public class RobotMap
 	public static final double HATCH_INTAKE_HEIGHT = 7;
 	public static final double[] CARGO_HEIGHT = {0, 0, 0}; //Tentative
 	public static final double[] HATCH_HEIGHT = {9, 37, 65};
-	public static final double[] CLIMB_HEIGHT = {0, 0}; //Tentative
+	public static final double CLIMB_HEIGHT = 0; //Tentative
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 0; //Tentative
@@ -86,7 +85,7 @@ public class RobotMap
 	//Field Distances
 	public static final double CARGO_DISTANCE = 10; //Tentative
 	public static final double HATCH_DISTANCE = 1; //Tentative
-	public static final double STATION_DISTANCE = 10; //Tentative
+	public static final double STATION_DISTANCE = 18;
 	public static final double HABITAT_DISTANCE = 10; //Tentative
 	public static final double CLIMB_WALL_DISTANCE = 10; //Tentative
 	public static final double WALL_DISTANCE = 5; //Tentative

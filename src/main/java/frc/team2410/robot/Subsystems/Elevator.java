@@ -53,7 +53,6 @@ public class Elevator {
 		} else {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
-			SmartDashboard.putNumber("Elevator encoder position",getPosition());
 		}
 		/*if(Robot.oi.getAnalogStick(false, true) == 0) {
 			double speed = ((wristAngle-intake.getWrist())/10);
