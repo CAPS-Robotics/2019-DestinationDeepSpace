@@ -24,10 +24,9 @@ public class RobotMap
 	public static final int FRONT_LEFT_DRIVE = 8;
 	public static final int ELEVATOR_A = 9;
 	public static final int ELEVATOR_B = 10;
-	public static final int INTAKE_MOTOR_A = 11;
-	public static final int INTAKE_MOTOR_B = 12;
-	public static final int WRIST_MOTOR = 13;
-	public static final int PCM = 14;
+	public static final int INTAKE_MOTOR = 11;  //TODO change Ids in Phoenix tuner
+	public static final int WRIST_MOTOR = 12;
+	public static final int PCM = 13;
 	
 	//Analog In
 	public static final int BL_STEER_ENCODER = 0;

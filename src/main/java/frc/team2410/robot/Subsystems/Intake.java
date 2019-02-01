@@ -1,5 +1,6 @@
 package frc.team2410.robot.Subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.*;
 import frc.team2410.robot.TalonPair;
@@ -9,14 +10,14 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import static frc.team2410.robot.RobotMap.*;
 
 class Intake {
-	TalonPair wheels;
+	WPI_TalonSRX wheels;
 	private DoubleSolenoid solenoid;
 	private boolean open = false;
 	private WPI_TalonSRX wrist;
 	private AnalogInput wristEncoder;
 	
 	Intake() {
-		wheels = new TalonPair(INTAKE_MOTOR_A, INTAKE_MOTOR_B, false, true);
+		wheels = new WPI_TalonSRX(INTAKE_MOTOR);
 		solenoid = new DoubleSolenoid(PCM, HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE);
 		wrist = new WPI_TalonSRX(WRIST_MOTOR);
 		wrist.setInverted(true);
