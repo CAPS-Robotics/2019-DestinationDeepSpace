@@ -57,6 +57,11 @@ public class SemiAuto {
 		Robot.drivetrain.desiredHeading = target;
 	}
 	
+	private void driveToLine() {
+		Robot.drivetrain.crabDrive(1, 0, 0, 0.3, false);
+		if(Robot.vision.getCentralValue() != 0) placeState++;
+	}
+	
 	private void alignLine() {
 		double distanceToCenter = CAMERA_WIDTH / 2 - Robot.vision.getCentralValue();
 		
@@ -86,16 +91,17 @@ public class SemiAuto {
 				elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1]); placeState++;
 				break;
 			case 2:
-				alignLine();
+				driveToLine();
 				break;
 			case 3:
-				if(driveToDistance(STATION_DISTANCE, false)) placeState++;
+				alignLine();
 				break;
 			case 4:
 				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1])) placeState++;
+				Robot.drivetrain.startTravel();
 				break;
 			case 5:
-				if(driveToDistance(hatch ? HATCH_DISTANCE : CARGO_DISTANCE, false)) placeState++;
+				if(driveToDistance((hatch ? HATCH_DISTANCE : CARGO_DISTANCE) - Robot.drivetrain.getTravel(), false)) placeState++;
 				t.reset();
 				break;
 			case 6:
@@ -103,7 +109,7 @@ public class SemiAuto {
 				deliver(hatch);
 				break;
 			case 7:
-				if(driveToDistance(STATION_DISTANCE, false)) placeState++;
+				if(driveToDistance(Robot.drivetrain.getTravel() - (hatch ? HATCH_DISTANCE : CARGO_DISTANCE), false)) placeState++;
 				break;
 		}
 	}
@@ -155,7 +161,7 @@ public class SemiAuto {
 	}
 	
 	private boolean driveToDistance(double distance, boolean useGyro){
-		if(Math.abs(distance) < 2) return true;
+		if(Math.abs(distance) < 1) return true;
 		
 		double speed = distance/10;
 		if(speed < -1) speed = -1;
@@ -164,4 +170,6 @@ public class SemiAuto {
 		
 		return false;
 	}
+	
+	
 }

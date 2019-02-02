@@ -82,9 +82,8 @@ public class RobotMap
 	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
 	
 	//Field Distances
-	public static final double CARGO_DISTANCE = 10; //Tentative
-	public static final double HATCH_DISTANCE = 1; //Tentative
-	public static final double STATION_DISTANCE = 18;
+	public static final double CARGO_DISTANCE = 1; //Tentative
+	public static final double HATCH_DISTANCE = 4; //Tentative
 	public static final double HABITAT_DISTANCE = 10; //Tentative
 	public static final double CLIMB_WALL_DISTANCE = 10; //Tentative
 	public static final double WALL_DISTANCE = 5; //Tentative

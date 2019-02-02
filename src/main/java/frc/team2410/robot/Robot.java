@@ -62,6 +62,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
 	}
 	
 	@Override
@@ -92,7 +93,6 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Sonar", vision.getDistanceAway());
 		SmartDashboard.putNumber("Wrist Encoder", elevator.getWristAngle());
 		SmartDashboard.putNumber("Elevator height",elevator.getPosition());
-		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
 		
 		//Run subsystem loops
 		oi.pollButtons();
