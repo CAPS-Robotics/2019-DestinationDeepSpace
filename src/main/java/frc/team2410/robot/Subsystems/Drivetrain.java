@@ -1,7 +1,6 @@
 package frc.team2410.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.NumericalPIDOutput;
 import frc.team2410.robot.Robot;
 import static frc.team2410.robot.RobotMap.*;
@@ -64,7 +63,6 @@ public class Drivetrain {
 	
 	void arcadeDrive(double forward, double rotation, double speedMultiplier) {
 		double correction = 0.025*(Robot.gyro.getHeading()-desiredHeading);
-		SmartDashboard.putNumber("Difference", correction);
 		this.fl.drive((forward+rotation*1/Math.sqrt(2)+correction)*speedMultiplier, 0);
 		this.fr.drive((forward-rotation*1/Math.sqrt(2)-correction)*speedMultiplier, 0);
 		this.bl.drive((forward+rotation*1/Math.sqrt(2)+correction)*speedMultiplier, 0);
@@ -73,13 +71,6 @@ public class Drivetrain {
 	
 	public void crabDrive(double x, double y, double rotation, double speedMultiplier, boolean useGyro) {
 		double forward, strafe;
-		SmartDashboard.putNumber("FL Angle", fl.getAngle());
-		SmartDashboard.putNumber("x", x);
-		SmartDashboard.putNumber("y", y);
-		SmartDashboard.putNumber("speed", speedMultiplier);
-		SmartDashboard.putNumber("FR Angle", fr.getAngle());
-		SmartDashboard.putNumber("BL Angle", bl.getAngle());
-		SmartDashboard.putNumber("BR Angle", br.getAngle());
 		double heading = Robot.gyro.getHeading()*Math.PI/180; //Degrees -> Radians
 		if (useGyro) {
 			forward = -x*Math.sin(heading)+y*Math.cos(heading);

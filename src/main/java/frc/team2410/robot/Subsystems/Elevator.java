@@ -1,7 +1,6 @@
 package frc.team2410.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Robot;
 import frc.team2410.robot.TalonPair;
 
@@ -36,11 +35,14 @@ public class Elevator {
 		return heightEncoder.getDistance() + offset;
 	}
 	
+	public double getTarget() { return targetHeight; }
+	
 	public double getWristAngle() { return intake.getWrist(); }
 	
 	public void reset(double height) {
 		heightEncoder.reset();
 		offset = height;
+		targetHeight = height;
 	}
 	
 	public void loop() {

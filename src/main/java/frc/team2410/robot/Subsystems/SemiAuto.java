@@ -59,7 +59,7 @@ public class SemiAuto {
 	
 	private void driveToLine() {
 		Robot.drivetrain.crabDrive(1, 0, 0, 0.3, false);
-		if(Robot.vision.getCentralValue() != 0) placeState++;
+		if(Robot.vision.getCentralValue() != 0) placeState = -1;
 	}
 	
 	private void alignLine() {

@@ -24,7 +24,7 @@ public class RobotMap
 	public static final int FRONT_LEFT_DRIVE = 8;
 	public static final int ELEVATOR_A = 9;
 	public static final int ELEVATOR_B = 10;
-	public static final int INTAKE_MOTOR = 11;  //TODO change Ids in Phoenix tuner
+	public static final int INTAKE_MOTOR = 11;
 	public static final int WRIST_MOTOR = 12;
 	public static final int PCM = 13;
 	
@@ -94,7 +94,7 @@ public class RobotMap
 	public static final double WRIST_DEGREES_PER_PULSE = 0; //Tentative
 	
 	//Vision
-	public static final int CAMERA_WIDTH = 360; // Tentative
+	public static final int CAMERA_WIDTH = 640; // Tentative
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
 	//public static final int PI = 3.1416;

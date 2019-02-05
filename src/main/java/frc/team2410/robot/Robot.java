@@ -63,6 +63,12 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
+		SmartDashboard.putNumber("Heading", gyro.getHeading());
+		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
+		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
+		SmartDashboard.putNumber("Wrist Encoder", elevator.getWristAngle());
+		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
+		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
 	}
 	
 	@Override
@@ -74,6 +80,7 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() {
 		drivetrain.startTravel();
+		elevator.reset(0);
 	}
 	
 	@Override
@@ -86,14 +93,6 @@ public class Robot extends TimedRobot
 	
 	@Override
 	public void teleopPeriodic() {
-		// Output Info to Smart Dashboard
-		SmartDashboard.putNumber("Heading", gyro.getHeading());
-		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
-		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
-		SmartDashboard.putNumber("Sonar", vision.getDistanceAway());
-		SmartDashboard.putNumber("Wrist Encoder", elevator.getWristAngle());
-		SmartDashboard.putNumber("Elevator height",elevator.getPosition());
-		
 		//Run subsystem loops
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
@@ -111,5 +110,7 @@ public class Robot extends TimedRobot
 	}
 	
 	@Override
-	public void testPeriodic() {} //why would we use this?
+	public void testPeriodic() {
+		drivetrain.crabDrive(0, 1, 0, 1, false);
+	}
 }
