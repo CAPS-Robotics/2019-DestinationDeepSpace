@@ -52,7 +52,7 @@ public class RobotMap
 	public static final int CLIMB_PISTON_RIGHT_REVERSE = 5; //Tentative
 	
 	//Offsets
-	public static final float BR_OFFSET = 2.406005613f;
+	public static final float BR_OFFSET = 2.369384523f;
 	public static final float BL_OFFSET = 0.731201097f;
 	public static final float FR_OFFSET = 3.286132476f;
 	public static final float FL_OFFSET = 1.716308418f;

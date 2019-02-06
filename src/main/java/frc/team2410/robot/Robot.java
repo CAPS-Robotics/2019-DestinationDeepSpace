@@ -69,6 +69,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
+		SmartDashboard.putNumber("Place State", semiAuto.placeState);
 	}
 	
 	@Override

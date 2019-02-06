@@ -1,6 +1,8 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import static frc.team2410.robot.RobotMap.*;
 
 public class OI {
@@ -28,9 +30,10 @@ public class OI {
 		boolean resetPlace = true;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 2; j++) {
-				if(joy.getRawButton(7 + j + 2*i)) {
-					Robot.semiAuto.place(j == 0, i);
+				if(joy.getRawButton(12 - (j + 2*i))) {
+					Robot.semiAuto.place(j != 0, i+1);
 					resetPlace = false;
+					
 				}
 			}
 		}

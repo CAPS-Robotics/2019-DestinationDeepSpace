@@ -1,12 +1,13 @@
 package frc.team2410.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Robot;
 import static frc.team2410.robot.RobotMap.*;
 
 public class SemiAuto {
 	
-	private int placeState = 0;
+	public int placeState = 0;
 	private int climbState = 0;
 	Timer t;
 	
@@ -23,32 +24,32 @@ public class SemiAuto {
 	}
 	
 	private void turnToClosestStation() {
-		double angle = Math.abs(Robot.gyro.getHeading());
+		double angle = Robot.gyro.getHeading();
 		
-		double lowestOffset = Math.abs(CARGO_SHIP_FRONT) - angle;
+		double lowestOffset = Math.abs(CARGO_SHIP_FRONT - angle);
 		double target = CARGO_SHIP_FRONT;
 		
-		if(Math.abs(ROCKET_LEFT_FRONT) - angle < lowestOffset) {
-			lowestOffset = Math.abs(ROCKET_LEFT_FRONT)-angle;
+		if(Math.abs(ROCKET_LEFT_FRONT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_FRONT-angle);
 			target = ROCKET_LEFT_FRONT;
 		}
-		if(Math.abs(ROCKET_RIGHT_FRONT) - angle < lowestOffset) {
-			lowestOffset = Math.abs(ROCKET_RIGHT_FRONT)-angle;
+		if(Math.abs(ROCKET_RIGHT_FRONT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_FRONT-angle);
 			target = ROCKET_RIGHT_FRONT;
 		}
-		if(Math.abs(ROCKET_LEFT_LEFT) - angle < lowestOffset) {
-			lowestOffset = Math.abs(ROCKET_LEFT_LEFT)-angle;
+		if(Math.abs(ROCKET_LEFT_LEFT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_LEFT-angle);
 			target = ROCKET_LEFT_LEFT;
 		}
-		if(Math.abs(ROCKET_LEFT_RIGHT) - angle < lowestOffset) {
-			lowestOffset = Math.abs(ROCKET_LEFT_RIGHT)-angle;
+		if(Math.abs(ROCKET_LEFT_RIGHT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_RIGHT-angle);
 			target = ROCKET_LEFT_RIGHT;
 		}
-		if(Math.abs(ROCKET_RIGHT_LEFT) - angle < lowestOffset) {
-			lowestOffset = Math.abs(ROCKET_RIGHT_LEFT)-angle;
+		if(Math.abs(ROCKET_RIGHT_LEFT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_LEFT-angle);
 			target = ROCKET_RIGHT_LEFT;
 		}
-		if(Math.abs(ROCKET_RIGHT_RIGHT) - angle < lowestOffset) {
+		if(Math.abs(ROCKET_RIGHT_RIGHT - angle) < lowestOffset) {
 			target = ROCKET_RIGHT_RIGHT;
 		}
 		
@@ -58,7 +59,7 @@ public class SemiAuto {
 	}
 	
 	private void driveToLine() {
-		Robot.drivetrain.crabDrive(1, 0, 0, 0.3, false);
+		Robot.drivetrain.crabDrive(0, 1, 0, 0.5, false);
 		if(Robot.vision.getCentralValue() != 0) placeState = -1;
 	}
 	

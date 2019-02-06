@@ -61,7 +61,6 @@ class Intake {
 				rollover++;
 			}
 		}
-		SmartDashboard.putNumber("rollover", rollover);
 		pval = dutyCycle;
 		return (((-(rollover+dutyCycle)*360/3.5 - WRIST_OFFSET)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
 	}
