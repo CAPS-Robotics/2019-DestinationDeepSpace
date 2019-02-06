@@ -152,10 +152,10 @@ public class Drivetrain {
 	public void startTravel() {
 		driveEnc.reset();
 	}
-	
 	public double getTravel() {
 		return Math.abs(driveEnc.getDistance());
 	}
+	
 	public void setGyroPID(double p, double i, double d) {
 		gyroPID.setPID(p, i, d);
 	}

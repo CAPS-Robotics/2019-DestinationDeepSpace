@@ -66,7 +66,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
-		SmartDashboard.putNumber("Wrist Encoder", elevator.getWristAngle());
+		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
 	}

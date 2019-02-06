@@ -34,7 +34,6 @@ public class RobotMap
 	public static final int FL_STEER_ENCODER = 2;
 	public static final int FR_STEER_ENCODER = 3;
 	public static final int RANGE_FINDER = 5;
-	public static final int WRIST_ENCODER = 4; //Tentative
 	
 	//DIO
 	public static final int WINCH_ENCODER_A= 0;
@@ -42,6 +41,7 @@ public class RobotMap
 	public static final int DRIVE_CIMCODER_A = 2;
 	public static final int DRIVE_CIMCODER_B = 3;
 	public static final int CAMERA_LIGHT = 4; //Tentative
+	public static final int WRIST_ENCODER = 6; //Tentative
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
@@ -56,7 +56,7 @@ public class RobotMap
 	public static final float BL_OFFSET = 0.731201097f;
 	public static final float FR_OFFSET = 3.286132476f;
 	public static final float FL_OFFSET = 1.716308418f;
-	public static final float WRIST_OFFSET = 0f; //Tentative
+	public static final float WRIST_OFFSET = 205.4074f; //Tentative
 	
 	//Elevator Heights- ALL TENTATIVE
 	public static final double CARGO_INTAKE_HEIGHT = 0; //Tentative but close
