@@ -15,8 +15,7 @@ public class Vision
 	private NetworkTable table;
 	private Number[] centerX;
 	private Number[] centerY;
-	private Number[] height;
-	private Number[] width;
+	private Number[] area;
 	private DigitalOutput light;
 	private AnalogInput rangeFinder;
 	
@@ -34,20 +33,23 @@ public class Vision
 	private void update() {
 		centerX = table.getEntry("centerX").getNumberArray(new Number[0]);
 		centerY = table.getEntry("centerY").getNumberArray(new Number[0]);
-		height = table.getEntry("height").getNumberArray(new Number[0]);
-		width = table.getEntry("width").getNumberArray(new Number[0]);
+		area = table.getEntry("area").getNumberArray(new Number[0]);
 	}
 	
-	public double getCentralValue() {
+	public double[] getCentralValue() {
 		this.update();
-		double theCenterX = 0;
-		for (Number aCenterX : centerX) {
-			theCenterX += (double)aCenterX;
+		double x = 0;
+		double y = 0;
+		double greatestArea = 0;
+		for(int i = 0; i < centerX.length; i++) {
+			if((double)area[i] > greatestArea) {
+				x = (double)centerX[i];
+				y = (double)centerY[i];
+				greatestArea = (double)area[i];
+			}
 		}
-		if (centerX.length != 0) { theCenterX /= centerX.length; }
-		return theCenterX;
+		return new double[] {x, y};
 	}
-	
 	public void setLight(boolean on) {
 		light.set(on);
 	}

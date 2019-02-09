@@ -44,8 +44,8 @@ public class RobotMap
 	public static final int WRIST_ENCODER = 6; //Tentative
 	
 	//PCM
-	public static final int HATCH_INTAKE_FORWARD = 0; //Tentative
-	public static final int HATCH_INTAKE_REVERSE = 1; //Tentative
+	public static final int HATCH_INTAKE_FORWARD = 0;
+	public static final int HATCH_INTAKE_REVERSE = 1;
 	public static final int CLIMB_PISTON_LEFT_FORWARD = 2; //Tentative
 	public static final int CLIMB_PISTON_LEFT_REVERSE = 3; //Tentative
 	public static final int CLIMB_PISTON_RIGHT_FORWARD = 4; //Tentative
@@ -56,7 +56,7 @@ public class RobotMap
 	public static final float BL_OFFSET = 0.731201097f;
 	public static final float FR_OFFSET = 3.286132476f;
 	public static final float FL_OFFSET = 1.716308418f;
-	public static final float WRIST_OFFSET = 205.4074f; //Tentative
+	public static final float WRIST_OFFSET = 177.0753490712399f; //Tentative
 	
 	//Elevator Heights- ALL TENTATIVE
 	public static final double CARGO_INTAKE_HEIGHT = 0; //Tentative but close
@@ -67,10 +67,10 @@ public class RobotMap
 	public static final double CLIMB_HEIGHT = 0; //Tentative
 	
 	//Wrist Angles- ALL TENTATIVE
-	public static final double CARGO_WRIST_ANGLE = 0; //Tentative
+	public static final double CARGO_WRIST_ANGLE = 30; //Tentative
 	public static final double HATCH_WRIST_ANGLE = 0;
 	public static final double CLIMB_WRIST_ANGLE = 0; //Tentative
-	public static final double WRIST_UP = 90; //Tentative
+	public static final double WRIST_UP = 90;
 	
 	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;
@@ -91,10 +91,10 @@ public class RobotMap
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3; //Tentative
-	public static final double WRIST_DEGREES_PER_PULSE = 0; //Tentative
 	
 	//Vision
-	public static final int CAMERA_WIDTH = 640; // Tentative
+	public static final int CAMERA_WIDTH = 640;
+	public static final int CAMERA_HEIGHT = 360;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
 	//public static final int PI = 3.1416;

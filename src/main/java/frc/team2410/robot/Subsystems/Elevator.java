@@ -9,10 +9,10 @@ import static frc.team2410.robot.RobotMap.*;
 public class Elevator {
 	private TalonPair winchMotor;
 	private Encoder heightEncoder;
-	private Intake intake;
+	public Intake intake;
 	
 	private double targetHeight;
-	private double wristAngle;
+	private double targetWrist;
 	private double offset;
 	
 	public Elevator() {
@@ -21,6 +21,7 @@ public class Elevator {
 		heightEncoder = new Encoder(WINCH_ENCODER_A, WINCH_ENCODER_B);
 		heightEncoder.setDistancePerPulse(WINCH_DIST_PER_PULSE);
 		heightEncoder.reset();
+		targetWrist = getWristAngle();
 	}
 	
 	public void moveTo(double height) {
@@ -28,7 +29,7 @@ public class Elevator {
 	}
 	
 	public void moveWristTo(double angle) {
-		wristAngle = angle;
+		targetWrist = angle;
 	}
 	
 	public double getPosition() {
@@ -56,14 +57,14 @@ public class Elevator {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
 		} if(Robot.oi.getAnalogStick(false, true) == 0) {
-			double speed = ((wristAngle-intake.getWrist())/10);
-			if(Math.abs(wristAngle-intake.getWrist()) < 1) speed = 0;
+			double speed = -((targetWrist-intake.getWrist())/20);
+			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			intake.setWrist(speed);
 		} else {
 			intake.setWrist(Robot.oi.getAnalogStick(false, true));
-			wristAngle = intake.getWrist();
+			targetWrist = intake.getWrist();
 		}
 	}
 	

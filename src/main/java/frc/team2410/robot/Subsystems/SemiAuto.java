@@ -62,25 +62,30 @@ public class SemiAuto {
 		Robot.drivetrain.desiredHeading = target;
 	}
 	
-	private void driveToLine() {
+	/*private void driveToLine() {
 		Robot.drivetrain.crabDrive(0, 1, 0, 0.3, false);
 		if(Robot.vision.getCentralValue() != 0) {
 			placeState++;
 			t.reset();
 			t.start();
 		}
-	}
+	}*/
 	
 	private void alignLine() {
-		double distanceToCenter = CAMERA_WIDTH / 2 - Robot.vision.getCentralValue();
+		double[] centerValues = Robot.vision.getCentralValue();
+		double distanceToCenter = CAMERA_WIDTH / 2 - centerValues[0];
+		double distanceBack = CAMERA_HEIGHT / 4 * 3 - centerValues[1];
 		
-		if(Math.abs(distanceToCenter) < 20 && Math.abs(pval-distanceToCenter) < 1) placeState = -1;
-		pval = distanceToCenter;
+		if(Math.abs(distanceToCenter) < 20 && Math.abs(distanceBack) < 20) placeState = -1;
 		
-		double speed = distanceToCenter/(CAMERA_WIDTH/4);
-		if(speed < -1) speed = -1;
-		if(speed > 1) speed = 1;
-		Robot.drivetrain.crabDrive(-speed, 0, 0, .3, false);
+		double xspeed = distanceToCenter/(CAMERA_WIDTH/4);
+		if(xspeed < -1) xspeed = -1;
+		if(xspeed > 1) xspeed = 1;
+		
+		double yspeed = -distanceBack/(CAMERA_HEIGHT/4);
+		if(yspeed < -1) yspeed = -1;
+		if(yspeed > 1) yspeed = 1;
+		Robot.drivetrain.crabDrive(-xspeed, 0, 0, .3, false);
 	}
 	
 	private void deliver(boolean hatch) {
@@ -99,24 +104,21 @@ public class SemiAuto {
 				turnToClosestStation();
 				break;
 			case 1:
-				elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1]); placeState++;
-				break;
-			case 2:
 				alignLine();
 				break;
-			case 3:
+			case 2:
 				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1])) placeState++;
 				Robot.drivetrain.startTravel();
 				break;
-			case 4:
+			case 3:
 				if(driveToDistance((hatch ? HATCH_DISTANCE : CARGO_DISTANCE) - Robot.drivetrain.getTravel(), false)) placeState++;
 				t.reset();
 				break;
-			case 5:
+			case 4:
 				t.start();
 				deliver(hatch);
 				break;
-			case 6:
+			case 5:
 				if(driveToDistance(Robot.drivetrain.getTravel() - (hatch ? HATCH_DISTANCE : CARGO_DISTANCE), false)) placeState++;
 				break;
 			default:

@@ -10,7 +10,7 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 
 import static frc.team2410.robot.RobotMap.*;
 
-class Intake {
+public class Intake {
 	WPI_TalonSRX wheels;
 	private DoubleSolenoid solenoid;
 	private boolean open = false;
@@ -19,7 +19,7 @@ class Intake {
 	private Counter hCounter;
 	private Counter lCounter;
 	private double pval = -1;
-	double rollover = 0;
+	public double rollover = 0;
 	
 	Intake() {
 		wheels = new WPI_TalonSRX(INTAKE_MOTOR);
@@ -62,6 +62,7 @@ class Intake {
 			}
 		}
 		pval = dutyCycle;
-		return (((-(rollover+dutyCycle)*360/3.5 - WRIST_OFFSET)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		double angle = (((-(rollover+dutyCycle)*360/3.5 - WRIST_OFFSET)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		return angle <= 180 ? angle : angle - 360;  // Changes >180 Degrees to Neg Equivalent (ex. 270 -> -90) (changing the range to -180:180) and returns it
 	}
 }

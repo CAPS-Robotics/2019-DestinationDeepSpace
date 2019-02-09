@@ -62,11 +62,13 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("CenterX", vision.getCentralValue());
+		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
+		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
 		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
+		SmartDashboard.putNumber("Wrist Rollover", elevator.intake.rollover);
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
 		SmartDashboard.putNumber("Place State", semiAuto.placeState);
@@ -98,7 +100,7 @@ public class Robot extends TimedRobot
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
-		SmartDashboard.putBoolean("White status LED", vision.getCentralValue() != 0);
+		SmartDashboard.putBoolean("White status LED", vision.getCentralValue()[0] != 0);
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)
 		/*smp = (float)SmartDashboard.getNumber("swerve p", 0.0);
