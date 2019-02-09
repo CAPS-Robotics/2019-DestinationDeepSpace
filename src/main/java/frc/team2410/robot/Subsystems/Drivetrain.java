@@ -13,7 +13,7 @@ public class Drivetrain {
 	public SwerveModule br;
 	private PIDController gyroPID;
 	private Encoder driveEnc;
-	private double prot = 0; // Previous rotation
+	private double pHead = 0; // Previous heading
 	
 	public Drivetrain() {
 		this.fl = new SwerveModule(FRONT_LEFT_STEER, FRONT_LEFT_DRIVE, FL_STEER_ENCODER, FL_OFFSET, true);
@@ -37,7 +37,7 @@ public class Drivetrain {
 	
 	public void joystickDrive(boolean fieldOriented) {
 		double speedMultiplier = (1-Robot.oi.getSlider())/2;
-		Robot.drivetrain.crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
+		if(!Robot.semiAuto.engaged) crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
 	}
 	
 	public void returnWheelsToZero() {
@@ -80,17 +80,15 @@ public class Drivetrain {
 			strafe = x;
 		}
 
-		// Sets desired heading dependant if previous rotation was zero or not
-		if(rotation == 0 && prot == 0) {
-			prot = 0;
+		// Sets desired heading dependant if gyro still moving
+		if(rotation == 0 && Math.abs(pHead - Robot.gyro.getHeading()) < 1) {
 			gyroPID.setSetpoint(desiredHeading);
 			rotation = -gyroPID.get();
 		} else {
-			prot = rotation;
 			desiredHeading = Robot.gyro.getHeading();
 			desiredHeading = wrap(desiredHeading, 180, -180);
 		}
-
+		pHead = Robot.gyro.getHeading();
 
 		if (x != 0 || y != 0 || rotation != 0) {
 			double back, front, right, left;

@@ -83,7 +83,7 @@ public class RobotMap
 	
 	//Field Distances
 	public static final double CARGO_DISTANCE = 1; //Tentative
-	public static final double HATCH_DISTANCE = 4; //Tentative
+	public static final double HATCH_DISTANCE = 2; //Tentative
 	public static final double HABITAT_DISTANCE = 10; //Tentative
 	public static final double CLIMB_WALL_DISTANCE = 10; //Tentative
 	public static final double WALL_DISTANCE = 5; //Tentative

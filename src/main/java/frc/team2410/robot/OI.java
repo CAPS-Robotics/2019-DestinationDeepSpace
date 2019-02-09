@@ -37,7 +37,10 @@ public class OI {
 				}
 			}
 		}
-		if(resetPlace) Robot.semiAuto.reset(true);
+		if(resetPlace) {
+			Robot.semiAuto.reset(true);
+			Robot.semiAuto.engaged = false;
+		}
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
 		

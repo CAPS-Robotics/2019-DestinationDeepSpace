@@ -10,6 +10,8 @@ public class SemiAuto {
 	public int placeState = 0;
 	private int climbState = 0;
 	Timer t;
+	public boolean engaged = false;
+	public double pval = 0;
 	
 	public SemiAuto() {
 		t = new Timer();
@@ -53,25 +55,34 @@ public class SemiAuto {
 			target = ROCKET_RIGHT_RIGHT;
 		}
 		
+		
 		double angleDiff = target - Robot.gyro.getHeading();
-		if(Math.abs(angleDiff) < 2) placeState++;
+		Robot.drivetrain.crabDrive(0, 0, 0, 1, true);
+		if(Math.abs(angleDiff) < 10) placeState++;
 		Robot.drivetrain.desiredHeading = target;
 	}
 	
 	private void driveToLine() {
-		Robot.drivetrain.crabDrive(0, 1, 0, 0.5, false);
-		if(Robot.vision.getCentralValue() != 0) placeState = -1;
+		Robot.drivetrain.crabDrive(0, 1, 0, 0.3, false);
+		if(Robot.vision.getCentralValue() != 0) {
+			placeState++;
+			t.reset();
+			t.start();
+		}
 	}
 	
 	private void alignLine() {
 		double distanceToCenter = CAMERA_WIDTH / 2 - Robot.vision.getCentralValue();
 		
-		if(Math.abs(distanceToCenter) < 10) placeState++;
+		if(Math.abs(distanceToCenter) < 10 && Math.abs(pval-distanceToCenter) < 1) placeState = -1;
+		pval = distanceToCenter;
 		
-		double speed = distanceToCenter/(CAMERA_WIDTH / 2);
+		double speed = distanceToCenter/(CAMERA_WIDTH/4);
 		if(speed < -1) speed = -1;
 		if(speed > 1) speed = 1;
-		Robot.drivetrain.crabDrive(speed, 0, 0, 0.5, false);
+		if(speed > -.4 && speed < 0) speed = -.4;
+		if(speed < .4 && speed > 0) speed = .4;
+		Robot.drivetrain.crabDrive(-speed, 0, 0, .4, false);
 	}
 	
 	private void deliver(boolean hatch) {
@@ -84,6 +95,7 @@ public class SemiAuto {
 	}
 	
 	public void place(boolean hatch, int level) {
+		engaged = true;
 		switch(placeState) {
 			case 0:
 				turnToClosestStation();
@@ -95,23 +107,30 @@ public class SemiAuto {
 				driveToLine();
 				break;
 			case 3:
-				alignLine();
+				Robot.drivetrain.crabDrive(0, -1, 0, 1, false);
+				SmartDashboard.putNumber("semiauto frame test", SmartDashboard.getNumber("semiauto frame test", 0)+1);
+				if(t.get() > .5) placeState++;
 				break;
 			case 4:
+				alignLine();
+				break;
+			case 5:
 				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1])) placeState++;
 				Robot.drivetrain.startTravel();
 				break;
-			case 5:
+			case 6:
 				if(driveToDistance((hatch ? HATCH_DISTANCE : CARGO_DISTANCE) - Robot.drivetrain.getTravel(), false)) placeState++;
 				t.reset();
 				break;
-			case 6:
+			case 7:
 				t.start();
 				deliver(hatch);
 				break;
-			case 7:
+			case 8:
 				if(driveToDistance(Robot.drivetrain.getTravel() - (hatch ? HATCH_DISTANCE : CARGO_DISTANCE), false)) placeState++;
 				break;
+			default:
+				Robot.drivetrain.brake();
 		}
 	}
 	

@@ -55,17 +55,16 @@ public class Elevator {
 		} else {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
-		}
-		/*if(Robot.oi.getAnalogStick(false, true) == 0) {
+		} if(Robot.oi.getAnalogStick(false, true) == 0) {
 			double speed = ((wristAngle-intake.getWrist())/10);
 			if(Math.abs(wristAngle-intake.getWrist()) < 1) speed = 0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			intake.setWrist(speed);
-		} else {*/
+		} else {
 			intake.setWrist(Robot.oi.getAnalogStick(false, true));
 			wristAngle = intake.getWrist();
-		//}
+		}
 	}
 	
 	public void setIntake(boolean in) {
