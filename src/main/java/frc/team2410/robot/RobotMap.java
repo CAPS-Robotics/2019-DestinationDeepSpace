@@ -37,12 +37,21 @@ public class RobotMap
 	public static final int RANGE_FINDER = 5;
 	
 	//DIO
-	public static final int WINCH_ENCODER_A = 0;
-	public static final int WINCH_ENCODER_B = 1;
-	public static final int DRIVE_CIMCODER_A = 2;
-	public static final int DRIVE_CIMCODER_B = 3;
-	public static final int CAMERA_LIGHT = 4; //Tentative
-	public static final int WRIST_ENCODER = 6; //Tentative
+	public static final int ELEVATOR_ENCODER_A_COMP = 5;
+	public static final int ELEVATOR_ENCODER_B_COMP = 4;
+	public static final int DRIVE_CIMCODER_A_COMP = 0;
+	public static final int DRIVE_CIMCODER_B_COMP = 1;
+	public static final int WRIST_ENCODER_COMP = 8;
+	public static final int ELEVATOR_ENCODER_A_PRAC = 0;
+	public static final int ELEVATOR_ENCODER_B_PRAC = 1;
+	public static final int DRIVE_CIMCODER_A_PRAC = 2;
+	public static final int DRIVE_CIMCODER_B_PRAC = 3;
+	public static final int WRIST_ENCODER_PRAC = 6;
+	public static final int ELEVATOR_ENCODER_A = COMPETITION_BOT ? ELEVATOR_ENCODER_A_COMP : ELEVATOR_ENCODER_A_PRAC;
+	public static final int ELEVATOR_ENCODER_B = COMPETITION_BOT ? ELEVATOR_ENCODER_B_COMP : ELEVATOR_ENCODER_B_PRAC;
+	public static final int DRIVE_CIMCODER_A = COMPETITION_BOT ? DRIVE_CIMCODER_A_COMP : DRIVE_CIMCODER_A_PRAC;
+	public static final int DRIVE_CIMCODER_B = COMPETITION_BOT ? DRIVE_CIMCODER_B_COMP : DRIVE_CIMCODER_B_PRAC;
+	public static final int WRIST_ENCODER = COMPETITION_BOT ? WRIST_ENCODER_COMP : WRIST_ENCODER_PRAC;
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 0;
@@ -63,7 +72,7 @@ public class RobotMap
 	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
 	public static final float BL_OFFSET_COMP = 4.855956534000001f;
 	public static final float FR_OFFSET_COMP = 0.570068301f;
-	public static final float FL_OFFSET_COMP = 3.7353511800000003f;
+	public static final float FL_OFFSET_COMP = 3.702392199f;
 	public static final float WRIST_OFFSET_COMP = 0; //Tentative
 	
 	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;

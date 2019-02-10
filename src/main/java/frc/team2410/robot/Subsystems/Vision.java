@@ -17,13 +17,13 @@ public class Vision
 	private Number[] centerX;
 	private Number[] centerY;
 	private Number[] area;
-	private DigitalOutput light;
+	//private DigitalOutput light;
 	private AnalogInput rangeFinder;
 	
 	public Vision() {
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
-		light = new DigitalOutput(CAMERA_LIGHT);
+		//light = new DigitalOutput(CAMERA_LIGHT);
 		rangeFinder = new AnalogInput(RANGE_FINDER);
 	}
 	
@@ -51,7 +51,7 @@ public class Vision
 		}
 		return new double[] {x, y};
 	}
-	public void setLight(boolean on) {
+	/*public void setLight(boolean on) {
 		light.set(on);
-	}
+	}*/
 }

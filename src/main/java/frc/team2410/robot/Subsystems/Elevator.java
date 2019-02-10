@@ -19,7 +19,7 @@ public class Elevator {
 	public Elevator() {
 		intake = new Intake();
 		winchMotor = new TalonPair(ELEVATOR_A, ELEVATOR_B, true, true);
-		heightEncoder = new Encoder(WINCH_ENCODER_A, WINCH_ENCODER_B);
+		heightEncoder = new Encoder(ELEVATOR_ENCODER_A, ELEVATOR_ENCODER_B);
 		heightEncoder.setDistancePerPulse(WINCH_DIST_PER_PULSE);
 		heightEncoder.reset();
 		targetWrist = getWristAngle();
