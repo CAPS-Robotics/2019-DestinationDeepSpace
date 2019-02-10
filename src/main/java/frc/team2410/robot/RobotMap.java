@@ -3,12 +3,13 @@ package frc.team2410.robot;
 public class RobotMap
 {
 	//TODO: Tentative values
+	public static final boolean COMPETITION_BOT = true;
 	
 	//PID
 	public static final float SWERVE_MODULE_P = 5;
 	public static final float SWERVE_MODULE_I = 0;
 	public static final float SWERVE_MODULE_D = 3;
-	public static final double GYRO_P = 0.01;
+	public static final double GYRO_P = .03;
 	public static final double GYRO_I = 0;
 	public static final double GYRO_D = 0;
 
@@ -36,7 +37,7 @@ public class RobotMap
 	public static final int RANGE_FINDER = 5;
 	
 	//DIO
-	public static final int WINCH_ENCODER_A= 0;
+	public static final int WINCH_ENCODER_A = 0;
 	public static final int WINCH_ENCODER_B = 1;
 	public static final int DRIVE_CIMCODER_A = 2;
 	public static final int DRIVE_CIMCODER_B = 3;
@@ -52,11 +53,24 @@ public class RobotMap
 	public static final int CLIMB_PISTON_RIGHT_REVERSE = 5; //Tentative
 	
 	//Offsets
-	public static final float BR_OFFSET = 2.369384523f;
-	public static final float BL_OFFSET = 0.731201097f;
-	public static final float FR_OFFSET = 3.286132476f;
-	public static final float FL_OFFSET = 1.716308418f;
-	public static final float WRIST_OFFSET = 177.0753490712399f; //Tentative
+	
+	public static final float BR_OFFSET_PRAC = 2.369384523f;
+	public static final float BL_OFFSET_PRAC = 0.731201097f;
+	public static final float FR_OFFSET_PRAC = 3.286132476f;
+	public static final float FL_OFFSET_PRAC = 1.716308418f;
+	public static final float WRIST_OFFSET_PRAC = 177.0753490712399f;
+	
+	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
+	public static final float BL_OFFSET_COMP = 4.855956534000001f;
+	public static final float FR_OFFSET_COMP = 0.570068301f;
+	public static final float FL_OFFSET_COMP = 3.7353511800000003f;
+	public static final float WRIST_OFFSET_COMP = 0; //Tentative
+	
+	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;
+	public static final float BL_OFFSET = COMPETITION_BOT ? BL_OFFSET_COMP : BL_OFFSET_PRAC;
+	public static final float FR_OFFSET = COMPETITION_BOT ? FR_OFFSET_COMP : FR_OFFSET_PRAC;
+	public static final float FL_OFFSET = COMPETITION_BOT ? FL_OFFSET_COMP : FL_OFFSET_PRAC;
+	public static final float WRIST_OFFSET = COMPETITION_BOT ? WRIST_OFFSET_COMP : WRIST_OFFSET_PRAC;
 	
 	//Elevator Heights- ALL TENTATIVE
 	public static final double CARGO_INTAKE_HEIGHT = 0; //Tentative but close
@@ -83,7 +97,7 @@ public class RobotMap
 	
 	//Field Distances
 	public static final double CARGO_DISTANCE = 1; //Tentative
-	public static final double HATCH_DISTANCE = 2; //Tentative
+	public static final double HATCH_DISTANCE = 4; //Tentative
 	public static final double HABITAT_DISTANCE = 10; //Tentative
 	public static final double CLIMB_WALL_DISTANCE = 10; //Tentative
 	public static final double WALL_DISTANCE = 5; //Tentative

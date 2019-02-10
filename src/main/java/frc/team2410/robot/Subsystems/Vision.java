@@ -6,6 +6,7 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.RobotMap;
 
 import static frc.team2410.robot.RobotMap.*;
@@ -41,7 +42,7 @@ public class Vision
 		double x = 0;
 		double y = 0;
 		double greatestArea = 0;
-		for(int i = 0; i < centerX.length; i++) {
+		for(int i = 0; (i < area.length) && (i < centerX.length) && (i < centerY.length); i++) {
 			if((double)area[i] > greatestArea) {
 				x = (double)centerX[i];
 				y = (double)centerY[i];

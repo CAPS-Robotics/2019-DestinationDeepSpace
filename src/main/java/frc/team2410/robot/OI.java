@@ -37,10 +37,7 @@ public class OI {
 				}
 			}
 		}
-		if(resetPlace) {
-			Robot.semiAuto.reset(true);
-			Robot.semiAuto.engaged = false;
-		}
+		
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
 		
@@ -63,11 +60,17 @@ public class OI {
 		if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
 		}
-		if(leadingEdge(false, 1)) {
-			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[0]);
+		if(xbox.getRawButton(1)) {
+			Robot.semiAuto.place(true, 1);
+			resetPlace = false;
+			//Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[0]);
 		}
 		if(leadingEdge(false, 4)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[1]);
+		}
+		if(resetPlace) {
+			Robot.semiAuto.reset(true);
+			Robot.semiAuto.engaged = false;
 		}
 	}
 	

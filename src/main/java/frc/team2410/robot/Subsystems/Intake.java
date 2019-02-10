@@ -13,7 +13,6 @@ import static frc.team2410.robot.RobotMap.*;
 public class Intake {
 	WPI_TalonSRX wheels;
 	private DoubleSolenoid solenoid;
-	private boolean open = false;
 	private WPI_TalonSRX wrist;
 	private DigitalInput wristEncoder;
 	private Counter hCounter;
@@ -41,8 +40,7 @@ public class Intake {
 		wheels.set(0);
 	}
 	
-	void togglePiston() {
-		open = !open;
+	void setPiston(boolean open) {
 		solenoid.set(!open ? kForward : kReverse);
 	}
 	
