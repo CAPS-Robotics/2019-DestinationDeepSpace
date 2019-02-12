@@ -15,6 +15,7 @@ public class Robot extends TimedRobot
 	public static SemiAuto semiAuto;
 	public static Elevator elevator;
 	public static Climb climb;
+	public static LED led;
 	
 	private float smp;
 	private float smi;
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot
 		semiAuto = new SemiAuto();
 		elevator = new Elevator();
 		climb = new Climb();
+		led = new LED();
+		led.setColor(0, 0, 255);
 		
 		//Put PID changers so we don't have to push code every tune
 		smp = RobotMap.SWERVE_MODULE_P;
@@ -75,10 +78,14 @@ public class Robot extends TimedRobot
 	}
 	
 	@Override
-	public void disabledInit() {}
+	public void disabledInit() {
+		led.setColor(255, 0, 0);
+	}
 	
 	@Override
-	public void disabledPeriodic() {}
+	public void disabledPeriodic() {
+		led.fade(3);
+	}
 	
 	@Override
 	public void autonomousInit() {

@@ -24,12 +24,12 @@ public class Vision
 		table = NetworkTableInstance.getDefault().getTable("GRIP/AllDemContours");
 		this.update();
 		//light = new DigitalOutput(CAMERA_LIGHT);
-		rangeFinder = new AnalogInput(RANGE_FINDER);
+		//rangeFinder = new AnalogInput(RANGE_FINDER);
 	}
 	
-	public double getDistanceAway() {
+	/*public double getDistanceAway() {
 		return this.rangeFinder.getVoltage()/SONAR_VOLTS_PER_INCH;
-	}
+	}*/
 	
 	private void update() {
 		centerX = table.getEntry("centerX").getNumberArray(new Number[0]);

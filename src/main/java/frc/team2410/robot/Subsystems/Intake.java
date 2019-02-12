@@ -14,9 +14,9 @@ public class Intake {
 	WPI_TalonSRX wheels;
 	private DoubleSolenoid solenoid;
 	private WPI_TalonSRX wrist;
-	private DigitalInput wristEncoder;
-	private Counter hCounter;
-	private Counter lCounter;
+	private AnalogInput wristEncoder;
+	/*private Counter hCounter;
+	private Counter lCounter;*/
 	private double pval = -1;
 	public double rollover = 0;
 	
@@ -24,12 +24,13 @@ public class Intake {
 		wheels = new WPI_TalonSRX(INTAKE_MOTOR);
 		solenoid = new DoubleSolenoid(PCM, HATCH_INTAKE_FORWARD, HATCH_INTAKE_REVERSE);
 		wrist = new WPI_TalonSRX(WRIST_MOTOR);
+		wheels.setInverted(true);
 		wrist.setInverted(true);
-		wristEncoder = new DigitalInput(WRIST_ENCODER);
-		hCounter = new Counter(wristEncoder);
+		wristEncoder = new AnalogInput(WRIST_ENCODER);
+		/*hCounter = new Counter(wristEncoder);
 		lCounter = new Counter(wristEncoder);
 		hCounter.setSemiPeriodMode(true);
-		lCounter.setSemiPeriodMode(false);
+		lCounter.setSemiPeriodMode(false);*/
 	}
 	
 	void setWheel(boolean in) {
@@ -49,7 +50,7 @@ public class Intake {
 	}
 	
 	double getWrist() {
-		double hPulse = hCounter.getPeriod();
+		/*double hPulse = hCounter.getPeriod();
 		double lPulse = lCounter.getPeriod();
 		double dutyCycle = hPulse/(hPulse+lPulse);
 		if(pval > -1) {
@@ -59,8 +60,9 @@ public class Intake {
 				rollover++;
 			}
 		}
-		pval = dutyCycle;
-		double angle = (((-(rollover+dutyCycle)*360/3.5 - WRIST_OFFSET)%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		pval = dutyCycle;*/
+		
+		double angle = (((-(rollover+wristEncoder.getVoltage() - WRIST_OFFSET)*(360.0/5)*(40.0/24))%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
 		return angle <= 180 ? angle : angle - 360;  // Changes >180 Degrees to Neg Equivalent (ex. 270 -> -90) (changing the range to -180:180) and returns it
 	}
 }

@@ -137,7 +137,7 @@ public class SemiAuto {
 		if(Robot.elevator.getPosition() < 2) climbState++;
 	}
 	
-	private void pullForward() {
+	/*private void pullForward() {
 		Robot.elevator.setIntake(false);
 		if(Robot.vision.getDistanceAway() < CLIMB_WALL_DISTANCE) {
 			Robot.elevator.stopIntake();
@@ -166,7 +166,7 @@ public class SemiAuto {
 			case 5:
 				if(driveToDistance(WALL_DISTANCE - Robot.vision.getDistanceAway(), false)) climbState++;
 		}
-	}
+	}*/
 	
 	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight) {
 		Robot.elevator.moveWristTo(wristAngle);
