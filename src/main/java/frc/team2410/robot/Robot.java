@@ -24,6 +24,7 @@ public class Robot extends TimedRobot
 	private double gi;
 	private double gd;
 	static boolean fieldOriented = true;
+	private int pState = -1;
 
 	public Robot() {}
 	
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot
 		elevator = new Elevator();
 		climb = new Climb();
 		led = new LED();
+		
 		led.setColor(0, 0, 255);
 		
 		//Put PID changers so we don't have to push code every tune
@@ -71,10 +73,13 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
 		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
-		SmartDashboard.putNumber("Wrist Rollover", elevator.intake.rollover);
+		SmartDashboard.putNumber("Wrist Target", elevator.targetWrist);
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
 		SmartDashboard.putNumber("Place State", semiAuto.placeState);
+		SmartDashboard.putNumber("R", led.r);
+		SmartDashboard.putNumber("G", led.g);
+		SmartDashboard.putNumber("B", led.b);
 	}
 	
 	@Override
@@ -91,6 +96,8 @@ public class Robot extends TimedRobot
 	public void autonomousInit() {
 		drivetrain.startTravel();
 		elevator.reset(0);
+		led.setColor(0, 0, 255);
+		pState = -1;
 	}
 	
 	@Override
@@ -107,7 +114,28 @@ public class Robot extends TimedRobot
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
-		SmartDashboard.putBoolean("White status LED", vision.getCentralValue()[0] != 0);
+		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
+		if(semiAuto.engaged) {
+			if(pState != 0) {
+				led.setColor(255, 0, 0);
+			}
+			led.status(255, 0, 0, 255, 15, 15, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
+			pState = 0;
+		} else if(vision.getCentralValue()[0] != 0) {
+			if(pState != 1) {
+				led.setColor(0, 255, 0);
+			}
+			led.status(0, 255, 0, 31, 255, 31, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
+			pState = 1;
+		} else {
+			if(pState != 2) {
+				led.setColor(0, 0, 255);
+			}
+			led.status(0, 0, 255, 63, 63, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
+			pState = 2;
+		}
+		
+		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)
 		/*smp = (float)SmartDashboard.getNumber("swerve p", 0.0);

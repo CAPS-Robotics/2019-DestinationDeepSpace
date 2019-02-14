@@ -76,19 +76,23 @@ public class SemiAuto {
 		double distanceToCenter = CAMERA_WIDTH / 2 - centerValues[0];
 		double distanceBack = CAMERA_HEIGHT / 4 - centerValues[1];
 		
-		if(Math.abs(distanceToCenter) < 20 && Math.abs(distanceToCenter-pval) < 1 && Math.abs(distanceBack) < 20) placeState = -1;
+		if(Math.abs(distanceToCenter) < 40 && Math.abs(distanceToCenter-pval) < 1 && Math.abs(distanceBack) < 20) placeState = -1;
 		pval = distanceToCenter;
 		
-		double xspeed = -distanceToCenter/(CAMERA_WIDTH/4);
-		/*if(xspeed < -1) xspeed = -1;
-		if(xspeed > 1) xspeed = 1;*/
-		xspeed = Math.abs(distanceToCenter) < 20 ? 0 : Math.abs(xspeed)/xspeed;
+		double xspeed = 0;
+		if(Math.abs(distanceToCenter) > 40) {
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*1.6);
+			if(xspeed > -0.12 && xspeed < 0) xspeed = -0.12;
+			if(xspeed < 0.12 && xspeed > 0) xspeed = 0.12;
+		}
 		
-		double yspeed = distanceBack/(CAMERA_HEIGHT/3);
-		/*if(yspeed < -.6) yspeed = -.1;
-		if(yspeed > .6) yspeed = .1;*/
-		yspeed = Math.abs(distanceBack) < 20 ? 0 : Math.abs(yspeed)/yspeed;
-		Robot.drivetrain.crabDrive(xspeed, yspeed, 0, .21, false);
+		double yspeed = 0;
+		if(Math.abs(distanceBack) > 20) {
+			yspeed = distanceBack/(CAMERA_HEIGHT * 1.25);
+			if(yspeed > -0.12 && yspeed < 0) yspeed = -0.12;
+			if(yspeed < 0.12 && yspeed > 0) yspeed = 0.12;
+		}
+		Robot.drivetrain.crabDrive(xspeed, yspeed, 0, 1, false);
 	}
 	
 	private void deliver(boolean hatch) {
@@ -110,7 +114,7 @@ public class SemiAuto {
 				alignLine();
 				break;
 			case 2:
-				/*if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, hatch ? HATCH_HEIGHT[level-1] : CARGO_HEIGHT[level-1]))*/ placeState++;
+				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, PLACE_HEIGHT[level-1])) placeState++;
 				Robot.drivetrain.startTravel();
 				break;
 			case 3:
@@ -137,36 +141,20 @@ public class SemiAuto {
 		if(Robot.elevator.getPosition() < 2) climbState++;
 	}
 	
-	/*private void pullForward() {
-		Robot.elevator.setIntake(false);
-		if(Robot.vision.getDistanceAway() < CLIMB_WALL_DISTANCE) {
-			Robot.elevator.stopIntake();
-			Robot.climb.set(false);
-			Robot.elevator.moveWristTo(WRIST_UP);
-			climbState++;
-		}
-	}
-	
-	public void climb() {
+	public void climb(int level) {
 		switch(climbState){
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT)) climbState++;
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT[level])) climbState++;
 				break;
 			case 1:
+				
 				Robot.drivetrain.desiredHeading = 180;
 			case 2:
-				if(driveToDistance(-(HABITAT_DISTANCE - Robot.vision.getDistanceAway()), true)) climbState++;
-				break;
-			case 3:
+				Robot.elevator.setIntake(false);
 				lift();
 				break;
-			case 4:
-				pullForward();
-				break;
-			case 5:
-				if(driveToDistance(WALL_DISTANCE - Robot.vision.getDistanceAway(), false)) climbState++;
 		}
-	}*/
+	}
 	
 	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight) {
 		Robot.elevator.moveWristTo(wristAngle);

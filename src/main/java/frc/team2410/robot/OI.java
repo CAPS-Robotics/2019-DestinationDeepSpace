@@ -7,6 +7,7 @@ import static frc.team2410.robot.RobotMap.*;
 
 public class OI {
 	private boolean[][] canPress = new boolean[2][12];
+	private boolean canPressPOV = true;
 	private GenericHID[] controllers = new GenericHID[2];
 	private Joystick joy;
 	private XboxController xbox;
@@ -19,7 +20,7 @@ public class OI {
 	}
 	
 	void pollButtons() {
-		if (joy.getRawButton(5)) {
+		if(joy.getRawButton(5)) {
 			Robot.drivetrain.returnWheelsToZero();
 		}
 		
@@ -30,7 +31,7 @@ public class OI {
 		boolean resetPlace = true;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 2; j++) {
-				if(joy.getRawButton(12 - (j + 2*i))) {
+				if(joy.getRawButton(12-(j+2*i))) {
 					Robot.semiAuto.place(j != 0, i+1);
 					resetPlace = false;
 					
@@ -38,35 +39,49 @@ public class OI {
 			}
 		}
 		
-		Robot.fieldOriented = !joy.getRawButton(2);
+		Robot.fieldOriented = !joy.getRawButton(1);
 		
-		if(xbox.getRawButton(7))
+		if(xbox.getRawButton(7)) {
 			Robot.elevator.setIntake(false);
-		else if(xbox.getRawButton(8))
+		} else if(xbox.getRawButton(8)) {
 			Robot.elevator.setIntake(true);
-		else{
+		} else {
 			Robot.elevator.stopIntake();
 		}
 		
-		if(leadingEdge(true, 1)) {
-			Robot.elevator.toggleHatch();
-		}
+		if(joy.getPOV() != -1) {
+			if(canPressPOV) {
+				Robot.elevator.toggleHatch();
+			}
+			canPressPOV = false;
+		} else { canPressPOV = true; }
 		
 		if(leadingEdge(false, 10)) {
 			Robot.elevator.reset(0);
 		}
 		
-		if(leadingEdge(false, 6)) {
+		if(leadingEdge(false, 5)) {
+			Robot.semiAuto.elevatorSetpoint(CARGO_WRIST_ANGLE, CARGO_INTAKE_HEIGHT);
+		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
 		}
+		
 		if(xbox.getRawButton(1)) {
-			Robot.semiAuto.place(true, 1);
-			resetPlace = false;
-			//Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[0]);
+			Robot.elevator.moveTo(PLACE_HEIGHT[0]);
+		} else if(xbox.getRawButton(4)) {
+			Robot.elevator.moveTo(PLACE_HEIGHT[1]);
+		} else if(xbox.getRawButton(3)) {
+			Robot.elevator.moveTo(PLACE_HEIGHT[2]);
 		}
-		if(leadingEdge(false, 4)) {
-			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_HEIGHT[1]);
+
+		if(xbox.getPOV() == 0) {
+			Robot.elevator.moveWristTo(CARGO_WRIST_ANGLE);
+		} else if(xbox.getPOV() == 90) {
+			Robot.elevator.moveWristTo(HATCH_WRIST_ANGLE);
+		} else if(xbox.getPOV() == 270) {
+			Robot.elevator.moveWristTo(WRIST_UP);
 		}
+		
 		if(resetPlace) {
 			Robot.semiAuto.reset(true);
 			Robot.semiAuto.engaged = false;
@@ -98,7 +113,7 @@ public class OI {
 	}
 	
 	public double getSlider() {
-		return joy.getRawAxis(3);
+		return (1-joy.getRawAxis(3))/2;
 	}
 	
 	public double getAnalogStick(boolean rightStick, boolean yAxis){

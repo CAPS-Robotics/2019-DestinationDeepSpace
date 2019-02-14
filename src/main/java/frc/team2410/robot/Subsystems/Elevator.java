@@ -13,7 +13,7 @@ public class Elevator {
 	private boolean open = false;
 	
 	private double targetHeight;
-	private double targetWrist;
+	public double targetWrist;
 	private double offset;
 	
 	public Elevator() {
@@ -58,7 +58,7 @@ public class Elevator {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
 		} if(Robot.oi.getAnalogStick(false, true) == 0) {
-			double speed = -((targetWrist-intake.getWrist())/20);
+			double speed = -((targetWrist-intake.getWrist())/40);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;

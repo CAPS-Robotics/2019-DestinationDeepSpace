@@ -16,9 +16,9 @@ public class Intake {
 	private WPI_TalonSRX wrist;
 	private AnalogInput wristEncoder;
 	/*private Counter hCounter;
-	private Counter lCounter;*/
+	private Counter lCounter;
 	private double pval = -1;
-	public double rollover = 0;
+	public double rollover = 0;*/
 	
 	Intake() {
 		wheels = new WPI_TalonSRX(INTAKE_MOTOR);
@@ -62,7 +62,7 @@ public class Intake {
 		}
 		pval = dutyCycle;*/
 		
-		double angle = (((-(rollover+wristEncoder.getVoltage() - WRIST_OFFSET)*(360.0/5)*(40.0/24))%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		double angle = ((((/*rollover+*/wristEncoder.getVoltage() - WRIST_OFFSET)*(360.0/5)*(40.0/24))%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
 		return angle <= 180 ? angle : angle - 360;  // Changes >180 Degrees to Neg Equivalent (ex. 270 -> -90) (changing the range to -180:180) and returns it
 	}
 }
