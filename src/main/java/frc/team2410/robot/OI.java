@@ -59,6 +59,8 @@ public class OI {
 		
 		if(joy.getRawButton(3)) {
 			Robot.semiAuto.climb();
+		} else {
+			Robot.semiAuto.reset(false);
 		}
 		if(leadingEdge(true, 4)) {
 			Robot.climb.toggle();
@@ -88,7 +90,6 @@ public class OI {
 		
 		if(resetPlace) {
 			Robot.semiAuto.reset(true);
-			Robot.semiAuto.engaged = false;
 		}
 	}
 	

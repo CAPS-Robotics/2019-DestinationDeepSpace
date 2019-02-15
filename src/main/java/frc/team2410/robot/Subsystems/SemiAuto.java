@@ -23,6 +23,7 @@ public class SemiAuto {
 		} else {
 			climbState = 0;
 		}
+		engaged = false;
 	}
 	
 	private void turnToClosestStation() {
@@ -145,6 +146,7 @@ public class SemiAuto {
 	}
 	
 	public void climb() {
+		engaged = true;
 		switch(climbState){
 			case 0:
 				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], 0)) climbState++;
