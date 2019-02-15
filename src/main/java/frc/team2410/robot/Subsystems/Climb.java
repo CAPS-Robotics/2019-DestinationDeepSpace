@@ -7,6 +7,7 @@ import static frc.team2410.robot.RobotMap.*;
 public class Climb {
 	private DoubleSolenoid pistonLeft;
 	private DoubleSolenoid pistonRight;
+	boolean out = false;
 	
 	public Climb() {
 		pistonLeft = new DoubleSolenoid(PCM, CLIMB_PISTON_LEFT_FORWARD, CLIMB_PISTON_LEFT_REVERSE);
@@ -14,6 +15,12 @@ public class Climb {
 	}
 	
 	public void set(boolean out) {
+		this.out = out;
+		pistonLeft.set(out ? kForward : kReverse);
+		pistonRight.set(out ? kForward : kReverse);
+	}
+	public void toggle() {
+		out = !out;
 		pistonLeft.set(out ? kForward : kReverse);
 		pistonRight.set(out ? kForward : kReverse);
 	}

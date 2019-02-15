@@ -138,22 +138,24 @@ public class SemiAuto {
 	}
 	
 	private void lift() {
-		elevatorSetpoint(CLIMB_WRIST_ANGLE, 0);
+		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0);
 		Robot.climb.set(true);
 		
 		if(Robot.elevator.getPosition() < 2) climbState++;
 	}
 	
-	public void climb(int level) {
+	public void climb() {
 		switch(climbState){
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE, CLIMB_HEIGHT[level])) climbState++;
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], 0)) climbState++;
 				break;
 			case 1:
-				
 				Robot.drivetrain.desiredHeading = 180;
+				climbState++;
+				break;
 			case 2:
 				Robot.elevator.setIntake(false);
+				Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
 				lift();
 				break;
 		}

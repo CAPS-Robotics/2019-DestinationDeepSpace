@@ -39,7 +39,7 @@ public class OI {
 			}
 		}
 		
-		Robot.fieldOriented = !joy.getRawButton(1);
+		Robot.fieldOriented = !joy.getRawButton(2);
 		
 		if(xbox.getRawButton(7)) {
 			Robot.elevator.setIntake(false);
@@ -49,15 +49,19 @@ public class OI {
 			Robot.elevator.stopIntake();
 		}
 		
-		if(joy.getPOV() != -1) {
-			if(canPressPOV) {
-				Robot.elevator.toggleHatch();
-			}
-			canPressPOV = false;
-		} else { canPressPOV = true; }
+		if(leadingEdge(true, 1)) {
+			Robot.elevator.toggleHatch();
+		}
 		
 		if(leadingEdge(false, 10)) {
 			Robot.elevator.reset(0);
+		}
+		
+		if(joy.getRawButton(3)) {
+			Robot.semiAuto.climb();
+		}
+		if(leadingEdge(true, 4)) {
+			Robot.climb.toggle();
 		}
 		
 		if(leadingEdge(false, 5)) {
