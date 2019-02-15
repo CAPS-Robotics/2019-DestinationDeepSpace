@@ -61,7 +61,7 @@ public class OI {
 		}
 		
 		if(leadingEdge(false, 5)) {
-			Robot.semiAuto.elevatorSetpoint(CARGO_WRIST_ANGLE, CARGO_INTAKE_HEIGHT);
+			Robot.semiAuto.elevatorSetpoint(CARGO_INTAKE_ANGLE, CARGO_INTAKE_HEIGHT);
 		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
 		}

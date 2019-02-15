@@ -52,9 +52,12 @@ public class SemiAuto {
 			target = ROCKET_RIGHT_LEFT;
 		}
 		if(Math.abs(ROCKET_RIGHT_RIGHT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_RIGHT-angle);
 			target = ROCKET_RIGHT_RIGHT;
 		}
-		
+		if(Math.abs(INTAKE - angle) < lowestOffset) {
+			target = INTAKE;
+		}
 		
 		double angleDiff = target - Robot.gyro.getHeading();
 		Robot.drivetrain.crabDrive(0, 0, 0, 1, true);
@@ -74,7 +77,7 @@ public class SemiAuto {
 	private void alignLine() {
 		double[] centerValues = Robot.vision.getCentralValue();
 		double distanceToCenter = CAMERA_WIDTH / 2 - centerValues[0];
-		double distanceBack = CAMERA_HEIGHT / 4 - centerValues[1];
+		double distanceBack = CAMERA_HEIGHT / 6 - centerValues[1];
 		
 		if(Math.abs(distanceToCenter) < 40 && Math.abs(distanceToCenter-pval) < 1 && Math.abs(distanceBack) < 20) placeState = -1;
 		pval = distanceToCenter;
@@ -88,7 +91,7 @@ public class SemiAuto {
 		
 		double yspeed = 0;
 		if(Math.abs(distanceBack) > 20) {
-			yspeed = distanceBack/(CAMERA_HEIGHT * 1.25);
+			yspeed = distanceBack/(CAMERA_HEIGHT * 1.5);
 			if(yspeed > -0.12 && yspeed < 0) yspeed = -0.12;
 			if(yspeed < 0.12 && yspeed > 0) yspeed = 0.12;
 		}
@@ -157,10 +160,10 @@ public class SemiAuto {
 	}
 	
 	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight) {
-		Robot.elevator.moveWristTo(wristAngle);
+		boolean elevatorAt = Math.abs(Robot.elevator.getPosition() - elevatorHeight) < 3;
+		boolean wristAt = Math.abs(Robot.elevator.getWristAngle() - wristAngle) < 5;
+		if(elevatorAt) Robot.elevator.moveWristTo(wristAngle);
 		Robot.elevator.moveTo(elevatorHeight);
-		boolean elevatorAt = Math.abs(Robot.elevator.getPosition() - elevatorHeight) < 1;
-		boolean wristAt = Math.abs(Robot.elevator.getWristAngle() - elevatorHeight) < 1;
 		return elevatorAt && wristAt;
 	}
 	

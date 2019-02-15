@@ -116,23 +116,11 @@ public class Robot extends TimedRobot
 		elevator.loop();
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 		if(semiAuto.engaged) {
-			if(pState != 0) {
-				led.setColor(255, 0, 0);
-			}
-			led.status(255, 0, 0, 255, 15, 15, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
-			pState = 0;
+			led.status(255, 0, 0, 255, 7, 7, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		} else if(vision.getCentralValue()[0] != 0) {
-			if(pState != 1) {
-				led.setColor(0, 255, 0);
-			}
-			led.status(0, 255, 0, 31, 255, 31, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
-			pState = 1;
+			led.status(0, 255, 0, 15, 255, 15, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		} else {
-			if(pState != 2) {
-				led.setColor(0, 0, 255);
-			}
-			led.status(0, 0, 255, 63, 63, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
-			pState = 2;
+			led.status(0, 0, 255, 31, 31, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		}
 		
 		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));

@@ -37,8 +37,8 @@ public class RobotMap
 	public static final int WRIST_ENCODER = 4;
 	
 	//DIO
-	public static final int ELEVATOR_ENCODER_A_COMP = 5;
-	public static final int ELEVATOR_ENCODER_B_COMP = 4;
+	public static final int ELEVATOR_ENCODER_A_COMP = 9;
+	public static final int ELEVATOR_ENCODER_B_COMP = 8;
 	public static final int DRIVE_CIMCODER_A_COMP = 0;
 	public static final int DRIVE_CIMCODER_B_COMP = 1;
 	public static final int ELEVATOR_ENCODER_A_PRAC = 0;
@@ -51,8 +51,8 @@ public class RobotMap
 	public static final int DRIVE_CIMCODER_B = COMPETITION_BOT ? DRIVE_CIMCODER_B_COMP : DRIVE_CIMCODER_B_PRAC;
 	
 	//PCM
-	public static final int HATCH_INTAKE_FORWARD = 0;
-	public static final int HATCH_INTAKE_REVERSE = 1;
+	public static final int HATCH_INTAKE_FORWARD = 1;
+	public static final int HATCH_INTAKE_REVERSE = 0;
 	public static final int CLIMB_PISTON_LEFT_FORWARD = 2; //Tentative
 	public static final int CLIMB_PISTON_LEFT_REVERSE = 3; //Tentative
 	public static final int CLIMB_PISTON_RIGHT_FORWARD = 4; //Tentative
@@ -66,9 +66,9 @@ public class RobotMap
 	public static final float WRIST_OFFSET_PRAC = 0;
 	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
 	public static final float BL_OFFSET_COMP = 1.8701169960000001f;
-	public static final float FR_OFFSET_COMP = 0.570068301f;
+	public static final float FR_OFFSET_COMP = 3.355712547f;
 	public static final float FL_OFFSET_COMP = 3.702392199f;
-	public static final float WRIST_OFFSET_COMP = 2.108154081f;
+	public static final float WRIST_OFFSET_COMP = 3.0639645300000002f;
 	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;
 	public static final float BL_OFFSET = COMPETITION_BOT ? BL_OFFSET_COMP : BL_OFFSET_PRAC;
 	public static final float FR_OFFSET = COMPETITION_BOT ? FR_OFFSET_COMP : FR_OFFSET_PRAC;
@@ -79,12 +79,13 @@ public class RobotMap
 	public static final double CARGO_INTAKE_HEIGHT = 0; //Tentative but close
 	public static final double CARGO_SHIP_HEIGHT = 0; //Tentative
 	public static final double HATCH_INTAKE_HEIGHT = 7;
-	public static final double[] PLACE_HEIGHT = {9, 37, 65};
+	public static final double[] PLACE_HEIGHT = {11, 39, 67};
 	public static final double[] CLIMB_HEIGHT = {6, 13};
 	
 	//Wrist Angles- ALL TENTATIVE
-	public static final double CARGO_WRIST_ANGLE = 45; //Tentative
-	public static final double HATCH_WRIST_ANGLE = 0;
+	public static final double CARGO_WRIST_ANGLE = 50; //Tentative
+	public static final double HATCH_WRIST_ANGLE = 5;
+	public static final double CARGO_INTAKE_ANGLE = 2;
 	public static final double CLIMB_WRIST_ANGLE = -5; //Tentative
 	public static final double WRIST_UP = 85;
 	
@@ -96,6 +97,7 @@ public class RobotMap
 	public static final double ROCKET_RIGHT_FRONT = 90;
 	public static final double ROCKET_RIGHT_LEFT = 90.0 + 61.25;
 	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
+	public static final double INTAKE = 180;
 	
 	//Field Distances
 	public static final double CARGO_DISTANCE = 1; //Tentative

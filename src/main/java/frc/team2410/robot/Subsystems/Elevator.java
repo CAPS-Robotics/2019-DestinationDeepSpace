@@ -49,7 +49,7 @@ public class Elevator {
 	
 	public void loop() {
 		if(Robot.oi.getAnalogStick(true, true) == 0) {
-			double speed = -((targetHeight-getPosition())/20);
+			double speed = -((targetHeight-getPosition())/15);
 			if(Math.abs(targetHeight-getPosition()) < 1) speed = 0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
