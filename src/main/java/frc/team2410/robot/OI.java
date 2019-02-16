@@ -41,12 +41,14 @@ public class OI {
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
 		
-		if(xbox.getRawButton(7)) {
-			Robot.elevator.setIntake(false);
-		} else if(xbox.getRawButton(8)) {
-			Robot.elevator.setIntake(true);
-		} else {
-			Robot.elevator.stopIntake();
+		if(!Robot.semiAuto.engaged) {
+			if(xbox.getRawButton(7)) {
+				Robot.elevator.setIntake(false);
+			} else if(xbox.getRawButton(8)) {
+				Robot.elevator.setIntake(true);
+			} else {
+				Robot.elevator.stopIntake();
+			}
 		}
 		
 		if(leadingEdge(true, 1)) {
@@ -67,9 +69,9 @@ public class OI {
 		}
 		
 		if(leadingEdge(false, 5)) {
-			Robot.semiAuto.elevatorSetpoint(CARGO_INTAKE_ANGLE, CARGO_INTAKE_HEIGHT);
+			Robot.semiAuto.elevatorWristMovement(CARGO_INTAKE_ANGLE, CARGO_INTAKE_HEIGHT);
 		} else if(leadingEdge(false, 6)) {
-			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
+			Robot.semiAuto.elevatorWristMovement(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
 		}
 		
 		if(xbox.getRawButton(1)) {

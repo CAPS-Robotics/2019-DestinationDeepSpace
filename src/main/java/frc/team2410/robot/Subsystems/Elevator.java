@@ -64,7 +64,7 @@ public class Elevator {
 			if(speed > 1) speed = 1;
 			intake.setWrist(speed);
 		} else {
-			intake.setWrist(Robot.oi.getAnalogStick(false, true));
+			intake.setWrist(-Robot.oi.getAnalogStick(false, true));
 			targetWrist = intake.getWrist();
 		}
 	}

@@ -5,23 +5,19 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import static frc.team2410.robot.RobotMap.*;
 
 public class Climb {
-	private DoubleSolenoid pistonLeft;
-	private DoubleSolenoid pistonRight;
+	private DoubleSolenoid piston;
 	boolean out = false;
 	
 	public Climb() {
-		pistonLeft = new DoubleSolenoid(PCM, CLIMB_PISTON_LEFT_FORWARD, CLIMB_PISTON_LEFT_REVERSE);
-		pistonRight = new DoubleSolenoid(PCM, CLIMB_PISTON_RIGHT_FORWARD, CLIMB_PISTON_RIGHT_REVERSE);
+		piston = new DoubleSolenoid(PCM, CLIMB_PISTON_FORWARD, CLIMB_PISTON_REVERSE);
 	}
 	
 	public void set(boolean out) {
 		this.out = out;
-		pistonLeft.set(out ? kForward : kReverse);
-		pistonRight.set(out ? kForward : kReverse);
+		piston.set(out ? kForward : kReverse);
 	}
 	public void toggle() {
 		out = !out;
-		pistonLeft.set(out ? kForward : kReverse);
-		pistonRight.set(out ? kForward : kReverse);
+		piston.set(out ? kForward : kReverse);
 	}
 }

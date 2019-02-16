@@ -140,9 +140,10 @@ public class SemiAuto {
 	
 	private void lift() {
 		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0);
-		Robot.climb.set(true);
-		
-		if(Robot.elevator.getPosition() < 2) climbState++;
+		if(Robot.elevator.getWristAngle() < CLIMB_WRIST_ANGLE[1] + 10) {
+			Robot.climb.set(true);
+			Robot.elevator.setIntake(false);
+		}
 	}
 	
 	public void climb() {
@@ -156,7 +157,6 @@ public class SemiAuto {
 				climbState++;
 				break;
 			case 2:
-				Robot.elevator.setIntake(false);
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
 				lift();
 				break;
@@ -169,6 +169,11 @@ public class SemiAuto {
 		if(elevatorAt) Robot.elevator.moveWristTo(wristAngle);
 		Robot.elevator.moveTo(elevatorHeight);
 		return elevatorAt && wristAt;
+	}
+	
+	public void elevatorWristMovement(double wristAngle, double elevatorHeight) {
+		Robot.elevator.moveTo(elevatorHeight);
+		Robot.elevator.moveWristTo(wristAngle);
 	}
 	
 	private boolean driveToDistance(double distance, boolean useGyro){
