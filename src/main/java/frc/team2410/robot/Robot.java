@@ -115,7 +115,11 @@ public class Robot extends TimedRobot
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
-		if(semiAuto.engaged) {
+		if(elevator.winchMotor.badCurrent()) {
+			led.status(255, 255, 0, 255, 255, 11, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
+		} else if(semiAuto.placeState == -1) {
+			led.status(255, 0, 255, 255, 15, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
+		} else if(semiAuto.engaged) {
 			led.status(255, 0, 0, 255, 7, 7, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		} else if(vision.getCentralValue()[0] != 0) {
 			led.status(0, 255, 0, 15, 255, 15, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
@@ -123,6 +127,7 @@ public class Robot extends TimedRobot
 			led.status(0, 0, 255, 31, 31, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		}
 		
+		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
 		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)

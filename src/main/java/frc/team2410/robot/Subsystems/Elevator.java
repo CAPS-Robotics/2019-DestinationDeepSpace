@@ -7,7 +7,7 @@ import frc.team2410.robot.TalonPair;
 import static frc.team2410.robot.RobotMap.*;
 
 public class Elevator {
-	private TalonPair winchMotor;
+	public TalonPair winchMotor;
 	private Encoder heightEncoder;
 	public Intake intake;
 	private boolean open = false;
@@ -49,8 +49,8 @@ public class Elevator {
 	
 	public void loop() {
 		if(Robot.oi.getAnalogStick(true, true) == 0) {
-			double speed = -((targetHeight-getPosition())/15);
-			if(Math.abs(targetHeight-getPosition()) < 1) speed = 0;
+			double speed = -((targetHeight-getPosition())/5);
+			if(speed > 0) speed /= 15;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);

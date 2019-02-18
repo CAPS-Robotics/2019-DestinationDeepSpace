@@ -34,7 +34,6 @@ public class OI {
 				if(joy.getRawButton(12-(j+2*i))) {
 					Robot.semiAuto.place(j != 0, i+1);
 					resetPlace = false;
-					
 				}
 			}
 		}
@@ -69,7 +68,7 @@ public class OI {
 		}
 		
 		if(leadingEdge(false, 5)) {
-			Robot.semiAuto.elevatorWristMovement(CARGO_INTAKE_ANGLE, CARGO_INTAKE_HEIGHT);
+			Robot.semiAuto.elevatorWristMovement(TRAVEL_ANGLE, HATCH_INTAKE_HEIGHT);
 		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorWristMovement(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
 		}

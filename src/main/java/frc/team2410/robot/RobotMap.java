@@ -85,6 +85,7 @@ public class RobotMap
 	public static final double CARGO_INTAKE_ANGLE = 2;
 	public static final double[] CLIMB_WRIST_ANGLE = {45, -20}; //Tentative
 	public static final double WRIST_UP = 85;
+	public static final double TRAVEL_ANGLE = 75; //Tentative
 	
 	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;
@@ -105,8 +106,11 @@ public class RobotMap
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3; //Tentative
 	
 	//Vision
-	public static final int CAMERA_WIDTH = 640;
-	public static final int CAMERA_HEIGHT = 360;
+	public static final int CAMERA_WIDTH = 320;
+	public static final int CAMERA_HEIGHT = 240;
+	public static final double MULTIPLIER_WIDTH = 1d / 16;
+	public static final double MULTIPLIER_HEIGHT = 3d / 50;
+	public static final double MIN_SPEED = 0.12;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
 	//public static final int PI = 3.1416;

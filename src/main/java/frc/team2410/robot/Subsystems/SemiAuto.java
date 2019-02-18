@@ -11,6 +11,8 @@ public class SemiAuto {
 	private int climbState = 0;
 	Timer t;
 	public boolean engaged = false;
+	private boolean ceng = false;
+	private boolean peng = false;
 	public double pval = 0;
 	
 	public SemiAuto() {
@@ -20,10 +22,12 @@ public class SemiAuto {
 	public void reset(boolean place) {
 		if(place) {
 			placeState = 0;
+			peng = false;
 		} else {
 			climbState = 0;
+			ceng = false;
 		}
-		engaged = false;
+		engaged = ceng || peng;
 	}
 	
 	private void turnToClosestStation() {
@@ -80,22 +84,25 @@ public class SemiAuto {
 		double distanceToCenter = CAMERA_WIDTH / 2 - centerValues[0];
 		double distanceBack = CAMERA_HEIGHT / 6 - centerValues[1];
 		
-		if(Math.abs(distanceToCenter) < 40 && Math.abs(distanceToCenter-pval) < 1 && Math.abs(distanceBack) < 20) placeState = -1;
+		if(Math.abs(distanceToCenter) < (MULTIPLIER_WIDTH * CAMERA_WIDTH) && Math.abs(distanceBack) < (CAMERA_HEIGHT * MULTIPLIER_HEIGHT)) placeState = -1;
 		pval = distanceToCenter;
 		
 		double xspeed = 0;
-		if(Math.abs(distanceToCenter) > 40) {
-			xspeed = -distanceToCenter/(CAMERA_WIDTH*1.6);
-			if(xspeed > -0.12 && xspeed < 0) xspeed = -0.12;
-			if(xspeed < 0.12 && xspeed > 0) xspeed = 0.12;
+		if(Math.abs(distanceToCenter) > MULTIPLIER_WIDTH * CAMERA_WIDTH) {
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*1.80);
+			if(xspeed > -MIN_SPEED && xspeed < 0) xspeed = -MIN_SPEED;
+			if(xspeed < MIN_SPEED && xspeed > 0) xspeed = MIN_SPEED;
 		}
 		
 		double yspeed = 0;
-		if(Math.abs(distanceBack) > 20) {
-			yspeed = distanceBack/(CAMERA_HEIGHT * 1.5);
-			if(yspeed > -0.12 && yspeed < 0) yspeed = -0.12;
-			if(yspeed < 0.12 && yspeed > 0) yspeed = 0.12;
+		if(Math.abs(distanceBack) > CAMERA_HEIGHT * MULTIPLIER_HEIGHT) {
+			yspeed = distanceBack/(CAMERA_HEIGHT * 1.80);
+			if(yspeed > -MIN_SPEED && yspeed < 0) yspeed = -MIN_SPEED;
+			if(yspeed < MIN_SPEED && yspeed > 0) yspeed = MIN_SPEED;
 		}
+		SmartDashboard.putNumber("Distance to Center", distanceToCenter);
+		SmartDashboard.putNumber("XSpeed", xspeed);
+		SmartDashboard.putNumber("YSpeed", yspeed);
 		Robot.drivetrain.crabDrive(xspeed, yspeed, 0, 1, false);
 	}
 	
@@ -109,6 +116,7 @@ public class SemiAuto {
 	}
 	
 	public void place(boolean hatch, int level) {
+		peng = true;
 		engaged = true;
 		switch(placeState) {
 			case 0:
@@ -147,6 +155,7 @@ public class SemiAuto {
 	}
 	
 	public void climb() {
+		ceng = true;
 		engaged = true;
 		switch(climbState){
 			case 0:

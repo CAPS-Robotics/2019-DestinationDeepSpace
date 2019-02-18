@@ -17,4 +17,7 @@ public class TalonPair {
 		a.set(speed);
 		b.set(speed);
 	}
+	public boolean badCurrent() {
+		return a.getOutputCurrent() > 30 || b.getOutputCurrent() > 30;
+	}
 }
