@@ -75,8 +75,7 @@ public class RobotMap
 	
 	//Elevator Heights- ALL TENTATIVE
 	public static final double CARGO_INTAKE_HEIGHT = 2; //Tentative but close
-	public static final double CARGO_SHIP_HEIGHT = 0; //Tentative
-	public static final double HATCH_INTAKE_HEIGHT = 6;
+	public static final double HATCH_INTAKE_HEIGHT = 7;
 	public static final double[] PLACE_HEIGHT = {11, 39, 68};
 	public static final double[] CLIMB_HEIGHT = {6, 13};
 	
