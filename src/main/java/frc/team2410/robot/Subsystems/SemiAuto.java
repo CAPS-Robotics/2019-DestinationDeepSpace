@@ -14,6 +14,7 @@ public class SemiAuto {
 	private boolean ceng = false;
 	private boolean peng = false;
 	public double pval = 0;
+	private double pspeed = 0;
 	
 	public SemiAuto() {
 		t = new Timer();
@@ -84,21 +85,26 @@ public class SemiAuto {
 		double distanceToCenter = CAMERA_WIDTH / 2 - centerValues[0];
 		double distanceBack = CAMERA_HEIGHT / 6 - centerValues[1];
 		
-		if(Math.abs(distanceToCenter) < (MULTIPLIER_WIDTH * CAMERA_WIDTH) && Math.abs(distanceBack) < (CAMERA_HEIGHT * MULTIPLIER_HEIGHT)) placeState = -1;
+		boolean xDone = Math.abs(distanceToCenter) < (MULTIPLIER_WIDTH * CAMERA_WIDTH);
+		boolean yDone = Math.abs(distanceBack) < (CAMERA_HEIGHT * MULTIPLIER_HEIGHT);
+		
+		if(xDone && yDone && Math.abs(pval - distanceToCenter) < 1 && centerValues[0] != 0) placeState = -1;
 		pval = distanceToCenter;
 		
 		double xspeed = 0;
-		if(Math.abs(distanceToCenter) > MULTIPLIER_WIDTH * CAMERA_WIDTH) {
-			xspeed = -distanceToCenter/(CAMERA_WIDTH*1.80);
-			if(xspeed > -MIN_SPEED && xspeed < 0) xspeed = -MIN_SPEED;
-			if(xspeed < MIN_SPEED && xspeed > 0) xspeed = MIN_SPEED;
+		if(!xDone && yDone) {
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*2.25);
+			if(xspeed > -MIN_XSPEED && xspeed < 0) xspeed = -MIN_XSPEED;
+			if(xspeed < MIN_XSPEED && xspeed > 0) xspeed = MIN_XSPEED;
 		}
+		/*if(centerValues[0] == 0) xspeed = pspeed;
+		pspeed = xspeed;*/
 		
 		double yspeed = 0;
-		if(Math.abs(distanceBack) > CAMERA_HEIGHT * MULTIPLIER_HEIGHT) {
-			yspeed = distanceBack/(CAMERA_HEIGHT * 1.80);
-			if(yspeed > -MIN_SPEED && yspeed < 0) yspeed = -MIN_SPEED;
-			if(yspeed < MIN_SPEED && yspeed > 0) yspeed = MIN_SPEED;
+		if(!yDone) {
+			yspeed = distanceBack/(CAMERA_HEIGHT * 1.70);
+			if(yspeed > -MIN_YSPEED && yspeed < 0) yspeed = -MIN_YSPEED;
+			if(yspeed < MIN_YSPEED && yspeed > 0) yspeed = MIN_YSPEED;
 		}
 		SmartDashboard.putNumber("Distance to Center", distanceToCenter);
 		SmartDashboard.putNumber("XSpeed", xspeed);

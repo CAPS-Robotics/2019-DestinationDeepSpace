@@ -92,13 +92,13 @@ public class LED {
 	}
 	
 	public void status(int r0, int g0, int b0, int r1, int g1, int b1, int speed, boolean status) {
-		long s = r0 + 256*(g0 + 256*(b0 + 256*(status? 1 : 0)));
+		/*long s = r0 + 256*(g0 + 256*(b0 + 256*(status? 1 : 0)));
 		if(s != ps) {
 			setColor(r0, g0, b0);
 		}
-		ps = s;
+		ps = s;*/
 		if(status) {
-			breathe(r0, g0, b0, r1, g1, b1, speed);
+			setColor(r0, g0, b0);
 		} else {
 			blink(r0, g0, b0, 0, 0, 0, speed);
 		}
