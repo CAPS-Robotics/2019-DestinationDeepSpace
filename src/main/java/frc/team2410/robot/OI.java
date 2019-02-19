@@ -1,7 +1,6 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.team2410.robot.RobotMap.*;
 
@@ -68,9 +67,9 @@ public class OI {
 		}
 		
 		if(leadingEdge(false, 5)) {
-			Robot.semiAuto.elevatorWristMovement(TRAVEL_ANGLE, TRAVEL_HEIGHT);
+			Robot.semiAuto.elevatorSetpoint(TRAVEL_ANGLE, TRAVEL_HEIGHT, true);
 		} else if(leadingEdge(false, 6)) {
-			Robot.semiAuto.elevatorWristMovement(HATCH_WRIST_ANGLE, HATCH_INTAKE_HEIGHT);
+			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, INTAKE_HEIGHT, true);
 		}
 		
 		if(xbox.getRawButton(1)) {

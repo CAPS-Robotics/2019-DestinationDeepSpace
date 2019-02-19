@@ -10,7 +10,7 @@ public class Elevator {
 	public TalonPair winchMotor;
 	private Encoder heightEncoder;
 	public Intake intake;
-	private boolean open = false;
+	private boolean open = true;
 	
 	private double targetHeight;
 	public double targetWrist;
@@ -40,6 +40,8 @@ public class Elevator {
 	public double getTarget() { return targetHeight; }
 	
 	public double getWristAngle() { return intake.getWrist(); }
+	
+	public boolean getHatchStatus() { return open; }
 	
 	public void reset(double height) {
 		heightEncoder.reset();

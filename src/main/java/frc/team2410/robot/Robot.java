@@ -128,6 +128,7 @@ public class Robot extends TimedRobot
 		}
 		
 		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
+		SmartDashboard.putString("Hatch Intake Status", elevator.getHatchStatus() ? "Open" : "Closed");
 		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)

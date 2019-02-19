@@ -75,16 +75,15 @@ public class RobotMap
 	
 	//Elevator Heights- ALL TENTATIVE
 	public static final double TRAVEL_HEIGHT = 2; //Tentative but close
-	public static final double HATCH_INTAKE_HEIGHT = 7;
+	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 38, 60};
 	public static final double[] CLIMB_HEIGHT = {6, 13};
 	
 	//Wrist Angles- ALL TENTATIVE
-	public static final double CARGO_WRIST_ANGLE = 50; //Tentative
+	public static final double CARGO_WRIST_ANGLE = 55;
 	public static final double HATCH_WRIST_ANGLE = 5;
 	public static final double HATCH_LEVEL_THREE_WRIST = 14;
-	public static final double CARGO_INTAKE_ANGLE = 2;
-	public static final double[] CLIMB_WRIST_ANGLE = {45, -20}; //Tentative
+	public static final double[] CLIMB_WRIST_ANGLE = {45, -20};
 	public static final double WRIST_UP = 85;
 	public static final double TRAVEL_ANGLE = 50; //Tentative
 	
@@ -111,7 +110,7 @@ public class RobotMap
 	public static final int CAMERA_HEIGHT = 240;
 	public static final double MULTIPLIER_WIDTH = 1d / 12;
 	public static final double MULTIPLIER_HEIGHT = 3d / 50;
-	public static final double MIN_XSPEED = 0.14;
+	public static final double MIN_XSPEED = 0.13;
 	public static final double MIN_YSPEED = 0.16;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	

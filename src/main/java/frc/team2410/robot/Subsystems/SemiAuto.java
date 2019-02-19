@@ -88,12 +88,12 @@ public class SemiAuto {
 		boolean xDone = Math.abs(distanceToCenter) < (MULTIPLIER_WIDTH * CAMERA_WIDTH);
 		boolean yDone = Math.abs(distanceBack) < (CAMERA_HEIGHT * MULTIPLIER_HEIGHT);
 		
-		if(xDone && yDone && Math.abs(pval - distanceToCenter) < 1 && centerValues[0] != 0) placeState = -1;
+		if(xDone && /*yDone &&*/ Math.abs(pval - distanceToCenter) < 1 && centerValues[0] != 0) placeState = -1;
 		pval = distanceToCenter;
 		
 		double xspeed = 0;
-		if(!xDone && yDone) {
-			xspeed = -distanceToCenter/(CAMERA_WIDTH*2.25);
+		if(!xDone) {
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*2.5);
 			if(xspeed > -MIN_XSPEED && xspeed < 0) xspeed = -MIN_XSPEED;
 			if(xspeed < MIN_XSPEED && xspeed > 0) xspeed = MIN_XSPEED;
 		}
@@ -101,11 +101,11 @@ public class SemiAuto {
 		pspeed = xspeed;*/
 		
 		double yspeed = 0;
-		if(!yDone) {
+		/*if(!yDone) {
 			yspeed = distanceBack/(CAMERA_HEIGHT * 1.70);
 			if(yspeed > -MIN_YSPEED && yspeed < 0) yspeed = -MIN_YSPEED;
 			if(yspeed < MIN_YSPEED && yspeed > 0) yspeed = MIN_YSPEED;
-		}
+		}*/
 		SmartDashboard.putNumber("Distance to Center", distanceToCenter);
 		SmartDashboard.putNumber("XSpeed", xspeed);
 		SmartDashboard.putNumber("YSpeed", yspeed);
@@ -132,7 +132,7 @@ public class SemiAuto {
 				alignLine();
 				break;
 			case 2:
-				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, PLACE_HEIGHT[level-1])) placeState++;
+				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, PLACE_HEIGHT[level-1], false)) placeState++;
 				Robot.drivetrain.startTravel();
 				break;
 			case 3:
@@ -153,7 +153,7 @@ public class SemiAuto {
 	}
 	
 	private void lift() {
-		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0);
+		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0, false);
 		if(Robot.elevator.getWristAngle() < CLIMB_WRIST_ANGLE[1] + 10) {
 			Robot.climb.set(true);
 			Robot.elevator.setIntake(false);
@@ -165,7 +165,7 @@ public class SemiAuto {
 		engaged = true;
 		switch(climbState){
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], 0)) climbState++;
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], 0, false)) climbState++;
 				break;
 			case 1:
 				Robot.drivetrain.desiredHeading = 180;
@@ -178,10 +178,10 @@ public class SemiAuto {
 		}
 	}
 	
-	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight) {
+	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight, boolean sameTime) {
 		boolean elevatorAt = Math.abs(Robot.elevator.getPosition() - elevatorHeight) < 3;
 		boolean wristAt = Math.abs(Robot.elevator.getWristAngle() - wristAngle) < 5;
-		if(elevatorAt) Robot.elevator.moveWristTo(wristAngle);
+		if(elevatorAt || sameTime) Robot.elevator.moveWristTo(wristAngle);
 		Robot.elevator.moveTo(elevatorHeight);
 		return elevatorAt && wristAt;
 	}
