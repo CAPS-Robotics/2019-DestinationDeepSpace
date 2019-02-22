@@ -2,8 +2,7 @@ package frc.team2410.robot;
 
 public class RobotMap
 {
-	//TODO: Tentative values
-	public static final boolean COMPETITION_BOT = true;
+	public static final boolean COMPETITION_BOT = false;
 	
 	//PID
 	public static final float SWERVE_MODULE_P = 5;
@@ -53,8 +52,8 @@ public class RobotMap
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 1;
 	public static final int HATCH_INTAKE_REVERSE = 0;
-	public static final int CLIMB_PISTON_FORWARD = 7; //Tentative
-	public static final int CLIMB_PISTON_REVERSE = 6; //Tentative
+	public static final int CLIMB_PISTON_FORWARD = 7;
+	public static final int CLIMB_PISTON_REVERSE = 6;
 	
 	//Offsets
 	public static final float BR_OFFSET_PRAC = 2.369384523f;
@@ -73,8 +72,8 @@ public class RobotMap
 	public static final float FL_OFFSET = COMPETITION_BOT ? FL_OFFSET_COMP : FL_OFFSET_PRAC;
 	public static final float WRIST_OFFSET = COMPETITION_BOT ? WRIST_OFFSET_COMP : WRIST_OFFSET_PRAC;
 	
-	//Elevator Heights- ALL TENTATIVE
-	public static final double TRAVEL_HEIGHT = 2; //Tentative but close
+	//Elevator Heights
+	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 38, 60};
 	public static final double[] CLIMB_HEIGHT = {6, 13};
@@ -85,7 +84,7 @@ public class RobotMap
 	public static final double HATCH_LEVEL_THREE_WRIST = 14;
 	public static final double[] CLIMB_WRIST_ANGLE = {45, -20};
 	public static final double WRIST_UP = 85;
-	public static final double TRAVEL_ANGLE = 50; //Tentative
+	public static final double TRAVEL_ANGLE = 50;
 	
 	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;
@@ -98,12 +97,12 @@ public class RobotMap
 	public static final double INTAKE = 180;
 	
 	//Field Distances
-	public static final double CARGO_DISTANCE = 1; //Tentative
-	public static final double HATCH_DISTANCE = 4; //Tentative
+	public static final double CARGO_DISTANCE = 1;
+	public static final double HATCH_DISTANCE = 4;
 	
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
-	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3; //Tentative
+	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3;
 	
 	//Vision
 	public static final int CAMERA_WIDTH = 320;
