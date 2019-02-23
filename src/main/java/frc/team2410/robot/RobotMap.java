@@ -27,6 +27,7 @@ public class RobotMap
 	public static final int INTAKE_MOTOR = 11;
 	public static final int WRIST_MOTOR = 12;
 	public static final int PCM = 13;
+	public static final int CLIMB_ELEVATOR = 14; //Tentative
 	
 	//Analog In
 	public static final int BL_STEER_ENCODER = 0;
@@ -40,14 +41,20 @@ public class RobotMap
 	public static final int ELEVATOR_ENCODER_B_COMP = 8;
 	public static final int DRIVE_CIMCODER_A_COMP = 0;
 	public static final int DRIVE_CIMCODER_B_COMP = 1;
+	public static final int CLIMB_ELEVATOR_A_COMP = 2; //Tentative
+	public static final int CLIMB_ELEVATOR_B_COMP = 3; //Tentative
 	public static final int ELEVATOR_ENCODER_A_PRAC = 0;
 	public static final int ELEVATOR_ENCODER_B_PRAC = 1;
 	public static final int DRIVE_CIMCODER_A_PRAC = 2;
 	public static final int DRIVE_CIMCODER_B_PRAC = 3;
+	public static final int CLIMB_ELEVATOR_A_PRAC = 4; //Tentative
+	public static final int CLIMB_ELEVATOR_B_PRAC = 5; //Tentative
 	public static final int ELEVATOR_ENCODER_A = COMPETITION_BOT ? ELEVATOR_ENCODER_A_COMP : ELEVATOR_ENCODER_A_PRAC;
 	public static final int ELEVATOR_ENCODER_B = COMPETITION_BOT ? ELEVATOR_ENCODER_B_COMP : ELEVATOR_ENCODER_B_PRAC;
 	public static final int DRIVE_CIMCODER_A = COMPETITION_BOT ? DRIVE_CIMCODER_A_COMP : DRIVE_CIMCODER_A_PRAC;
 	public static final int DRIVE_CIMCODER_B = COMPETITION_BOT ? DRIVE_CIMCODER_B_COMP : DRIVE_CIMCODER_B_PRAC;
+	public static final int CLIMB_ELEVATOR_A = COMPETITION_BOT ? CLIMB_ELEVATOR_A_COMP : CLIMB_ELEVATOR_A_PRAC;
+	public static final int CLIMB_ELEVATOR_B = COMPETITION_BOT ? CLIMB_ELEVATOR_B_COMP : CLIMB_ELEVATOR_B_PRAC;
 	
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 1;
@@ -76,7 +83,10 @@ public class RobotMap
 	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 38, 60};
-	public static final double[] CLIMB_HEIGHT = {6, 13};
+	public static final double[] CLIMB_HEIGHT_FRONT = {6, 19};
+	
+	//Climb Elevator Heights
+	public static final double[] CLIMB_HEIGHT_BACK = {8, 21}; //Tentative
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 55;
@@ -103,6 +113,7 @@ public class RobotMap
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3;
+	public static final double WINCH_CLIMB_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 100 / 3;
 	
 	//Vision
 	public static final int CAMERA_WIDTH = 320;

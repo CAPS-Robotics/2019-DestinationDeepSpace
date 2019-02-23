@@ -26,7 +26,7 @@ public class Elevator {
 	}
 	
 	public void moveTo(double height) {
-		this.targetHeight = height;
+		targetHeight = height;
 	}
 	
 	public void moveWristTo(double angle) {

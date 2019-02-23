@@ -152,20 +152,20 @@ public class SemiAuto {
 		}
 	}
 	
-	private void lift() {
-		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0, false);
+	private void lift(int level) {
+		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT_FRONT[level], true);
 		if(Robot.elevator.getWristAngle() < CLIMB_WRIST_ANGLE[1] + 10) {
-			Robot.climb.set(true);
+			Robot.climb.moveTo(CLIMB_HEIGHT_BACK[level]);
 			Robot.elevator.setIntake(false);
 		}
 	}
 	
-	public void climb() {
+	public void climb(int level) {
 		ceng = true;
 		engaged = true;
-		switch(climbState){
+		switch(climbState) {
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], 0, false)) climbState++;
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT_FRONT[level], false)) climbState++;
 				break;
 			case 1:
 				Robot.drivetrain.desiredHeading = 180;
@@ -173,7 +173,7 @@ public class SemiAuto {
 				break;
 			case 2:
 				Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
-				lift();
+				lift(level);
 				break;
 		}
 	}
@@ -184,11 +184,6 @@ public class SemiAuto {
 		if(elevatorAt || sameTime) Robot.elevator.moveWristTo(wristAngle);
 		Robot.elevator.moveTo(elevatorHeight);
 		return elevatorAt && wristAt;
-	}
-	
-	public void elevatorWristMovement(double wristAngle, double elevatorHeight) {
-		Robot.elevator.moveTo(elevatorHeight);
-		Robot.elevator.moveWristTo(wristAngle);
 	}
 	
 	private boolean driveToDistance(double distance, boolean useGyro){
