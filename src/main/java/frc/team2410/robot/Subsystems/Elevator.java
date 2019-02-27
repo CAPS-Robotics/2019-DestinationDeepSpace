@@ -52,7 +52,7 @@ public class Elevator {
 	public void loop() {
 		if(Robot.oi.getAnalogStick(true, true) == 0) {
 			double speed = -((targetHeight-getPosition())/5);
-			if(speed > 0) speed /= 15;
+			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 15;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
@@ -86,5 +86,9 @@ public class Elevator {
 	
 	public void setHatch(boolean open) {
 		intake.setPiston(open);
+	}
+	
+	public double getWristVoltage() {
+		return intake.getWristVoltage();
 	}
 }

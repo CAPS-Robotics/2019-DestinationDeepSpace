@@ -67,6 +67,10 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
+		SmartDashboard.putNumber("ElevatorA Voltage", elevator.winchMotor.getAcurrent());
+		SmartDashboard.putNumber("ElevatorB Voltage", elevator.winchMotor.getBcurrent());
+		SmartDashboard.putNumber("Wrist voltage", elevator.getWristVoltage());
+		SmartDashboard.putNumber("Climb voltage", climb.getVoltage());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
@@ -76,6 +80,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("Wrist Target", elevator.targetWrist);
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
+		SmartDashboard.putNumber("Climb height", climb.getPosition());
+		SmartDashboard.putNumber("Climb target", climb.getTarget());
 		SmartDashboard.putNumber("Place State", semiAuto.placeState);
 		SmartDashboard.putNumber("R", led.r);
 		SmartDashboard.putNumber("G", led.g);
@@ -114,6 +120,7 @@ public class Robot extends TimedRobot
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
+		climb.loop();
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 		if(elevator.winchMotor.badCurrent()) {
 			led.status(255, 255, 0, 255, 255, 11, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);

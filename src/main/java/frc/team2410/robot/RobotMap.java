@@ -27,7 +27,7 @@ public class RobotMap
 	public static final int INTAKE_MOTOR = 11;
 	public static final int WRIST_MOTOR = 12;
 	public static final int PCM = 13;
-	public static final int CLIMB_ELEVATOR = 14; //Tentative
+	public static final int CLIMB_ELEVATOR = 14;
 	
 	//Analog In
 	public static final int BL_STEER_ENCODER = 0;
@@ -47,8 +47,8 @@ public class RobotMap
 	public static final int ELEVATOR_ENCODER_B_PRAC = 1;
 	public static final int DRIVE_CIMCODER_A_PRAC = 2;
 	public static final int DRIVE_CIMCODER_B_PRAC = 3;
-	public static final int CLIMB_ELEVATOR_A_PRAC = 4; //Tentative
-	public static final int CLIMB_ELEVATOR_B_PRAC = 5; //Tentative
+	public static final int CLIMB_ELEVATOR_A_PRAC = 6;
+	public static final int CLIMB_ELEVATOR_B_PRAC = 9;
 	public static final int ELEVATOR_ENCODER_A = COMPETITION_BOT ? ELEVATOR_ENCODER_A_COMP : ELEVATOR_ENCODER_A_PRAC;
 	public static final int ELEVATOR_ENCODER_B = COMPETITION_BOT ? ELEVATOR_ENCODER_B_COMP : ELEVATOR_ENCODER_B_PRAC;
 	public static final int DRIVE_CIMCODER_A = COMPETITION_BOT ? DRIVE_CIMCODER_A_COMP : DRIVE_CIMCODER_A_PRAC;
@@ -67,7 +67,7 @@ public class RobotMap
 	public static final float BL_OFFSET_PRAC = 0.731201097f;
 	public static final float FR_OFFSET_PRAC = 3.286132476f;
 	public static final float FL_OFFSET_PRAC = 1.716308418f;
-	public static final float WRIST_OFFSET_PRAC = 0;
+	public static final float WRIST_OFFSET_PRAC = 2.7514645620000002f;
 	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
 	public static final float BL_OFFSET_COMP = 1.8701169960000001f;
 	public static final float FR_OFFSET_COMP = 3.355712547f;
@@ -83,16 +83,14 @@ public class RobotMap
 	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 38, 60};
-	public static final double[] CLIMB_HEIGHT_FRONT = {6, 19};
-	
-	//Climb Elevator Heights
-	public static final double[] CLIMB_HEIGHT_BACK = {8, 21}; //Tentative
+	public static final double[] CLIMB_HEIGHT = {7, 20};
+	public static final int CLIMB_OFFSET = 3; //VERY TENTATIVE
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 55;
 	public static final double HATCH_WRIST_ANGLE = 5;
 	public static final double HATCH_LEVEL_THREE_WRIST = 14;
-	public static final double[] CLIMB_WRIST_ANGLE = {45, -20};
+	public static final double[] CLIMB_WRIST_ANGLE = {0, -30};
 	public static final double WRIST_UP = 85;
 	public static final double TRAVEL_ANGLE = 50;
 	
@@ -113,7 +111,7 @@ public class RobotMap
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3;
-	public static final double WINCH_CLIMB_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 100 / 3;
+	public static final double WINCH_CLIMB_DIST_PER_PULSE = 2.00 * Math.PI / 100 / 3;
 	
 	//Vision
 	public static final int CAMERA_WIDTH = 320;

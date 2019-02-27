@@ -54,16 +54,17 @@ public class OI {
 			Robot.elevator.toggleHatch();
 		}
 		
+		if(leadingEdge(false, 9)) {
+			Robot.climb.reset(0);
+		}
+		
 		if(leadingEdge(false, 10)) {
 			Robot.elevator.reset(0);
 		}
 		
 		if(joy.getRawButton(3)) {
 			Robot.semiAuto.climb(0);
-		} else {
-			Robot.semiAuto.reset(false);
-		}
-		if(leadingEdge(true, 4)) {
+		} else if(joy.getRawButton(4)) {
 			Robot.semiAuto.climb(1);
 		} else {
 			Robot.semiAuto.reset(false);

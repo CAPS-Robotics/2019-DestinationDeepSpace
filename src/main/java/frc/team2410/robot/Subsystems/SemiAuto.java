@@ -11,8 +11,8 @@ public class SemiAuto {
 	private int climbState = 0;
 	Timer t;
 	public boolean engaged = false;
-	private boolean ceng = false;
-	private boolean peng = false;
+	public boolean ceng = false;
+	public boolean peng = false;
 	public double pval = 0;
 	private double pspeed = 0;
 	
@@ -153,10 +153,10 @@ public class SemiAuto {
 	}
 	
 	private void lift(int level) {
-		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT_FRONT[level], true);
-		if(Robot.elevator.getWristAngle() < CLIMB_WRIST_ANGLE[1] + 10) {
-			Robot.climb.moveTo(CLIMB_HEIGHT_BACK[level]);
-			Robot.elevator.setIntake(false);
+		Robot.climb.moveTo(CLIMB_HEIGHT[level] - Robot.elevator.getPosition() + CLIMB_OFFSET);
+		
+		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0, true)) {
+			//Robot.elevator.setIntake(false);
 		}
 	}
 	
@@ -165,14 +165,19 @@ public class SemiAuto {
 		engaged = true;
 		switch(climbState) {
 			case 0:
-				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT_FRONT[level], false)) climbState++;
+				Robot.climb.moveTo(CLIMB_OFFSET);
+				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT[level], true)) {
+					climbState++;
+					t.reset();
+					t.start();
+				}
 				break;
 			case 1:
 				Robot.drivetrain.desiredHeading = 180;
-				climbState++;
+				if(t.get() > 2) climbState++;
 				break;
 			case 2:
-				Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
+				//Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
 				lift(level);
 				break;
 		}

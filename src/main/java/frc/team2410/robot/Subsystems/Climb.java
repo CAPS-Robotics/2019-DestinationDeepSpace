@@ -43,6 +43,8 @@ public class Climb {
 	
 	public double getPosition() { return heightEncoder.getDistance() + offset; }
 	
+	public double getTarget() { return targetHeight; }
+	
 	public void reset(double height) {
 		heightEncoder.reset();
 		offset = height;
@@ -51,13 +53,18 @@ public class Climb {
 	
 	public void loop() {
 		if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180) {
-			double speed = -((targetHeight-getPosition())/5);
+			double speed = -(targetHeight-getPosition());
 			if(speed > 0) speed /= 15;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
 		} else {
 			winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
+			targetHeight = getPosition();
 		}
+	}
+	
+	public double getVoltage() {
+		return winchMotor.getOutputCurrent();
 	}
 }

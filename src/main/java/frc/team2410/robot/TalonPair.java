@@ -20,4 +20,11 @@ public class TalonPair {
 	public boolean badCurrent() {
 		return a.getOutputCurrent() > 30 || b.getOutputCurrent() > 30;
 	}
+	
+	public double getAcurrent() {
+		return a.getOutputCurrent();
+	}
+	public double getBcurrent() {
+		return b.getOutputCurrent();
+	}
 }
