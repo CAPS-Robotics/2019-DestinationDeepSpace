@@ -175,7 +175,7 @@ public class SemiAuto {
 				}
 				break;
 			case 1:
-				Robot.drivetrain.desiredHeading = 180;
+				//Robot.drivetrain.desiredHeading = 180;
 				if(t.get() > 1) climbState++;
 				break;
 			case 2:

@@ -109,8 +109,9 @@ public class RobotMap
 	public static final double HATCH_DISTANCE = 4;
 	
 	//Encoder Conversions
+	//Diameter * PI / gear ratio / full encoder cycles (edges/4)
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
-	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3;
+	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3; //two stages
 	public static final double WINCH_CLIMB_DIST_PER_PULSE = 2.00 * Math.PI / 216.66 / 3;
 	
 	//Vision
