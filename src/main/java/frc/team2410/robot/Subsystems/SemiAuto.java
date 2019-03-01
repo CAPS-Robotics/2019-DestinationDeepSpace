@@ -88,24 +88,26 @@ public class SemiAuto {
 		boolean xDone = Math.abs(distanceToCenter) < (MULTIPLIER_WIDTH * CAMERA_WIDTH);
 		boolean yDone = Math.abs(distanceBack) < (CAMERA_HEIGHT * MULTIPLIER_HEIGHT);
 		
-		if(xDone && /*yDone &&*/ Math.abs(pval - distanceToCenter) < 1 && centerValues[0] != 0) placeState = -1;
+		if(xDone && yDone && Math.abs(pval - distanceToCenter) < 1 && centerValues[0] != 0) placeState = -1;
 		pval = distanceToCenter;
 		
 		double xspeed = 0;
 		if(!xDone) {
-			xspeed = -distanceToCenter/(CAMERA_WIDTH*2.5);
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*2);
 			if(xspeed > -MIN_XSPEED && xspeed < 0) xspeed = -MIN_XSPEED;
 			if(xspeed < MIN_XSPEED && xspeed > 0) xspeed = MIN_XSPEED;
 		}
+		//xspeed = Math.pow(xspeed, 0.33);
 		/*if(centerValues[0] == 0) xspeed = pspeed;
 		pspeed = xspeed;*/
 		
 		double yspeed = 0;
-		/*if(!yDone) {
+		if(!yDone) {
 			yspeed = distanceBack/(CAMERA_HEIGHT * 1.70);
 			if(yspeed > -MIN_YSPEED && yspeed < 0) yspeed = -MIN_YSPEED;
 			if(yspeed < MIN_YSPEED && yspeed > 0) yspeed = MIN_YSPEED;
-		}*/
+		}
+		//yspeed = Math.pow(yspeed, 0.33);
 		SmartDashboard.putNumber("Distance to Center", distanceToCenter);
 		SmartDashboard.putNumber("XSpeed", xspeed);
 		SmartDashboard.putNumber("YSpeed", yspeed);
@@ -153,9 +155,9 @@ public class SemiAuto {
 	}
 	
 	private void lift(int level) {
-		Robot.climb.moveTo(CLIMB_HEIGHT[level] - Robot.elevator.getPosition() + CLIMB_OFFSET);
+		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_OFFSET);
 		
-		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], 0, true)) {
+		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET - 2, true)) {
 			//Robot.elevator.setIntake(false);
 		}
 	}
@@ -174,7 +176,7 @@ public class SemiAuto {
 				break;
 			case 1:
 				Robot.drivetrain.desiredHeading = 180;
-				if(t.get() > 2) climbState++;
+				if(t.get() > 1) climbState++;
 				break;
 			case 2:
 				//Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);

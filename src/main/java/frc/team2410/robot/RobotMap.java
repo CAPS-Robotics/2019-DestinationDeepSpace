@@ -111,14 +111,14 @@ public class RobotMap
 	//Encoder Conversions
 	public static final double DRIVE_DIST_PER_PULSE = 3.0*Math.PI/100.0;
 	public static final double WINCH_DIST_PER_PULSE = 1.91 * Math.PI * 2 / 39 / 3;
-	public static final double WINCH_CLIMB_DIST_PER_PULSE = 2.00 * Math.PI / 100 / 3;
+	public static final double WINCH_CLIMB_DIST_PER_PULSE = 2.00 * Math.PI / 216.66 / 3;
 	
 	//Vision
 	public static final int CAMERA_WIDTH = 320;
 	public static final int CAMERA_HEIGHT = 240;
 	public static final double MULTIPLIER_WIDTH = 1d / 12;
 	public static final double MULTIPLIER_HEIGHT = 3d / 50;
-	public static final double MIN_XSPEED = 0.13;
+	public static final double MIN_XSPEED = 0.14;
 	public static final double MIN_YSPEED = 0.16;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
