@@ -157,7 +157,7 @@ public class SemiAuto {
 	private void lift(int level) {
 		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_OFFSET);
 		
-		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET - 2, true)) {
+		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET, true)) {
 			//Robot.elevator.setIntake(false);
 		}
 	}
