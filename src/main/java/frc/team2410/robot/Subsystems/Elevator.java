@@ -15,6 +15,7 @@ public class Elevator {
 	private double targetHeight;
 	public double targetWrist;
 	private double offset;
+	private boolean checkStartReleased = false;
 	
 	public Elevator() {
 		intake = new Intake();
@@ -28,6 +29,8 @@ public class Elevator {
 	public void moveTo(double height) {
 		targetHeight = height;
 	}
+	
+	public void setSpeed(double speed) {winchMotor.set(speed); }
 	
 	public void moveWristTo(double angle) {
 		targetWrist = angle;
@@ -50,13 +53,20 @@ public class Elevator {
 	}
 	
 	public void loop() {
-		if(Robot.oi.getAnalogStick(true, true) == 0) {
+		if(Robot.oi.startPressed()) {
+			winchMotor.set(0.2);
+			checkStartReleased = true;
+		} else if(checkStartReleased) {
+			winchMotor.set(0);
+			reset(0);
+			checkStartReleased = false;
+		} else if(Robot.oi.getAnalogStick(true, true) == 0 && !Robot.semiAuto.lift) {
 			double speed = -((targetHeight-getPosition())/5);
 			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 15;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
-		} else {
+		} else if(!Robot.semiAuto.lift){
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
 		} if(Robot.oi.getAnalogStick(false, true) == 0) {

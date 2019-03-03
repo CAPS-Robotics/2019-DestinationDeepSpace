@@ -59,7 +59,7 @@ public class OI {
 		}
 		
 		if(leadingEdge(false, 10)) {
-			Robot.elevator.reset(0);
+			//Robot.elevator.reset(0);
 		}
 		
 		if(joy.getRawButton(3)) {
@@ -68,6 +68,11 @@ public class OI {
 			Robot.semiAuto.climb(1);
 		} else {
 			Robot.semiAuto.reset(false);
+			if(Robot.semiAuto.lift) {
+				Robot.elevator.moveTo(Robot.semiAuto.pFrontPos);
+				Robot.climb.moveTo(Robot.semiAuto.pBackPos);
+				Robot.semiAuto.lift = false;
+			}
 		}
 		
 		if(leadingEdge(false, 5)) {
@@ -75,6 +80,8 @@ public class OI {
 		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, INTAKE_HEIGHT, true);
 		}
+		
+		
 		
 		if(xbox.getRawButton(1)) {
 			Robot.elevator.moveTo(PLACE_HEIGHT[0]);
@@ -130,6 +137,8 @@ public class OI {
 	public double getAnalogStick(boolean rightStick, boolean yAxis){
 		return this.applyDeadzone(xbox.getRawAxis((rightStick?1:0)*2+(yAxis?1:0)), 0.25, 1);
 	}
+	
+	public boolean startPressed() { return xbox.getRawButton(10); }
 	
 	public double getJoyPOV() {
 		return this.joy.getPOV(0);

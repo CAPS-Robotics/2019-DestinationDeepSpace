@@ -57,8 +57,8 @@ public class RobotMap
 	public static final int CLIMB_ELEVATOR_B = COMPETITION_BOT ? CLIMB_ELEVATOR_B_COMP : CLIMB_ELEVATOR_B_PRAC;
 	
 	//PCM
-	public static final int HATCH_INTAKE_FORWARD = 1;
-	public static final int HATCH_INTAKE_REVERSE = 0;
+	public static final int HATCH_INTAKE_FORWARD = 3;
+	public static final int HATCH_INTAKE_REVERSE = 2;
 	public static final int CLIMB_PISTON_FORWARD = 7;
 	public static final int CLIMB_PISTON_REVERSE = 6;
 	
@@ -84,7 +84,8 @@ public class RobotMap
 	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 38, 60};
 	public static final double[] CLIMB_HEIGHT = {7, 20};
-	public static final int CLIMB_OFFSET = 3; //VERY TENTATIVE
+	public static final int CLIMB_OFFSET = 3;
+	public static final double CLIMB_ELEVATOR_MAX_OFFSET = 3.5;
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 55;
@@ -103,6 +104,7 @@ public class RobotMap
 	public static final double ROCKET_RIGHT_LEFT = 90.0 + 61.25;
 	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
 	public static final double INTAKE = 180;
+	public static final double INTAKE2 = -180;
 	
 	//Field Distances
 	public static final double CARGO_DISTANCE = 1;
@@ -121,6 +123,8 @@ public class RobotMap
 	public static final double MULTIPLIER_HEIGHT = 3d / 50;
 	public static final double MIN_XSPEED = 0.14;
 	public static final double MIN_YSPEED = 0.16;
+	public static final double EXTRA_XSPEED = 0.04;
+	public static final double EXTRA_YSPEED = 0.04;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
 	//public static final int PI = 3.1416;

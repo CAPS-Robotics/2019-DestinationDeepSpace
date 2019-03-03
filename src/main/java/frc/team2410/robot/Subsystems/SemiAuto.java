@@ -13,8 +13,14 @@ public class SemiAuto {
 	public boolean engaged = false;
 	public boolean ceng = false;
 	public boolean peng = false;
+	public boolean lift = false;
 	public double pval = 0;
 	private double pspeed = 0;
+	private double frontPower = 0.20;
+	private double backPower = -0.5;
+	public double pFrontPos;
+	public double pBackPos;
+	
 	
 	public SemiAuto() {
 		t = new Timer();
@@ -62,7 +68,11 @@ public class SemiAuto {
 			target = ROCKET_RIGHT_RIGHT;
 		}
 		if(Math.abs(INTAKE - angle) < lowestOffset) {
+			lowestOffset = Math.abs(INTAKE-angle);
 			target = INTAKE;
+		}
+		if(Math.abs(INTAKE2 - angle) < lowestOffset) {
+			target = INTAKE2;
 		}
 		
 		double angleDiff = target - Robot.gyro.getHeading();
@@ -96,8 +106,9 @@ public class SemiAuto {
 			xspeed = -distanceToCenter/(CAMERA_WIDTH*2);
 			if(xspeed > -MIN_XSPEED && xspeed < 0) xspeed = -MIN_XSPEED;
 			if(xspeed < MIN_XSPEED && xspeed > 0) xspeed = MIN_XSPEED;
+			//Makes robot drive even if y is done
+			if(yDone && Math.abs(xspeed) <= MIN_YSPEED + EXTRA_XSPEED) xspeed += xspeed < 0 ? -EXTRA_XSPEED : EXTRA_XSPEED;
 		}
-		//xspeed = Math.pow(xspeed, 0.33);
 		/*if(centerValues[0] == 0) xspeed = pspeed;
 		pspeed = xspeed;*/
 		
@@ -106,8 +117,9 @@ public class SemiAuto {
 			yspeed = distanceBack/(CAMERA_HEIGHT * 1.70);
 			if(yspeed > -MIN_YSPEED && yspeed < 0) yspeed = -MIN_YSPEED;
 			if(yspeed < MIN_YSPEED && yspeed > 0) yspeed = MIN_YSPEED;
+			//Makes robot drive even if x is done
+			if(xDone && Math.abs(yspeed) <= MIN_YSPEED + EXTRA_XSPEED) yspeed += yspeed < 0 ? -EXTRA_YSPEED : EXTRA_YSPEED;
 		}
-		//yspeed = Math.pow(yspeed, 0.33);
 		SmartDashboard.putNumber("Distance to Center", distanceToCenter);
 		SmartDashboard.putNumber("XSpeed", xspeed);
 		SmartDashboard.putNumber("YSpeed", yspeed);
@@ -155,11 +167,42 @@ public class SemiAuto {
 	}
 	
 	private void lift(int level) {
-		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_OFFSET);
+		
+		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_ELEVATOR_MAX_OFFSET);
 		
 		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET, true)) {
 			//Robot.elevator.setIntake(false);
 		}
+		/*double frontSpeed = Math.abs(pFrontPos - Robot.elevator.getPosition()) / t.get();
+		double backSpeed = Math.abs(pBackPos - Robot.climb.getPosition()) / t.get();
+		
+		pFrontPos = Robot.elevator.getPosition();
+		pBackPos = Robot.climb.getPosition();
+		
+		if(frontSpeed < backSpeed) {
+			if(backPower == -1) backPower += 0.03;
+			else frontPower += 0.03;
+		} else if(backSpeed < frontSpeed){
+			if(frontSpeed == 1) frontPower -= 0.03;
+			else backPower -= 0.03;
+		}
+		
+		if(Math.abs(Robot.elevator.getPosition() - 1) < 1) frontPower = 0;
+		if(Math.abs(Robot.climb.getPosition() - CLIMB_HEIGHT[level] + CLIMB_OFFSET) < 1) backPower = 0;
+		
+		if(frontPower == 0 && backPower == 0) {
+			climbState++;
+			lift = false;
+		}
+		
+		if(frontPower > 1) frontPower = 1;
+		if(backPower < -1) backPower = -1;
+		
+		Robot.elevator.setSpeed(frontPower);
+		Robot.climb.setSpeed(backPower);
+		
+		t.reset();
+		t.start();*/
 	}
 	
 	public void climb(int level) {
@@ -167,7 +210,7 @@ public class SemiAuto {
 		engaged = true;
 		switch(climbState) {
 			case 0:
-				Robot.climb.moveTo(CLIMB_OFFSET);
+				Robot.climb.moveTo(CLIMB_OFFSET * 2);
 				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT[level], true)) {
 					climbState++;
 					t.reset();
@@ -176,7 +219,16 @@ public class SemiAuto {
 				break;
 			case 1:
 				//Robot.drivetrain.desiredHeading = 180;
-				if(t.get() > 1) climbState++;
+				if(t.get() > 1) {
+					/*Robot.elevator.setSpeed(frontPower);
+					Robot.climb.setSpeed(backPower);
+					pFrontPos = Robot.elevator.getPosition();
+					pBackPos = Robot.climb.getPosition();
+					t.reset();
+					t.start();
+					lift = true;*/
+					climbState++;
+				}
 				break;
 			case 2:
 				//Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);

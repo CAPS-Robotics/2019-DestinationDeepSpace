@@ -67,10 +67,10 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("FR Voltage", drivetrain.fr.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BL Voltage", drivetrain.bl.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
-		SmartDashboard.putNumber("ElevatorA Voltage", elevator.winchMotor.getAcurrent());
-		SmartDashboard.putNumber("ElevatorB Voltage", elevator.winchMotor.getBcurrent());
-		SmartDashboard.putNumber("Wrist voltage", elevator.getWristVoltage());
-		SmartDashboard.putNumber("Climb voltage", climb.getVoltage());
+		SmartDashboard.putNumber("ElevatorA Current", elevator.winchMotor.getAcurrent());
+		SmartDashboard.putNumber("ElevatorB Current", elevator.winchMotor.getBcurrent());
+		SmartDashboard.putNumber("Wrist Current", elevator.getWristVoltage());
+		SmartDashboard.putNumber("Climb Current", climb.getVoltage());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
@@ -135,7 +135,8 @@ public class Robot extends TimedRobot
 		}
 		
 		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
-		SmartDashboard.putString("Hatch Intake Status", elevator.getHatchStatus() ? "Open" : "Closed");
+		SmartDashboard.putBoolean("Hatch Intake Status", elevator.getHatchStatus());
+		SmartDashboard.putBoolean("Semi-Auto Done", semiAuto.placeState == -1);
 		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)

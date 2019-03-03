@@ -41,6 +41,8 @@ public class Climb {
 	
 	public void moveTo(double height) { targetHeight = height; }
 	
+	public void setSpeed(double speed) {winchMotor.set(speed); }
+	
 	public double getPosition() { return heightEncoder.getDistance() + offset; }
 	
 	public double getTarget() { return targetHeight; }
@@ -52,13 +54,13 @@ public class Climb {
 	}
 	
 	public void loop() {
-		if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180) {
+		if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180 && !Robot.semiAuto.lift) {
 			double speed = -(targetHeight-getPosition());
 			if(speed > 0) speed /= 15;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
-		} else {
+		} else if(!Robot.semiAuto.lift) {
 			winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
 			targetHeight = getPosition();
 		}
