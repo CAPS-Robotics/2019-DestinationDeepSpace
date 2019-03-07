@@ -24,6 +24,7 @@ public class Robot extends TimedRobot
 	private double gi;
 	private double gd;
 	static boolean fieldOriented = true;
+	private boolean startMatch = true;
 	private int pState = -1;
 
 	public Robot() {}
@@ -104,6 +105,7 @@ public class Robot extends TimedRobot
 		elevator.reset(0);
 		led.setColor(0, 0, 255);
 		pState = -1;
+		startMatch = true;
 	}
 	
 	@Override
@@ -121,6 +123,10 @@ public class Robot extends TimedRobot
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
 		climb.loop();
+		
+		if(startMatch) {
+			startMatch = !semiAuto.startMatch();
+		}
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 		if(elevator.winchMotor.badCurrent()) {
 			led.status(255, 255, 0, 255, 255, 11, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);

@@ -37,6 +37,15 @@ public class SemiAuto {
 		engaged = ceng || peng;
 	}
 	
+	public boolean startMatch() {
+		Robot.elevator.moveWristTo(TRAVEL_ANGLE);
+		if(Math.abs(Robot.elevator.getWristAngle() - TRAVEL_ANGLE) < 5) {
+			Robot.elevator.toggleHatch();
+			return true;
+		}
+		return false;
+	}
+	
 	private void turnToClosestStation() {
 		double angle = Robot.gyro.getHeading();
 		
