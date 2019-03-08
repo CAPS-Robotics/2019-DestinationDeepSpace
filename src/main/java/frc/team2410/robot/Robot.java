@@ -75,7 +75,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
-		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
+		//SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
 		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
 		SmartDashboard.putNumber("Wrist Target", elevator.targetWrist);
@@ -87,6 +87,10 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("R", led.r);
 		SmartDashboard.putNumber("G", led.g);
 		SmartDashboard.putNumber("B", led.b);
+		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
+		SmartDashboard.putBoolean("Hatch Intake Status", elevator.getHatchStatus());
+		SmartDashboard.putBoolean("Semi-Auto Done", semiAuto.placeState == -1);
+		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 	}
 	
 	@Override
@@ -101,11 +105,13 @@ public class Robot extends TimedRobot
 	
 	@Override
 	public void autonomousInit() {
-		drivetrain.startTravel();
+		//drivetrain.startTravel();
 		elevator.reset(0);
 		led.setColor(0, 0, 255);
 		pState = -1;
 		startMatch = true;
+		semiAuto.t.reset();
+		semiAuto.t.start();
 	}
 	
 	@Override
@@ -127,7 +133,6 @@ public class Robot extends TimedRobot
 		if(startMatch) {
 			startMatch = !semiAuto.startMatch();
 		}
-		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 		if(elevator.winchMotor.badCurrent()) {
 			led.status(255, 255, 0, 255, 255, 11, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		} else if(semiAuto.placeState == -1) {
@@ -140,9 +145,6 @@ public class Robot extends TimedRobot
 			led.status(0, 0, 255, 31, 31, 255, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		}
 		
-		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
-		SmartDashboard.putBoolean("Hatch Intake Status", elevator.getHatchStatus());
-		SmartDashboard.putBoolean("Semi-Auto Done", semiAuto.placeState == -1);
 		SmartDashboard.putNumber("LED Speed", 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()));
 		
 		//Set PIDs from dashboard (probably shouldn't be doing this but it doesn't really hurt anything)

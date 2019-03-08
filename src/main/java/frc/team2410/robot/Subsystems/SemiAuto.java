@@ -9,7 +9,7 @@ public class SemiAuto {
 	
 	public int placeState = 0;
 	private int climbState = 0;
-	Timer t;
+	public Timer t;
 	public boolean engaged = false;
 	public boolean ceng = false;
 	public boolean peng = false;
@@ -38,9 +38,10 @@ public class SemiAuto {
 	}
 	
 	public boolean startMatch() {
-		Robot.elevator.moveWristTo(TRAVEL_ANGLE);
+		Robot.elevator.moveWristTo(TRAVEL_ANGLE + ((WRIST_UP - TRAVEL_ANGLE) * (1-(t.get() / 2))));
 		if(Math.abs(Robot.elevator.getWristAngle() - TRAVEL_ANGLE) < 5) {
 			Robot.elevator.toggleHatch();
+			t.stop();
 			return true;
 		}
 		return false;
@@ -154,7 +155,7 @@ public class SemiAuto {
 			case 1:
 				alignLine();
 				break;
-			case 2:
+			/*case 2:
 				if(elevatorSetpoint(hatch ? HATCH_WRIST_ANGLE : CARGO_WRIST_ANGLE, PLACE_HEIGHT[level-1], false)) placeState++;
 				Robot.drivetrain.startTravel();
 				break;
@@ -169,7 +170,7 @@ public class SemiAuto {
 				break;
 			case 5:
 				if(driveToDistance(Robot.drivetrain.getTravel() - (hatch ? HATCH_DISTANCE : CARGO_DISTANCE), false)) placeState++;
-				break;
+				break;*/
 			default:
 				Robot.drivetrain.brake();
 		}

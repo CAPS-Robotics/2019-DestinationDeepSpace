@@ -15,7 +15,7 @@ public class PigeonNav implements PIDSource
 	//TODO: Make PID functions switch between rate and displacement instead of forcing displacement
 
 	public PigeonNav() {
-		this.gyro = new PigeonIMU(new TalonSRX(PIGEON_IMU_SRX));
+		this.gyro = new PigeonIMU(PIGEON_IMU_SRX);
 		this.ypr = new double[3];
 		this.resetHeading(0);
 	}

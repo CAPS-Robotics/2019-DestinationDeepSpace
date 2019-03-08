@@ -2,7 +2,7 @@ package frc.team2410.robot;
 
 public class RobotMap
 {
-	public static final boolean COMPETITION_BOT = false;
+	public static final boolean COMPETITION_BOT = true;
 	
 	//PID
 	public static final float SWERVE_MODULE_P = 5;
@@ -17,13 +17,13 @@ public class RobotMap
 	public static final int BACK_LEFT_DRIVE = 2;
 	public static final int BACK_RIGHT_STEER = 3;
 	public static final int BACK_RIGHT_DRIVE = 4;
-	public static final int PIGEON_IMU_SRX = 5;
+	public static final int PIGEON_IMU_SRX = 10;
 	public static final int FRONT_RIGHT_STEER = 5;
 	public static final int FRONT_RIGHT_DRIVE = 6;
 	public static final int FRONT_LEFT_STEER = 7;
 	public static final int FRONT_LEFT_DRIVE = 8;
 	public static final int ELEVATOR_A = 9;
-	public static final int ELEVATOR_B = 10;
+	public static final int ELEVATOR_B = 15;
 	public static final int INTAKE_MOTOR = 11;
 	public static final int WRIST_MOTOR = 12;
 	public static final int PCM = 13;
@@ -39,26 +39,26 @@ public class RobotMap
 	//DIO
 	public static final int ELEVATOR_ENCODER_A_COMP = 9;
 	public static final int ELEVATOR_ENCODER_B_COMP = 8;
-	public static final int DRIVE_CIMCODER_A_COMP = 0;
-	public static final int DRIVE_CIMCODER_B_COMP = 1;
-	public static final int CLIMB_ELEVATOR_A_COMP = 2; //Tentative
-	public static final int CLIMB_ELEVATOR_B_COMP = 3; //Tentative
+	//public static final int DRIVE_CIMCODER_A_COMP = 0;
+	//public static final int DRIVE_CIMCODER_B_COMP = 1;
+	public static final int CLIMB_ELEVATOR_A_COMP = 0;
+	public static final int CLIMB_ELEVATOR_B_COMP = 1;
 	public static final int ELEVATOR_ENCODER_A_PRAC = 0;
 	public static final int ELEVATOR_ENCODER_B_PRAC = 1;
-	public static final int DRIVE_CIMCODER_A_PRAC = 2;
-	public static final int DRIVE_CIMCODER_B_PRAC = 3;
+	//public static final int DRIVE_CIMCODER_A_PRAC = 2;
+	//public static final int DRIVE_CIMCODER_B_PRAC = 3;
 	public static final int CLIMB_ELEVATOR_A_PRAC = 6;
 	public static final int CLIMB_ELEVATOR_B_PRAC = 9;
 	public static final int ELEVATOR_ENCODER_A = COMPETITION_BOT ? ELEVATOR_ENCODER_A_COMP : ELEVATOR_ENCODER_A_PRAC;
 	public static final int ELEVATOR_ENCODER_B = COMPETITION_BOT ? ELEVATOR_ENCODER_B_COMP : ELEVATOR_ENCODER_B_PRAC;
-	public static final int DRIVE_CIMCODER_A = COMPETITION_BOT ? DRIVE_CIMCODER_A_COMP : DRIVE_CIMCODER_A_PRAC;
-	public static final int DRIVE_CIMCODER_B = COMPETITION_BOT ? DRIVE_CIMCODER_B_COMP : DRIVE_CIMCODER_B_PRAC;
+	//public static final int DRIVE_CIMCODER_A = COMPETITION_BOT ? DRIVE_CIMCODER_A_COMP : DRIVE_CIMCODER_A_PRAC;
+	//public static final int DRIVE_CIMCODER_B = COMPETITION_BOT ? DRIVE_CIMCODER_B_COMP : DRIVE_CIMCODER_B_PRAC;
 	public static final int CLIMB_ELEVATOR_A = COMPETITION_BOT ? CLIMB_ELEVATOR_A_COMP : CLIMB_ELEVATOR_A_PRAC;
 	public static final int CLIMB_ELEVATOR_B = COMPETITION_BOT ? CLIMB_ELEVATOR_B_COMP : CLIMB_ELEVATOR_B_PRAC;
 	
 	//PCM
-	public static final int HATCH_INTAKE_FORWARD = 3;
-	public static final int HATCH_INTAKE_REVERSE = 2;
+	public static final int HATCH_INTAKE_FORWARD = 1;
+	public static final int HATCH_INTAKE_REVERSE = 0;
 	public static final int CLIMB_PISTON_FORWARD = 7;
 	public static final int CLIMB_PISTON_REVERSE = 6;
 	
@@ -70,8 +70,8 @@ public class RobotMap
 	public static final float WRIST_OFFSET_PRAC = 2.7514645620000002f;
 	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
 	public static final float BL_OFFSET_COMP = 1.8701169960000001f;
-	public static final float FR_OFFSET_COMP = 3.355712547f;
-	public static final float FL_OFFSET_COMP = 3.702392199f;
+	public static final float FR_OFFSET_COMP = 0.797119059f;
+	public static final float FL_OFFSET_COMP = 1.1877440190000002f;
 	public static final float WRIST_OFFSET_COMP = 3.0639645300000002f;
 	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;
 	public static final float BL_OFFSET = COMPETITION_BOT ? BL_OFFSET_COMP : BL_OFFSET_PRAC;
@@ -82,9 +82,9 @@ public class RobotMap
 	//Elevator Heights
 	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
-	public static final double[] PLACE_HEIGHT = {9, 38, 60};
+	public static final double[] PLACE_HEIGHT = {9, 36, 60};
 	public static final double[] CLIMB_HEIGHT = {7, 20};
-	public static final int CLIMB_OFFSET = 3;
+	public static final int CLIMB_OFFSET = 4;
 	public static final double CLIMB_ELEVATOR_MAX_OFFSET = 3.5;
 	
 	//Wrist Angles- ALL TENTATIVE
