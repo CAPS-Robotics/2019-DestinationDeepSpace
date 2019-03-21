@@ -75,7 +75,8 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
-		//SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
+		SmartDashboard.putString("Gyro Status", gyro.getStatus().toString());
+		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
 		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
 		SmartDashboard.putNumber("Wrist Target", elevator.targetWrist);
@@ -105,7 +106,7 @@ public class Robot extends TimedRobot
 	
 	@Override
 	public void autonomousInit() {
-		//drivetrain.startTravel();
+		drivetrain.startTravel();
 		elevator.reset(0);
 		led.setColor(0, 0, 255);
 		pState = -1;

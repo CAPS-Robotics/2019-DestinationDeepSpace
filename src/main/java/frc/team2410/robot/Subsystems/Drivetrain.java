@@ -12,7 +12,7 @@ public class Drivetrain {
 	public SwerveModule bl;
 	public SwerveModule br;
 	private PIDController gyroPID;
-	//private Encoder driveEnc;
+	private Encoder driveEnc;
 	private double pHead = 0; // Previous heading
 	
 	public Drivetrain() {
@@ -147,12 +147,12 @@ public class Drivetrain {
 		return (num-min)-(max-min)*Math.floor((num-min)/(max-min))+min;
 	}
 	
-	/*public void startTravel() {
+	public void startTravel() {
 		driveEnc.reset();
 	}
 	public double getTravel() {
 		return Math.abs(driveEnc.getDistance());
-	}*/
+	}
 	
 	public void setGyroPID(double p, double i, double d) {
 		gyroPID.setPID(p, i, d);

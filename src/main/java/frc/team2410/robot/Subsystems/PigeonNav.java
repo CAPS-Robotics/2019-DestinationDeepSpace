@@ -42,6 +42,10 @@ public class PigeonNav implements PIDSource
 		this.gyro.setFusedHeading(0, 20);
 		this.offset = head;
 	}
+	
+	public PigeonIMU.PigeonState getStatus() {
+		return gyro.getState();
+	}
 
 	@Override
 	public PIDSourceType getPIDSourceType() {
