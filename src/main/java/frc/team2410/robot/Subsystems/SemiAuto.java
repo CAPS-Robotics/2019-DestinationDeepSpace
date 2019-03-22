@@ -113,7 +113,7 @@ public class SemiAuto {
 		
 		double xspeed = 0;
 		if(!xDone) {
-			xspeed = -distanceToCenter/(CAMERA_WIDTH*2);
+			xspeed = -distanceToCenter/(CAMERA_WIDTH*2.4);
 			if(xspeed > -MIN_XSPEED && xspeed < 0) xspeed = -MIN_XSPEED;
 			if(xspeed < MIN_XSPEED && xspeed > 0) xspeed = MIN_XSPEED;
 			//Makes robot drive even if y is done
@@ -124,7 +124,7 @@ public class SemiAuto {
 		
 		double yspeed = 0;
 		if(!yDone) {
-			yspeed = distanceBack/(CAMERA_HEIGHT * 1.70);
+			yspeed = distanceBack/(CAMERA_HEIGHT * 1.80);
 			if(yspeed > -MIN_YSPEED && yspeed < 0) yspeed = -MIN_YSPEED;
 			if(yspeed < MIN_YSPEED && yspeed > 0) yspeed = MIN_YSPEED;
 			//Makes robot drive even if x is done

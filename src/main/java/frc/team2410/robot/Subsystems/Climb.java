@@ -61,7 +61,8 @@ public class Climb {
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
 		} else if(!Robot.semiAuto.lift) {
-			winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
+			if(!(getPosition() < 0) || Robot.oi.getJoyPOV() != 0) winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
+			else winchMotor.set(0);
 			targetHeight = getPosition();
 		}
 	}

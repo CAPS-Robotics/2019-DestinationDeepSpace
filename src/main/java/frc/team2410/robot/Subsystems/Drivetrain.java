@@ -148,10 +148,11 @@ public class Drivetrain {
 	}
 	
 	public void startTravel() {
-		driveEnc.reset();
+		//driveEnc.reset();
 	}
 	public double getTravel() {
-		return Math.abs(driveEnc.getDistance());
+		//return Math.abs(driveEnc.getDistance())
+		return 0;
 	}
 	
 	public void setGyroPID(double p, double i, double d) {

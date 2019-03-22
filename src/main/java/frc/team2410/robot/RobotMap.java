@@ -83,7 +83,7 @@ public class RobotMap
 	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
 	public static final double[] PLACE_HEIGHT = {9, 36, 60};
-	public static final double[] CLIMB_HEIGHT = {7, 20};
+	public static final double[] CLIMB_HEIGHT = {9, 22};
 	public static final int CLIMB_OFFSET = 4;
 	public static final double CLIMB_ELEVATOR_MAX_OFFSET = 3.5;
 	
@@ -121,10 +121,10 @@ public class RobotMap
 	public static final int CAMERA_HEIGHT = 240;
 	public static final double MULTIPLIER_WIDTH = 1d / 12;
 	public static final double MULTIPLIER_HEIGHT = 3d / 50;
-	public static final double MIN_XSPEED = 0.14;
-	public static final double MIN_YSPEED = 0.16;
-	public static final double EXTRA_XSPEED = 0.04;
-	public static final double EXTRA_YSPEED = 0.04;
+	public static final double MIN_XSPEED = 0.10;
+	public static final double MIN_YSPEED = 0.10;
+	public static final double EXTRA_XSPEED = 0.06;
+	public static final double EXTRA_YSPEED = 0.06;
 	public static final double SONAR_VOLTS_PER_INCH = 0.012446;
 	
 	//public static final int PI = 3.1416;
