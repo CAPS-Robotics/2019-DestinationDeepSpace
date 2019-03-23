@@ -62,7 +62,7 @@ public class Elevator {
 			checkStartReleased = false;
 		} else if(Robot.oi.getAnalogStick(true, true) == 0 && !Robot.semiAuto.lift) {
 			double speed = -((targetHeight-getPosition())/5);
-			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 15;
+			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 10.0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
