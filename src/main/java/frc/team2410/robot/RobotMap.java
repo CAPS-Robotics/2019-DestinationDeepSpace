@@ -94,6 +94,7 @@ public class RobotMap
 	public static final double[] CLIMB_WRIST_ANGLE = {0, -30};
 	public static final double WRIST_UP = 85;
 	public static final double TRAVEL_ANGLE = 50;
+	public static final double WRIST_MAX_SPEED = 0.65;
 	
 	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;

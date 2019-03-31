@@ -72,8 +72,8 @@ public class Elevator {
 		} if(Robot.oi.getAnalogStick(false, true) == 0) {
 			double speed = -((targetWrist-intake.getWrist())/40);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
-			if(speed < -1) speed = -1;
-			if(speed > 1) speed = 1;
+			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
+			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
 			intake.setWrist(speed);
 		} else {
 			intake.setWrist(-Robot.oi.getAnalogStick(false, true));
