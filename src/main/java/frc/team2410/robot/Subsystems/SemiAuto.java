@@ -38,12 +38,12 @@ public class SemiAuto {
 	}
 	
 	public boolean startMatch() {
-		Robot.elevator.moveWristTo(TRAVEL_ANGLE + ((WRIST_UP - TRAVEL_ANGLE) * (1-(t.get() / 2))));
+		/*Robot.elevator.moveWristTo(TRAVEL_ANGLE + ((WRIST_UP - TRAVEL_ANGLE) * (1-(t.get() / 2))));
 		if(Math.abs(Robot.elevator.getWristAngle() - TRAVEL_ANGLE) < 5) {
 			Robot.elevator.toggleHatch();
 			t.stop();
 			return true;
-		}
+		}*/
 		return false;
 	}
 	

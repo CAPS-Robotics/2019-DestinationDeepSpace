@@ -54,7 +54,7 @@ public class Climb {
 	}
 	
 	public void loop() {
-		if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180 && !Robot.semiAuto.lift) {
+		/*if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180 && !Robot.semiAuto.lift) {
 			double speed = -(targetHeight-getPosition());
 			if(speed > 0) speed /= 15;
 			if(speed < -1) speed = -1;
@@ -64,7 +64,7 @@ public class Climb {
 			if(!(getPosition() < 0) || Robot.oi.getJoyPOV() != 0) winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
 			else winchMotor.set(0);
 			targetHeight = getPosition();
-		}
+		}*/
 	}
 	
 	public double getVoltage() {
