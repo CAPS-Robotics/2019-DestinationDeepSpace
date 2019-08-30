@@ -53,7 +53,7 @@ public class Elevator {
 	}
 	
 	public void loop() {
-		/*if(Robot.oi.startPressed()) {
+		if(Robot.oi.startPressed()) {
 			winchMotor.set(0.2);
 			checkStartReleased = true;
 		} else if(checkStartReleased) {
@@ -69,7 +69,7 @@ public class Elevator {
 		} else if(!Robot.semiAuto.lift){
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
-		}*/ if(Robot.oi.getAnalogStick(false, true) == 0) {
+		} if(Robot.oi.getAnalogStick(false, true) == 0) {
 			double speed = -((targetWrist-intake.getWrist())/40);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;

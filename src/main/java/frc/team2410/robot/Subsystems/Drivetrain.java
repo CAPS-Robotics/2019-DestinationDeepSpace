@@ -15,6 +15,8 @@ public class Drivetrain {
 	private Encoder driveEnc;
 	private double pHead = 0; // Previous heading
 	
+	//TODO fix backright swerve-mechanical
+	
 	public Drivetrain() {
 		this.fl = new SwerveModule(FRONT_LEFT_STEER, FRONT_LEFT_DRIVE, FL_STEER_ENCODER, FL_OFFSET, true);
 		this.fr = new SwerveModule(FRONT_RIGHT_STEER, FRONT_RIGHT_DRIVE, FR_STEER_ENCODER, FR_OFFSET, false);
