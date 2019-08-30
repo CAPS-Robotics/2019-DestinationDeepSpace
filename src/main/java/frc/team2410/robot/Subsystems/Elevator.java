@@ -53,7 +53,9 @@ public class Elevator {
 	}
 	
 	public void loop() {
-		/*if(Robot.oi.startPressed()) {
+		double elevatorStick = Robot.oi.getAnalogStick(true, true);
+		double wristStick = Robot.oi.getAnalogStick(false, true);
+		if(Robot.oi.startPressed()) {
 			winchMotor.set(0.2);
 			checkStartReleased = true;
 		} else if(checkStartReleased) {
@@ -66,17 +68,17 @@ public class Elevator {
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
-		} else if(!Robot.semiAuto.lift){
-			winchMotor.set(Robot.oi.getAnalogStick(true, true));
+		} else if(!Robot.semiAuto.lift && !(getPosition() < 0.5 && elevatorStick < 0) && !(getPosition() > 62 && elevatorStick > 0)) {
+			winchMotor.set(elevatorStick);
 			targetHeight = getPosition();
-		}*/ if(Robot.oi.getAnalogStick(false, true) == 0) {
+		} if(wristStick == 0) {
 			double speed = -((targetWrist-intake.getWrist())/40);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
 			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
 			intake.setWrist(speed);
-		} else {
-			intake.setWrist(-Robot.oi.getAnalogStick(false, true));
+		} else if(!(intake.getWrist() < 90 && wristStick < 0)) {
+			intake.setWrist(-wristStick);
 			targetWrist = intake.getWrist();
 		}
 	}
