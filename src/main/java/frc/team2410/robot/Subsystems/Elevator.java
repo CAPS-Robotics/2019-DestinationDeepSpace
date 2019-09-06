@@ -77,9 +77,11 @@ public class Elevator {
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
 			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
 			intake.setWrist(speed);
-		} else if(!(intake.getWrist() < 90 && wristStick < 0)) {
+		} else if(!(intake.getWrist() > 75 && wristStick > 0)) {
 			intake.setWrist(-wristStick);
 			targetWrist = intake.getWrist();
+		} else {
+			intake.setWrist(0);
 		}
 	}
 	

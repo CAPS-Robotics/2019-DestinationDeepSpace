@@ -72,7 +72,7 @@ public class RobotMap
 	public static final float BL_OFFSET_COMP = 1.8701169960000001f;
 	public static final float FR_OFFSET_COMP = 0.797119059f;
 	public static final float FL_OFFSET_COMP = 1.1877440190000002f;
-	public static final float WRIST_OFFSET_COMP = 3.0639645300000002f;
+	public static final float WRIST_OFFSET_COMP = 48.33982976022952f; //TODO actually add numbers
 	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;
 	public static final float BL_OFFSET = COMPETITION_BOT ? BL_OFFSET_COMP : BL_OFFSET_PRAC;
 	public static final float FR_OFFSET = COMPETITION_BOT ? FR_OFFSET_COMP : FR_OFFSET_PRAC;
