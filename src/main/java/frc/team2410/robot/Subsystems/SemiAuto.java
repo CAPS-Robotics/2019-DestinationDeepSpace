@@ -13,7 +13,6 @@ public class SemiAuto {
 	public boolean engaged = false;
 	public boolean ceng = false;
 	public boolean peng = false;
-	public boolean lift = false;
 	public double pval = 0;
 	private double pspeed = 0;
 	private double frontPower = 0.20;
@@ -177,42 +176,8 @@ public class SemiAuto {
 	}
 	
 	private void lift(int level) {
-		
 		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_ELEVATOR_MAX_OFFSET);
-		
-		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET, true)) {
-			//Robot.elevator.setIntake(false);
-		}
-		/*double frontSpeed = Math.abs(pFrontPos - Robot.elevator.getPosition()) / t.get();
-		double backSpeed = Math.abs(pBackPos - Robot.climb.getPosition()) / t.get();
-		
-		pFrontPos = Robot.elevator.getPosition();
-		pBackPos = Robot.climb.getPosition();
-		
-		if(frontSpeed < backSpeed) {
-			if(backPower == -1) backPower += 0.03;
-			else frontPower += 0.03;
-		} else if(backSpeed < frontSpeed){
-			if(frontSpeed == 1) frontPower -= 0.03;
-			else backPower -= 0.03;
-		}
-		
-		if(Math.abs(Robot.elevator.getPosition() - 1) < 1) frontPower = 0;
-		if(Math.abs(Robot.climb.getPosition() - CLIMB_HEIGHT[level] + CLIMB_OFFSET) < 1) backPower = 0;
-		
-		if(frontPower == 0 && backPower == 0) {
-			climbState++;
-			lift = false;
-		}
-		
-		if(frontPower > 1) frontPower = 1;
-		if(backPower < -1) backPower = -1;
-		
-		Robot.elevator.setSpeed(frontPower);
-		Robot.climb.setSpeed(backPower);
-		
-		t.reset();
-		t.start();*/
+		elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET, true);
 	}
 	
 	public void climb(int level) {
@@ -223,26 +188,30 @@ public class SemiAuto {
 				Robot.climb.moveTo(CLIMB_OFFSET * 2);
 				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT[level], true)) {
 					climbState++;
-					t.reset();
-					t.start();
 				}
 				break;
 			case 1:
-				//Robot.drivetrain.desiredHeading = 180;
-				if(t.get() > 1) {
-					/*Robot.elevator.setSpeed(frontPower);
-					Robot.climb.setSpeed(backPower);
-					pFrontPos = Robot.elevator.getPosition();
-					pBackPos = Robot.climb.getPosition();
+				lift(level);
+				if(Robot.climb.getPosition() >= 25) {
 					t.reset();
 					t.start();
-					lift = true;*/
 					climbState++;
 				}
 				break;
 			case 2:
-				//Robot.drivetrain.crabDrive(0, 1, 0, 0.20, false);
-				lift(level);
+				//Robot.elevator.setIntake(false);
+				if(t.get() > 1) {
+					t.reset();
+					t.start();
+					//climbState++;
+				}
+				break;
+			case 3:
+				Robot.climb.moveTo(0);
+				if(Robot.climb.getPosition() < 2) climbState++;
+			case 4:
+				Robot.drivetrain.crabDrive(0, 1, 180, 0.2, false);
+				if(t.get() > 1) climbState++;
 				break;
 		}
 	}

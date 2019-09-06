@@ -60,13 +60,13 @@ public class Elevator {
 			winchMotor.set(0);
 			reset(0);
 			checkStartReleased = false;
-		} else if(Robot.oi.getAnalogStick(true, true) == 0 && !Robot.semiAuto.lift) {
+		} else if(Robot.oi.getAnalogStick(true, true) == 0) {
 			double speed = -((targetHeight-getPosition())/5);
-			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 10.0;
+			if(speed > 0) speed /= 10.0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
-		} else if(!Robot.semiAuto.lift){
+		} else {
 			winchMotor.set(Robot.oi.getAnalogStick(true, true));
 			targetHeight = getPosition();
 		} if(Robot.oi.getAnalogStick(false, true) == 0) {

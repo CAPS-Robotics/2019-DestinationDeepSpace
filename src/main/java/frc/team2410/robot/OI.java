@@ -62,17 +62,16 @@ public class OI {
 			//Robot.elevator.reset(0);
 		}
 		
-		if(joy.getRawButton(3)) {
-			Robot.semiAuto.climb(0);
-		} else if(joy.getRawButton(4)) {
-			Robot.semiAuto.climb(1);
-		} else {
-			Robot.semiAuto.reset(false);
-			if(Robot.semiAuto.lift) {
-				Robot.elevator.moveTo(Robot.semiAuto.pFrontPos);
-				Robot.climb.moveTo(Robot.semiAuto.pBackPos);
-				Robot.semiAuto.lift = false;
-			}
+		if(leadingEdge(true, 3)) {
+			if(Robot.semiAuto.ceng)
+				Robot.semiAuto.reset(false);
+			else
+				Robot.semiAuto.climb(0);
+		} else if(leadingEdge(true, 4)) {
+			if(Robot.semiAuto.ceng)
+				Robot.semiAuto.reset(false);
+			else
+				Robot.semiAuto.climb(1);
 		}
 		
 		if(leadingEdge(false, 5)) {
