@@ -103,6 +103,6 @@ public class Elevator {
 	}
 	
 	public double getWristVoltage() {
-		return intake.getWristVoltage();
+		return intake.GetWristCurrent();
 	}
 }

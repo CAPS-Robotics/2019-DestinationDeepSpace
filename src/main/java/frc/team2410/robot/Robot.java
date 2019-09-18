@@ -72,6 +72,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("ElevatorB Current", elevator.winchMotor.getBcurrent());
 		SmartDashboard.putNumber("Wrist Current", elevator.getWristVoltage());
 		SmartDashboard.putNumber("Climb Current", climb.getVoltage());
+		SmartDashboard.putNumber("Wrist Encoder Voltage", elevator.intake.getWristEncoderVoltage());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());

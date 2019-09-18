@@ -26,6 +26,7 @@ public class Intake {
 		wheels.set(in ? 1 : -1);
 	}
 	
+	
 	void stop() {
 		wheels.set(0);
 	}
@@ -37,9 +38,11 @@ public class Intake {
 	}
 	
 	double getWrist() {
-		double angle = ((((/*rollover+*/wristEncoder.getVoltage() - WRIST_OFFSET)*(360.0/5)*(40.0/24))%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
+		double angle = ((((wristEncoder.getVoltage() - WRIST_OFFSET)*(360.0/5)*(40.0/24))%360.0)+360)%360; // Wraps angle between -360:360, changes negative values to equivalent postive values (ex. -90 -> 270 degrees) (changing the range to 0:360)
 		return angle <= 180 ? angle : angle - 360;  // Changes >180 Degrees to Neg Equivalent (ex. 270 -> -90) (changing the range to -180:180) and returns it
 	}
 	
-	public double getWristVoltage() { return wrist.getOutputCurrent(); }
+	public double GetWristCurrent() { return wrist.getOutputCurrent(); }
+	
+	public double getWristEncoderVoltage() { return wristEncoder.getVoltage(); }
 }
