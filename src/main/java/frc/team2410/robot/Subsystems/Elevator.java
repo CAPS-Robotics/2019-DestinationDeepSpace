@@ -51,10 +51,10 @@ public class Elevator {
 		offset = height;
 		targetHeight = height;
 	}
-	
+	// TODO fix elevator speed direction
 	public void loop() {
 		double elevatorStick = Robot.oi.getAnalogStick(true, true);
-		double wristStick = Robot.oi.getAnalogStick(false, true);
+		double wristStick = -Robot.oi.getAnalogStick(false, true);
 		if(Robot.oi.startPressed()) {
 			winchMotor.set(0.2);
 			checkStartReleased = true;
@@ -62,26 +62,27 @@ public class Elevator {
 			winchMotor.set(0);
 			reset(0);
 			checkStartReleased = false;
-		} else if(Robot.oi.getAnalogStick(true, true) == 0 && !Robot.semiAuto.lift) {
-			double speed = -((targetHeight-getPosition())/5);
+		} else if(elevatorStick == 0 && !Robot.semiAuto.lift) {
+			double speed = -((targetHeight-getPosition())/4.50);
 			if(speed > 0 && !Robot.semiAuto.ceng) speed /= 10.0;
 			if(speed < -1) speed = -1;
 			if(speed > 1) speed = 1;
 			winchMotor.set(speed);
-		} else if(!Robot.semiAuto.lift && !(getPosition() < 0.5 && elevatorStick < 0) && !(getPosition() > 62 && elevatorStick > 0)) {
+		} else if(!Robot.semiAuto.lift && !(getPosition() < 0.5 && elevatorStick > 0) && !(getPosition() > 60 && elevatorStick < 0)) {
 			winchMotor.set(elevatorStick);
 			targetHeight = getPosition();
 		} if(wristStick == 0) {
-			double speed = -((targetWrist-intake.getWrist())/40);
+			double speed = ((targetWrist-intake.getWrist())/40);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
 			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
 			intake.setWrist(speed);
-		} else if(!(intake.getWrist() > 75 && wristStick > 0)) {
+		} /*else if(!(intake.getWrist() > 75 && wristStick < 0)) {
 			intake.setWrist(-wristStick);
 			targetWrist = intake.getWrist();
-		} else {
-			intake.setWrist(0);
+		}*/ else {
+			intake.setWrist(-wristStick);
+			targetWrist = intake.getWrist();
 		}
 	}
 	

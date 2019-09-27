@@ -22,7 +22,8 @@ public class Drivetrain {
 		this.br = new SwerveModule(BACK_RIGHT_STEER, BACK_RIGHT_DRIVE, BR_STEER_ENCODER, BR_OFFSET, false);
 		this.desiredHeading = Robot.gyro.getHeading();
 		//this.driveEnc = new Encoder(DRIVE_CIMCODER_A, DRIVE_CIMCODER_B);
-		//this.driveEnc.setDistancePerPulse(DRIVE_DIST_PER_PULSE);
+		//this.driveEnc.setDistancePerPulse(DRIVE_DIST_PER_PULSE);\
+		
 		this.gyroPID = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
 		gyroPID.setOutputRange(-.5, .5);
