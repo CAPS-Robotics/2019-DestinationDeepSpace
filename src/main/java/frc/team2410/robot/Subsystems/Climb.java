@@ -9,22 +9,6 @@ import static edu.wpi.first.wpilibj.DoubleSolenoid.Value.*;
 import static frc.team2410.robot.RobotMap.*;
 
 public class Climb {
-	/*private DoubleSolenoid piston;
-	boolean out = false;
-	
-	public Climb() {
-		piston = new DoubleSolenoid(PCM, CLIMB_PISTON_FORWARD, CLIMB_PISTON_REVERSE);
-	}
-	
-	public void set(boolean out) {
-		this.out = out;
-		piston.set(out ? kForward : kReverse);
-	}
-	public void toggle() {
-		out = !out;
-		piston.set(out ? kForward : kReverse);
-	}*/
-	
 	private WPI_TalonSRX winchMotor;
 	private Encoder heightEncoder;
 	
@@ -54,7 +38,7 @@ public class Climb {
 	}
 	
 	public void loop() {
-		/*if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180 && !Robot.semiAuto.lift) {
+		if(Robot.oi.getJoyPOV() != 0 && Robot.oi.getJoyPOV() != 180 && !Robot.semiAuto.lift) {
 			double speed = -(targetHeight-getPosition());
 			if(speed > 0) speed /= 15;
 			if(speed < -1) speed = -1;
@@ -64,7 +48,7 @@ public class Climb {
 			if(!(getPosition() < 0) || Robot.oi.getJoyPOV() != 0) winchMotor.set(Robot.oi.getJoyPOV() == 0  ? Robot.oi.getSlider() : -Robot.oi.getSlider());
 			else winchMotor.set(0);
 			targetHeight = getPosition();
-		}*/
+		}
 	}
 	
 	public double getVoltage() {

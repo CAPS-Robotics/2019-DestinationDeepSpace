@@ -54,7 +54,7 @@ public class Elevator {
 	// TODO fix elevator speed direction
 	public void loop() {
 		double elevatorStick = Robot.oi.getAnalogStick(true, true);
-		double wristStick = -Robot.oi.getAnalogStick(false, true);
+		double wristStick = Robot.oi.getAnalogStick(false, true);
 		if(Robot.oi.startPressed()) {
 			winchMotor.set(0.2);
 			checkStartReleased = true;
@@ -77,12 +77,11 @@ public class Elevator {
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
 			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
 			intake.setWrist(speed);
-		} else if(!(intake.getWrist() > 75 && wristStick > 0)) {
+		} else if(!(intake.getWrist() > 75 && wristStick < 0)) {
 			intake.setWrist(-wristStick);
 			targetWrist = intake.getWrist();
 		} else {
-			intake.setWrist(-wristStick);
-			targetWrist = intake.getWrist();
+			intake.setWrist(0);
 		}
 	}
 	
