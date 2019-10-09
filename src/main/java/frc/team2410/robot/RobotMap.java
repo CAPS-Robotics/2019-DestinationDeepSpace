@@ -39,8 +39,8 @@ public class RobotMap
 	public static final int WRIST_ENCODER = 4;
 	
 	//DIO
-	public static final int ELEVATOR_ENCODER_A_COMP = 9;
-	public static final int ELEVATOR_ENCODER_B_COMP = 8;
+	public static final int ELEVATOR_ENCODER_A_COMP = 8;
+	public static final int ELEVATOR_ENCODER_B_COMP = 9;
 	//public static final int DRIVE_CIMCODER_A_COMP = 0;
 	//public static final int DRIVE_CIMCODER_B_COMP = 1;
 	public static final int CLIMB_ELEVATOR_A_COMP = 0;
@@ -61,8 +61,6 @@ public class RobotMap
 	//PCM
 	public static final int HATCH_INTAKE_FORWARD = 1;
 	public static final int HATCH_INTAKE_REVERSE = 0;
-	public static final int CLIMB_PISTON_FORWARD = 7;
-	public static final int CLIMB_PISTON_REVERSE = 6;
 	
 	//Offsets
 	public static final float BR_OFFSET_PRAC = 2.369384523f;
@@ -73,8 +71,8 @@ public class RobotMap
 	public static final float BR_OFFSET_COMP = 2.4316403760000003f;
 	public static final float BL_OFFSET_COMP = 1.8701169960000001f;
 	public static final float FR_OFFSET_COMP = 0.797119059f;
-	public static final float FL_OFFSET_COMP = 1.1877440190000002f;
-	public static final float WRIST_OFFSET_COMP = 3.977050374f;
+	public static final float FL_OFFSET_COMP = 1.666259595f;
+	public static final float WRIST_OFFSET_COMP = 4.06494099f;
 	public static final float BR_OFFSET = COMPETITION_BOT ? BR_OFFSET_COMP : BR_OFFSET_PRAC;
 	public static final float BL_OFFSET = COMPETITION_BOT ? BL_OFFSET_COMP : BL_OFFSET_PRAC;
 	public static final float FR_OFFSET = COMPETITION_BOT ? FR_OFFSET_COMP : FR_OFFSET_PRAC;

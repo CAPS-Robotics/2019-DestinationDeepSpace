@@ -18,14 +18,16 @@ public class Climb {
 	public Climb() {
 		winchMotor = new WPI_TalonSRX(CLIMB_ELEVATOR);
 		heightEncoder = new Encoder(CLIMB_ELEVATOR_A, CLIMB_ELEVATOR_B);
+		winchMotor.setInverted(true);
 		heightEncoder.setDistancePerPulse(WINCH_CLIMB_DIST_PER_PULSE);
 		heightEncoder.reset();
+		heightEncoder.setReverseDirection(true);
 		targetHeight = heightEncoder.get();
 	}
 	
 	public void moveTo(double height) { targetHeight = height; }
 	
-	public void setSpeed(double speed) {winchMotor.set(speed); }
+	public void setSpeed(double speed) { winchMotor.set(speed); }
 	
 	public double getPosition() { return heightEncoder.getDistance() + offset; }
 	
