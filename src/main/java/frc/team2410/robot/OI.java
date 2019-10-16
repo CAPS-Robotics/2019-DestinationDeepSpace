@@ -40,14 +40,12 @@ public class OI {
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
 		
-		if(!Robot.semiAuto.engaged) {
-			if(xbox.getRawButton(7)) {
-				Robot.elevator.setIntake(false);
-			} else if(xbox.getRawButton(8)) {
-				Robot.elevator.setIntake(true);
-			} else {
-				Robot.elevator.stopIntake();
-			}
+		if(xbox.getRawButton(7)) {
+			Robot.elevator.setIntake(false);
+		} else if(xbox.getRawButton(8)) {
+			Robot.elevator.setIntake(true);
+		} else {
+			Robot.elevator.stopIntake();
 		}
 		
 		if(leadingEdge(true, 1)) {

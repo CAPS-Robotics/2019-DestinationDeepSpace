@@ -177,10 +177,9 @@ public class SemiAuto {
 	}
 	
 	private void lift(int level) {
-		
 		Robot.climb.moveTo(CLIMB_HEIGHT[level] + CLIMB_ELEVATOR_MAX_OFFSET);
 		
-		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition() - CLIMB_OFFSET, true)) {
+		if(elevatorSetpoint(CLIMB_WRIST_ANGLE[1], CLIMB_HEIGHT[level] - Robot.climb.getPosition(), true)) {
 			//Robot.elevator.setIntake(false);
 		}
 		/*double frontSpeed = Math.abs(pFrontPos - Robot.elevator.getPosition()) / t.get();
@@ -220,7 +219,7 @@ public class SemiAuto {
 		engaged = true;
 		switch(climbState) {
 			case 0:
-				Robot.climb.moveTo(CLIMB_OFFSET * 2);
+				//Robot.climb.moveTo(CLIMB_OFFSET * 2);
 				if(elevatorSetpoint(CLIMB_WRIST_ANGLE[0], CLIMB_HEIGHT[level], true)) {
 					climbState++;
 					t.reset();
