@@ -75,8 +75,10 @@ public class OI {
 		
 		if(leadingEdge(false, 5)) {
 			Robot.semiAuto.elevatorSetpoint(TRAVEL_ANGLE, TRAVEL_HEIGHT, true);
+			Robot.elevator.setHatch(false);
 		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, INTAKE_HEIGHT, true);
+			Robot.elevator.setHatch(true);
 		}
 		
 		
@@ -87,6 +89,7 @@ public class OI {
 			Robot.elevator.moveTo(PLACE_HEIGHT[1]);
 		} else if(xbox.getRawButton(3)) {
 			Robot.elevator.moveTo(PLACE_HEIGHT[2]);
+			Robot.elevator.moveWristTo(HATCH_LEVEL_THREE_WRIST);
 		}
 
 		if(xbox.getPOV() == 0) {
@@ -96,7 +99,7 @@ public class OI {
 		} else if(xbox.getPOV() == 270) {
 			Robot.elevator.moveWristTo(WRIST_UP);
 		} else if(xbox.getPOV() == 180) {
-			Robot.elevator.moveWristTo(HATCH_LEVEL_THREE_WRIST);
+			Robot.elevator.moveWristTo(CARGO_WRIST_DOWN_ANGLE);
 		}
 		
 		if(resetPlace) {

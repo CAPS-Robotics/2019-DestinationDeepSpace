@@ -19,7 +19,7 @@ public class Elevator {
 	
 	public Elevator() {
 		intake = new Intake();
-		winchMotor = new TalonPair(ELEVATOR_A, ELEVATOR_B, false, true);
+		winchMotor = new TalonPair(ELEVATOR_A, ELEVATOR_B, true, false);
 		heightEncoder = new Encoder(ELEVATOR_ENCODER_A, ELEVATOR_ENCODER_B);
 		heightEncoder.setDistancePerPulse(WINCH_DIST_PER_PULSE);
 		heightEncoder.reset();
@@ -51,7 +51,7 @@ public class Elevator {
 		offset = height;
 		targetHeight = height;
 	}
-	// TODO fix elevator speed direction
+	
 	public void loop() {
 		double elevatorStick = Robot.oi.getAnalogStick(true, true);
 		double wristStick = Robot.oi.getAnalogStick(false, true);
@@ -72,7 +72,7 @@ public class Elevator {
 			winchMotor.set(elevatorStick);
 			targetHeight = getPosition();
 		} if(wristStick == 0) {
-			double speed = ((targetWrist-intake.getWrist())/40);
+			double speed = ((targetWrist-intake.getWrist())/25);
 			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
 			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
 			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;

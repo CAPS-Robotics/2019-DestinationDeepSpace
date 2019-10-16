@@ -89,6 +89,7 @@ public class RobotMap
 	
 	//Wrist Angles- ALL TENTATIVE
 	public static final double CARGO_WRIST_ANGLE = 55;
+	public static final double CARGO_WRIST_DOWN_ANGLE = 2;
 	public static final double HATCH_WRIST_ANGLE = 5;
 	public static final double HATCH_LEVEL_THREE_WRIST = 14;
 	public static final double[] CLIMB_WRIST_ANGLE = {0, -30};
