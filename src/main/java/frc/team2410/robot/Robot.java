@@ -14,6 +14,7 @@ public class Robot extends TimedRobot
 	public static Vision vision;
 	public static SemiAuto semiAuto;
 	public static Elevator elevator;
+	public static Intake intake;
 	public static Climb climb;
 	public static LED led;
 	
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot
 		vision = new Vision();
 		semiAuto = new SemiAuto();
 		elevator = new Elevator();
+		intake = new Intake();
 		climb = new Climb();
 		led = new LED();
 		
@@ -70,17 +72,17 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("BR Voltage", drivetrain.br.positionEncoder.getVoltage());
 		SmartDashboard.putNumber("ElevatorA Current", elevator.winchMotor.getAcurrent());
 		SmartDashboard.putNumber("ElevatorB Current", elevator.winchMotor.getBcurrent());
-		SmartDashboard.putNumber("Wrist Current", elevator.getWristVoltage());
+		SmartDashboard.putNumber("Wrist Current", intake.getWristCurrent());
 		SmartDashboard.putNumber("Climb Current", climb.getVoltage());
-		SmartDashboard.putNumber("Wrist Voltage", elevator.intake.getWristEncoderVoltage());
+		SmartDashboard.putNumber("Wrist Voltage", intake.getVoltage());
 		SmartDashboard.putNumber("CenterX", vision.getCentralValue()[0]);
 		SmartDashboard.putNumber("CenterY", vision.getCentralValue()[1]);
 		SmartDashboard.putNumber("Heading", gyro.getHeading());
 		SmartDashboard.putString("Gyro Status", gyro.getStatus().toString());
 		SmartDashboard.putNumber("Drivetrain Travel", drivetrain.getTravel());
 		SmartDashboard.putNumber("Desired Heading", drivetrain.wrap(drivetrain.desiredHeading, -180.0, 180.0));
-		SmartDashboard.putNumber("Wrist Angle", elevator.getWristAngle());
-		SmartDashboard.putNumber("Wrist Target", elevator.targetWrist);
+		SmartDashboard.putNumber("Wrist Angle", intake.getAngle());
+		SmartDashboard.putNumber("Wrist Target", intake.getWristTarget());
 		
 		SmartDashboard.putNumber("Elevator height", elevator.getPosition());
 		SmartDashboard.putNumber("Elevator target", elevator.getTarget());
@@ -91,7 +93,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putNumber("G", led.g);
 		SmartDashboard.putNumber("B", led.b);
 		SmartDashboard.putBoolean("Toasty Elevator", !elevator.winchMotor.badCurrent());
-		SmartDashboard.putBoolean("Hatch Intake Status", elevator.getHatchStatus());
+		SmartDashboard.putBoolean("Hatch Intake Status", intake.getHatchStatus());
 		SmartDashboard.putBoolean("Semi-Auto Done", semiAuto.placeState == -1);
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
 	}
@@ -131,6 +133,7 @@ public class Robot extends TimedRobot
 		oi.pollButtons();
 		drivetrain.joystickDrive(fieldOriented);
 		elevator.loop();
+		intake.loop();
 		climb.loop();
 		
 		if(startMatch) {

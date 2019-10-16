@@ -138,9 +138,9 @@ public class SemiAuto {
 	
 	private void deliver(boolean hatch) {
 		if(hatch) {
-			Robot.elevator.setHatch(true);
+			Robot.intake.setHatch(true);
 		} else {
-			Robot.elevator.setIntake(false);
+			Robot.intake.setIntake(false);
 		}
 		if(t.get() > (hatch ? 0.25 : 1)) placeState++;
 	}
@@ -248,8 +248,8 @@ public class SemiAuto {
 	
 	public boolean elevatorSetpoint(double wristAngle, double elevatorHeight, boolean sameTime) {
 		boolean elevatorAt = Math.abs(Robot.elevator.getPosition() - elevatorHeight) < 3;
-		boolean wristAt = Math.abs(Robot.elevator.getWristAngle() - wristAngle) < 5;
-		if(elevatorAt || sameTime) Robot.elevator.moveWristTo(wristAngle);
+		boolean wristAt = Math.abs(Robot.intake.getAngle() - wristAngle) < 5;
+		if(elevatorAt || sameTime) Robot.intake.moveWristTo(wristAngle);
 		Robot.elevator.moveTo(elevatorHeight);
 		return elevatorAt && wristAt;
 	}

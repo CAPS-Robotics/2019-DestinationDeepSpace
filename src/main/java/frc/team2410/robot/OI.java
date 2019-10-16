@@ -41,15 +41,15 @@ public class OI {
 		Robot.fieldOriented = !joy.getRawButton(2);
 		
 		if(xbox.getRawButton(7)) {
-			Robot.elevator.setIntake(false);
+			Robot.intake.setIntake(false);
 		} else if(xbox.getRawButton(8)) {
-			Robot.elevator.setIntake(true);
+			Robot.intake.setIntake(true);
 		} else {
-			Robot.elevator.stopIntake();
+			Robot.intake.stopIntake();
 		}
 		
 		if(leadingEdge(true, 1)) {
-			Robot.elevator.toggleHatch();
+			Robot.intake.toggleHatch();
 		}
 		
 		if(leadingEdge(false, 9)) {
@@ -75,10 +75,10 @@ public class OI {
 		
 		if(leadingEdge(false, 5)) {
 			Robot.semiAuto.elevatorSetpoint(TRAVEL_ANGLE, TRAVEL_HEIGHT, true);
-			Robot.elevator.setHatch(false);
+			Robot.intake.setHatch(false);
 		} else if(leadingEdge(false, 6)) {
 			Robot.semiAuto.elevatorSetpoint(HATCH_WRIST_ANGLE, INTAKE_HEIGHT, true);
-			Robot.elevator.setHatch(true);
+			Robot.intake.setHatch(true);
 		}
 		
 		
@@ -89,17 +89,17 @@ public class OI {
 			Robot.elevator.moveTo(PLACE_HEIGHT[1]);
 		} else if(xbox.getRawButton(3)) {
 			Robot.elevator.moveTo(PLACE_HEIGHT[2]);
-			Robot.elevator.moveWristTo(HATCH_LEVEL_THREE_WRIST);
+			Robot.intake.moveWristTo(HATCH_LEVEL_THREE_WRIST);
 		}
 
 		if(xbox.getPOV() == 0) {
-			Robot.elevator.moveWristTo(CARGO_WRIST_ANGLE);
+			Robot.intake.moveWristTo(CARGO_WRIST_ANGLE);
 		} else if(xbox.getPOV() == 90) {
-			Robot.elevator.moveWristTo(HATCH_WRIST_ANGLE);
+			Robot.intake.moveWristTo(HATCH_WRIST_ANGLE);
 		} else if(xbox.getPOV() == 270) {
-			Robot.elevator.moveWristTo(WRIST_UP);
+			Robot.intake.moveWristTo(WRIST_UP);
 		} else if(xbox.getPOV() == 180) {
-			Robot.elevator.moveWristTo(CARGO_WRIST_DOWN_ANGLE);
+			Robot.intake.moveWristTo(CARGO_WRIST_DOWN_ANGLE);
 		}
 		
 		if(resetPlace) {
@@ -120,15 +120,15 @@ public class OI {
 	}
 	
 	public double getX() {
-		return this.applyDeadzone(joy.getRawAxis(0), 0.15, 1);
+		return this.applyDeadzone(joy.getRawAxis(0), 0.05, 1);
 	}
 	
 	public double getY() {
-		return this.applyDeadzone(-joy.getRawAxis(1), 0.15, 1);
+		return this.applyDeadzone(-joy.getRawAxis(1), 0.05, 1);
 	}
 	
 	public double getTwist() {
-		return this.applyDeadzone(joy.getRawAxis(2), 0.70, 1)/2;
+		return this.applyDeadzone(joy.getRawAxis(2), 0.01, 1)/2;
 	}
 	
 	public double getSlider() {
