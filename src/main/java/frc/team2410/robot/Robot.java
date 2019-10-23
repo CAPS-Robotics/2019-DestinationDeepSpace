@@ -164,9 +164,4 @@ public class Robot extends TimedRobot
 		drivetrain.setGyroPID(gp, gi, gd);
 		drivetrain.setPID(smp, smi, smd);*/
 	}
-	
-	@Override
-	public void testPeriodic() {
-		drivetrain.crabDrive(0, 1, 0, 1, false);
-	}
 }

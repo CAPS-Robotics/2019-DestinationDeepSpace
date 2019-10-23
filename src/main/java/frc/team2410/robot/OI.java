@@ -28,27 +28,21 @@ public class OI {
 		}
 		
 		boolean resetPlace = true;
-		/*for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 2; j++) {
-				if(joy.getRawButton(12-(j+2*i))) {
-					Robot.semiAuto.place(j != 0, i+1);
-					resetPlace = false;
-				}
-			}
-		}*/
 		
 		if(joy.getRawButton(11)){
 			Robot.semiAuto.turnToNearestAngle(180);
-		}
-		else if(joy.getRawButton(9)) {
+			resetPlace = false;
+		} else if(joy.getRawButton(9)) {
 			Robot.semiAuto.turnToNearestAngle(0);
-		}
-		else if(joy.getRawButton(10)){
+			resetPlace = false;
+		} else if(joy.getRawButton(10)){
 			//Robot.semiAuto.turnToNearestAngle(new double);
-		}
-		else if(joy.getRawButton(12)) {
-			Robot.semiAuto.turnToClosestRocket();
-			Robot.semiAuto.engaged = true;
+			resetPlace = false;
+		} else if(joy.getRawButton(12)) {
+			//Robot.semiAuto.turnToNearestAngle();
+			resetPlace = false;
+		} else {
+			Robot.semiAuto.reng = false;
 		}
 		
 		Robot.fieldOriented = !joy.getRawButton(2);

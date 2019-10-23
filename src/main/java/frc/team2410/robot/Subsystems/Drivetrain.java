@@ -26,7 +26,7 @@ public class Drivetrain {
 		
 		this.gyroPID = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
-		gyroPID.setOutputRange(-.5, .5);
+		gyroPID.setOutputRange(-0.5, 0.5);
 		gyroPID.setContinuous(true);
 		gyroPID.enable();
 	}
@@ -38,7 +38,7 @@ public class Drivetrain {
 	
 	public void joystickDrive(boolean fieldOriented) {
 		double speedMultiplier = Robot.oi.getSlider();
-		if(!Robot.semiAuto.engaged) crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
+		crabDrive(Robot.oi.getX(), Robot.oi.getY(), Robot.oi.getTwist(), speedMultiplier, fieldOriented);
 	}
 	
 	public void returnWheelsToZero() {
@@ -82,7 +82,7 @@ public class Drivetrain {
 		}
 
 		// Sets desired heading dependant if gyro still moving
-		if(rotation == 0 && Math.abs(pHead - Robot.gyro.getHeading()) < 1) {
+		if((rotation == 0 && Math.abs(pHead - Robot.gyro.getHeading()) < 1) || Robot.semiAuto.reng) {
 			gyroPID.setSetpoint(desiredHeading);
 			rotation = -gyroPID.get();
 		} else {
