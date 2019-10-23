@@ -96,6 +96,7 @@ public class Robot extends TimedRobot
 		SmartDashboard.putBoolean("Hatch Intake Status", intake.getHatchStatus());
 		SmartDashboard.putBoolean("Semi-Auto Done", semiAuto.placeState == -1);
 		SmartDashboard.putBoolean("Line", vision.getCentralValue()[0] != 0);
+		SmartDashboard.putBoolean("Semiauto Engaged", semiAuto.engaged);
 	}
 	
 	@Override

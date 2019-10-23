@@ -85,17 +85,19 @@ public class RobotMap
 	//Elevator Heights
 	public static final double TRAVEL_HEIGHT = 2;
 	public static final double INTAKE_HEIGHT = 5;
+	public static final double CARGO_LOADING_STATION_HEIGHT = 30;
 	public static final double[] PLACE_HEIGHT = {9, 36, 60};
 	public static final double[] CLIMB_HEIGHT = {9, 22};
 	public static final int CLIMB_OFFSET = 4;
 	public static final double CLIMB_ELEVATOR_MAX_OFFSET = 3.5;
 	
-	//Wrist Angles- ALL TENTATIVE
+	//Wrist Angles
 	public static final double CARGO_WRIST_ANGLE = 55;
 	public static final double CARGO_WRIST_DOWN_ANGLE = -5;
 	public static final double HATCH_WRIST_ANGLE = 5;
 	public static final double HATCH_LEVEL_THREE_WRIST = 14;
-	public static final double[] CLIMB_WRIST_ANGLE = {0, -30};
+	public static final double CARGO_LOADING_STATION_ANGLE = 30;
+	public static final double[] CLIMB_WRIST_ANGLE = {0, -20};
 	public static final double WRIST_UP = 85;
 	public static final double TRAVEL_ANGLE = 50;
 	public static final double WRIST_MAX_SPEED = 0.65;

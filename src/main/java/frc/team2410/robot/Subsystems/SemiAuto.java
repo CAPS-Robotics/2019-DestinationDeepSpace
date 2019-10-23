@@ -38,13 +38,22 @@ public class SemiAuto {
 	}
 	
 	public boolean startMatch() {
-		/*Robot.elevator.moveWristTo(TRAVEL_ANGLE + ((WRIST_UP - TRAVEL_ANGLE) * (1-(t.get() / 2))));
-		if(Math.abs(Robot.elevator.getWristAngle() - TRAVEL_ANGLE) < 5) {
-			Robot.elevator.toggleHatch();
+		Robot.intake.moveWristTo(TRAVEL_ANGLE + ((WRIST_UP - TRAVEL_ANGLE) * (1-(t.get() / 2))));
+		if(Math.abs(Robot.intake.getAngle() - TRAVEL_ANGLE) < 5) {
+			Robot.intake.toggleHatch();
 			t.stop();
 			return true;
-		}*/
+		}
 		return false;
+	}
+	
+	public void turnToNearestAngle(double angle) {
+		Robot.drivetrain.crabDrive(0, 0, 0, 1, true);
+		Robot.drivetrain.desiredHeading = angle;
+	}
+	
+	public void turnToNearestAngle(double [] angles) {
+	
 	}
 	
 	private void turnToClosestStation() {
@@ -88,6 +97,30 @@ public class SemiAuto {
 		double angleDiff = target - Robot.gyro.getHeading();
 		Robot.drivetrain.crabDrive(0, 0, 0, 1, true);
 		if(Math.abs(angleDiff) < 10) placeState++;
+		Robot.drivetrain.desiredHeading = target;
+	}
+	
+	public void turnToClosestRocket() {
+		double angle = Robot.gyro.getHeading();
+		
+		double lowestOffset = Math.abs(ROCKET_RIGHT_LEFT - angle);
+		double target = ROCKET_RIGHT_LEFT;
+		
+		if(Math.abs(ROCKET_RIGHT_LEFT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_LEFT);
+		}
+		if(Math.abs(ROCKET_RIGHT_RIGHT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_RIGHT_RIGHT-angle);
+			target = ROCKET_RIGHT_RIGHT;
+		}
+		if(Math.abs(ROCKET_LEFT_LEFT - angle) < lowestOffset) {
+			lowestOffset = Math.abs(ROCKET_LEFT_LEFT-angle);
+			target = ROCKET_LEFT_LEFT;
+		}
+		if(Math.abs(ROCKET_LEFT_RIGHT - angle) < lowestOffset) {
+			target = ROCKET_LEFT_RIGHT;
+		}
+		
 		Robot.drivetrain.desiredHeading = target;
 	}
 	

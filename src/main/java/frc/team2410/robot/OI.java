@@ -1,7 +1,6 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.*;
-import frc.team2410.robot.Subsystems.SemiAuto;
 
 import static frc.team2410.robot.RobotMap.*;
 
@@ -29,13 +28,27 @@ public class OI {
 		}
 		
 		boolean resetPlace = true;
-		for(int i = 0; i < 3; i++) {
+		/*for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 2; j++) {
 				if(joy.getRawButton(12-(j+2*i))) {
 					Robot.semiAuto.place(j != 0, i+1);
 					resetPlace = false;
 				}
 			}
+		}*/
+		
+		if(joy.getRawButton(11)){
+			Robot.semiAuto.turnToNearestAngle(180);
+		}
+		else if(joy.getRawButton(9)) {
+			Robot.semiAuto.turnToNearestAngle(0);
+		}
+		else if(joy.getRawButton(10)){
+			//Robot.semiAuto.turnToNearestAngle(new double);
+		}
+		else if(joy.getRawButton(12)) {
+			Robot.semiAuto.turnToClosestRocket();
+			Robot.semiAuto.engaged = true;
 		}
 		
 		Robot.fieldOriented = !joy.getRawButton(2);
@@ -90,6 +103,9 @@ public class OI {
 		} else if(xbox.getRawButton(3)) {
 			Robot.elevator.moveTo(PLACE_HEIGHT[2]);
 			Robot.intake.moveWristTo(HATCH_LEVEL_THREE_WRIST);
+		} else if(xbox.getRawButton(2)) {
+			Robot.elevator.moveTo(CARGO_LOADING_STATION_HEIGHT);
+			Robot.intake.moveWristTo(CARGO_LOADING_STATION_ANGLE);
 		}
 
 		if(xbox.getPOV() == 0) {
