@@ -35,11 +35,11 @@ public class OI {
 		} else if(joy.getRawButton(9)) {
 			Robot.semiAuto.turnToNearestAngle(0);
 			resetPlace = false;
-		} else if(joy.getRawButton(10)){
-			//Robot.semiAuto.turnToNearestAngle(new double);
+		} else if(joy.getRawButton(12)){
+			Robot.semiAuto.turnToNearestAngle(ROCKET_SIDE_ANGLES);
 			resetPlace = false;
-		} else if(joy.getRawButton(12)) {
-			//Robot.semiAuto.turnToNearestAngle();
+		} else if(joy.getRawButton(10)) {
+			Robot.semiAuto.turnToNearestAngle(ROCKET_HATCH_ANGLES);
 			resetPlace = false;
 		} else {
 			Robot.semiAuto.reng = false;

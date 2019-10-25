@@ -112,6 +112,8 @@ public class RobotMap
 	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
 	public static final double INTAKE = 180;
 	public static final double INTAKE2 = -180;
+	public static final double [] ROCKET_SIDE_ANGLES = {ROCKET_RIGHT_FRONT, ROCKET_LEFT_FRONT};
+	public static final double [] ROCKET_HATCH_ANGLES = {ROCKET_LEFT_LEFT, ROCKET_LEFT_RIGHT, ROCKET_RIGHT_LEFT, ROCKET_RIGHT_RIGHT};
 	
 	//Field Distances
 	public static final double CARGO_DISTANCE = 1;

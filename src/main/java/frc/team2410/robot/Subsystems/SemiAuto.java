@@ -57,7 +57,22 @@ public class SemiAuto {
 	}
 	
 	public void turnToNearestAngle(double [] angles) {
-	
+		reng = true;
+		engaged = true;
+		
+		double angle = Robot.gyro.getHeading();
+		double lowestOffset = 180;
+		double target = 0;
+		
+		for(int i = 0; i < angles.length; i++) {
+			double offset = Math.abs(angles[i] - angle);
+			if(offset < lowestOffset) {
+				lowestOffset = offset;
+				target = angles[i];
+			}
+		}
+		
+		Robot.drivetrain.desiredHeading = target;
 	}
 	
 	private void turnToClosestStation() {

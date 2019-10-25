@@ -26,7 +26,7 @@ public class Drivetrain {
 		
 		this.gyroPID = new PIDController(GYRO_P, GYRO_I, GYRO_D, Robot.gyro, new NumericalPIDOutput(), 0.002);
 		gyroPID.setInputRange(-180, 180);
-		gyroPID.setOutputRange(-0.5, 0.5);
+		gyroPID.setOutputRange(-0.3, 0.3);
 		gyroPID.setContinuous(true);
 		gyroPID.enable();
 	}
