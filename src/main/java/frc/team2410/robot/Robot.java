@@ -1,6 +1,7 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2410.robot.Subsystems.*;
 
@@ -17,7 +18,15 @@ public class Robot extends TimedRobot
 	public static Intake intake;
 	public static Climb climb;
 	public static LED led;
-	
+	public static Autonomous autonomous;
+	enum AutoStations {
+		TELEOP,
+		LEFT_CARGOSHIP,
+		RIGHT_CARGOSHIP,
+		ROCKET_LEFT_FRONT,
+		ROCKET_RIGHT_FRONT
+	}
+	SendableChooser<AutoStations> autoPicker;
 	private float smp;
 	private float smi;
 	private float smd;
@@ -42,7 +51,14 @@ public class Robot extends TimedRobot
 		intake = new Intake();
 		climb = new Climb();
 		led = new LED();
-		
+		autonomous = new Autonomous();
+		autoPicker = new SendableChooser<>();
+		autoPicker.addOption("Teleop", AutoStations.TELEOP);
+		autoPicker.addOption("Left Cargoship Auto", AutoStations.LEFT_CARGOSHIP);
+		autoPicker.addOption("Right Cargoship Auto", AutoStations.RIGHT_CARGOSHIP);
+		autoPicker.addOption("Rocket Left Auto", AutoStations.ROCKET_LEFT_FRONT);
+		autoPicker.addOption("Rocket Right Auto", AutoStations.ROCKET_RIGHT_FRONT);
+		SmartDashboard.putData("Auto Picker", autoPicker);
 		led.setColor(0, 0, 255);
 		
 		//Put PID changers so we don't have to push code every tune
@@ -118,11 +134,19 @@ public class Robot extends TimedRobot
 		startMatch = true;
 		semiAuto.t.reset();
 		semiAuto.t.start();
+		autonomous.init(autoPicker.getSelected().ordinal());
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
-		this.teleopPeriodic(); //no difference.  sandstorm is dumb
+		if(startMatch) {
+			startMatch = !semiAuto.startMatch();
+		}
+		if(autonomous.autoDone) {
+			teleopPeriodic();
+		} else {
+			autonomous.loop();
+		}
 	}
 	
 	@Override
@@ -137,9 +161,6 @@ public class Robot extends TimedRobot
 		intake.loop();
 		climb.loop();
 		
-		if(startMatch) {
-			startMatch = !semiAuto.startMatch();
-		}
 		if(elevator.winchMotor.badCurrent()) {
 			led.status(255, 255, 0, 255, 255, 11, 10+(int)(10*Math.sqrt(oi.getX()*oi.getX()+oi.getY()*oi.getY())*oi.getSlider()), fieldOriented);
 		} else if(semiAuto.placeState == -1) {
