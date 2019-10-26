@@ -25,6 +25,8 @@ public class OI {
 		
 		if(joy.getRawButton(6)) {
 			Robot.drivetrain.resetHeading(0);
+		} else if(joy.getRawButton(14)) {
+			Robot.drivetrain.resetHeading(180);
 		}
 		
 		boolean resetPlace = true;
