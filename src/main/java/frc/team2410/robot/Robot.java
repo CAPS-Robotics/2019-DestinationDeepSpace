@@ -21,8 +21,8 @@ public class Robot extends TimedRobot
 	public static Autonomous autonomous;
 	enum AutoStations {
 		TELEOP,
-		LEFT_CARGOSHIP,
-		RIGHT_CARGOSHIP,
+		CARGOSHIP_LEFT,
+		CARGOSHIP_RIGHT,
 		ROCKET_LEFT_FRONT,
 		ROCKET_RIGHT_FRONT
 	}
@@ -54,8 +54,8 @@ public class Robot extends TimedRobot
 		autonomous = new Autonomous();
 		autoPicker = new SendableChooser<>();
 		autoPicker.addOption("Teleop", AutoStations.TELEOP);
-		autoPicker.addOption("Left Cargoship Auto", AutoStations.LEFT_CARGOSHIP);
-		autoPicker.addOption("Right Cargoship Auto", AutoStations.RIGHT_CARGOSHIP);
+		autoPicker.addOption("Left Cargoship Auto", AutoStations.CARGOSHIP_LEFT);
+		autoPicker.addOption("Right Cargoship Auto", AutoStations.CARGOSHIP_RIGHT);
 		autoPicker.addOption("Rocket Left Auto", AutoStations.ROCKET_LEFT_FRONT);
 		autoPicker.addOption("Rocket Right Auto", AutoStations.ROCKET_RIGHT_FRONT);
 		SmartDashboard.putData("Auto Picker", autoPicker);
@@ -142,15 +142,18 @@ public class Robot extends TimedRobot
 		if(startMatch) {
 			startMatch = !semiAuto.startMatch();
 		}
-		if(autonomous.autoDone) {
+		if(autonomous.getAutoDone()) {
 			teleopPeriodic();
 		} else {
 			autonomous.loop();
+			elevator.autoLoop();
 		}
 	}
 	
 	@Override
-	public void teleopInit() {} //doesn't matter
+	public void teleopInit() {
+		autonomous.setAutoDone(true);
+	}
 	
 	@Override
 	public void teleopPeriodic() {

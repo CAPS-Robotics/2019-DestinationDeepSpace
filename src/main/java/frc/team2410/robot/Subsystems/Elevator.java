@@ -59,17 +59,14 @@ public class Elevator {
 		} else if(!Robot.semiAuto.lift && !(getPosition() < 0.5 && elevatorStick > 0) && !(getPosition() > 60 && elevatorStick < 0)) {
 			winchMotor.set(elevatorStick);
 			targetHeight = getPosition();
-		} /*if(wristStick == 0) {
-			double speed = ((targetWrist-intake.getWrist())/25);
-			if(Math.abs(targetWrist-intake.getWrist()) < 1) speed = 0;
-			if(speed < -WRIST_MAX_SPEED) speed = -WRIST_MAX_SPEED;
-			if(speed > WRIST_MAX_SPEED) speed = WRIST_MAX_SPEED;
-			intake.setWrist(speed);
-		} else if(!(intake.getWrist() > 75 && wristStick < 0)) {
-			intake.setWrist(-wristStick);
-			targetWrist = intake.getWrist();
-		} else {
-			intake.setWrist(0);
-		}*/
+		}
+	}
+
+	public void autoLoop() {
+		double speed = -((targetHeight-getPosition())/4.50);
+		if(speed > 0) speed /= 10.0;
+		if(speed < -1) speed = -1;
+		if(speed > 1) speed = 1;
+		winchMotor.set(speed);
 	}
 }

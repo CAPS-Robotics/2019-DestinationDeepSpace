@@ -82,7 +82,7 @@ public class Drivetrain {
 		}
 
 		// Sets desired heading dependant if gyro still moving
-		if((rotation == 0 && Math.abs(pHead - Robot.gyro.getHeading()) < 1) || Robot.semiAuto.reng) {
+		if((rotation == 0 && Math.abs(pHead - Robot.gyro.getHeading()) < 1) || Robot.semiAuto.reng || !Robot.autonomous.getAutoDone()) {
 			gyroPID.setSetpoint(desiredHeading);
 			rotation = -gyroPID.get();
 		} else {
