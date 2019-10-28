@@ -104,12 +104,12 @@ public class RobotMap
 
 	//Field Angles
 	public static final double CARGO_SHIP_FRONT = 0;
-	public static final double ROCKET_LEFT_FRONT = -90;
-	public static final double ROCKET_LEFT_LEFT = -90.0 + 61.25;
-	public static final double ROCKET_LEFT_RIGHT = -90 - 61.25;
-	public static final double ROCKET_RIGHT_FRONT = 90;
-	public static final double ROCKET_RIGHT_LEFT = 90.0 + 61.25;
-	public static final double ROCKET_RIGHT_RIGHT = 90 - 61.25;
+	public static final double ROCKET_RIGHT_FRONT = -90;
+	public static final double ROCKET_RIGHT_RIGHT = -90.0 + 61.25;
+	public static final double ROCKET_RIGHT_LEFT = -90 - 61.25;
+	public static final double ROCKET_LEFT_FRONT = 90;
+	public static final double ROCKET_LEFT_RIGHT = 90.0 + 61.25;
+	public static final double ROCKET_LEFT_LEFT = 90 - 61.25;
 	public static final double INTAKE = 180;
 	public static final double INTAKE2 = -180;
 	public static final double [] ROCKET_SIDE_ANGLES = {ROCKET_RIGHT_FRONT, ROCKET_LEFT_FRONT};
