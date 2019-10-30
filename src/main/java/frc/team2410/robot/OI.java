@@ -151,6 +151,8 @@ public class OI {
 		return this.applyDeadzone(xbox.getRawAxis((rightStick?1:0)*2+(yAxis?1:0)), 0.25, 1);
 	}
 	
+	public boolean getAbortAuto() { return joy.getRawButton(8); }
+	
 	public boolean startPressed() { return xbox.getRawButton(10); }
 	
 	public double getJoyPOV() {

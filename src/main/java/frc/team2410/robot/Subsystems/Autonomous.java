@@ -49,6 +49,8 @@ public class Autonomous {
 				autoDone = true;
 				break;
 		}
+		
+		if(Robot.oi.getAbortAuto()) autoDone = true;
 	}
 
 	private void cargoship(boolean left) {
@@ -106,7 +108,7 @@ public class Autonomous {
 			case 2:
 				// Drive to rocket
 				Robot.drivetrain.crabDrive(left ? -X_SPEED : X_SPEED, 0.65, 0, 1, true);
-				if(timer.get() > 2.20) {
+				if(timer.get() > 2.125) {
 					Robot.drivetrain.brake();
 					timer.reset();
 					timer.start();
