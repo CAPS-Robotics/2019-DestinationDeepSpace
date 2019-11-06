@@ -1,6 +1,7 @@
 package frc.team2410.robot;
 
 import edu.wpi.first.wpilibj.*;
+import frc.team2410.robot.Subsystems.SemiAuto;
 
 import static frc.team2410.robot.RobotMap.*;
 
@@ -80,6 +81,10 @@ public class OI {
 				Robot.climb.moveTo(Robot.semiAuto.pBackPos);
 				Robot.semiAuto.lift = false;
 			}
+		}
+		
+		if(joy.getRawButton(8) && Robot.autonomous.getAutoDone()) {
+			Robot.intake.setHatch(true);
 		}
 		
 		if(leadingEdge(false, 5)) {

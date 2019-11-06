@@ -30,6 +30,7 @@ public class Autonomous {
 	public void loop() {
 		SmartDashboard.putNumber("Auto State", state);
 		SmartDashboard.putNumber("Auto Number", autoNumber);
+		SmartDashboard.putBoolean("Auto Done", autoDone);
 		switch(autoNumber) {
 			case 0:
 				autoDone = true;
@@ -45,6 +46,7 @@ public class Autonomous {
 				break;
 			case 4:
 				rocketFront(false);
+				break;
 			default:
 				autoDone = true;
 				break;
